@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b16819f7-6f36-4cf3-b366-27c45aea2841" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:65385/ServicioFactura.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServicioFactura.xsd" MetadataType="Schema" ID="4db995bd-538e-4228-b654-30062369003a" SourceId="1" SourceUrl="http://localhost:65385/ServicioFactura.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServicioFactura1.xsd" MetadataType="Schema" ID="9fdd95e8-cc57-4640-83e0-19b50e532b66" SourceId="1" SourceUrl="http://localhost:65385/ServicioFactura.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServicioFactura2.xsd" MetadataType="Schema" ID="a90410e0-1f0f-43b6-979a-d63ff497956f" SourceId="1" SourceUrl="http://localhost:65385/ServicioFactura.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServicioFactura.wsdl" MetadataType="Wsdl" ID="4594898c-a8c0-411f-a80e-f183cb4e7fb6" SourceId="1" SourceUrl="http://localhost:65385/ServicioFactura.svc?wsdl" />
+    <MetadataFile FileName="ServicioFactura3.xsd" MetadataType="Schema" ID="f2e44a9b-25de-427e-8311-dddc119a9567" SourceId="1" SourceUrl="http://localhost:65385/ServicioFactura.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

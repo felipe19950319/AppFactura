@@ -1,0 +1,1701 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Tyscom_FacturaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CAF">
+          <Key>
+            <PropertyRef Name="ID_CAF" />
+          </Key>
+          <Property Name="ID_CAF" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_EMPESA" Type="int" />
+          <Property Name="FOLLIO_DESDE" Type="int" />
+          <Property Name="FOLIO_HASTA" Type="int" />
+          <Property Name="FECHA_CARGA" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+          <Property Name="CAF" Type="varchar(max)" />
+          <Property Name="TIPO_DOC_CAF" Type="int" />
+        </EntityType>
+        <EntityType Name="CERTIFICADO_DIGITAL">
+          <Key>
+            <PropertyRef Name="ID_CERT" />
+          </Key>
+          <Property Name="ID_CERT" Type="int" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="int" />
+          <Property Name="RUTA_CERT" Type="varchar" MaxLength="50" />
+          <Property Name="PASS_CERT" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="ID_CLIENTE" />
+          </Key>
+          <Property Name="ID_CLIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="int" />
+          <Property Name="RUT_CLIENTE" Type="varchar" MaxLength="12" />
+          <Property Name="RZN_SOC_CLIE" Type="varchar" MaxLength="200" />
+          <Property Name="CIUDAD" Type="varchar" MaxLength="150" />
+          <Property Name="COMUNA" Type="varchar" MaxLength="170" />
+          <Property Name="GIRO_CLIENTE" Type="varchar" MaxLength="100" />
+          <Property Name="DIRECCION_CLIENTE" Type="varchar" MaxLength="150" />
+          <Property Name="TELEFONO_CLIENTE" Type="varchar" MaxLength="15" />
+          <Property Name="EMAIL_CLIENTE" Type="varchar" MaxLength="100" />
+          <Property Name="ESTADO_CLIENTE" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CONTRIBUYENTE_SII">
+          <Key>
+            <PropertyRef Name="ID_CONTRIBUYENTE_SII" />
+          </Key>
+          <Property Name="ID_CONTRIBUYENTE_SII" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RUT_CONTRIBUYENTE" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="RZN_CONTRIBUYENTE" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="FECHA_RESOLUCION" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EMAIL_CONTRIBUYENTE" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="PAGINA_WEB_CONTRIBUYENTE" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="DETALLE_LIBRO_COMPRA">
+          <Key>
+            <PropertyRef Name="ID_DETALLE_COMPRA" />
+          </Key>
+          <Property Name="ID_DETALLE_COMPRA" Type="int" Nullable="false" />
+          <Property Name="ID_PROVEEDOR" Type="int" />
+          <Property Name="NRO_DOC" Type="int" />
+          <Property Name="ID_LIBRO_COMPRA" Type="int" />
+        </EntityType>
+        <EntityType Name="DETALLE_LIBRO_VENTA">
+          <Key>
+            <PropertyRef Name="ID_DETALLE_VENTA" />
+          </Key>
+          <Property Name="ID_DETALLE_VENTA" Type="int" Nullable="false" />
+          <Property Name="ID_DTE" Type="int" />
+          <Property Name="ID_LIBRO_VENTA" Type="int" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DETALLE_PROD">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="300" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="20" />
+          <Property Name="UMEDIDA" Type="varchar" MaxLength="10" />
+          <Property Name="STOCK" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DESCRIPCION_PRODUCTO" Type="varchar" MaxLength="100" />
+          <Property Name="VALOR_UNITARIO" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="DESCUENTO_PCT" Type="int" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DTE_EMISION">
+          <Key>
+            <PropertyRef Name="ID_DTE" />
+          </Key>
+          <Property Name="ID_DTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_EMPESA" Type="int" />
+          <Property Name="TIPO" Type="int" />
+          <Property Name="ID_CLIENTE" Type="int" />
+          <Property Name="FECHA_EMISION" Type="varchar" MaxLength="50" />
+          <Property Name="NUM_FOLIO" Type="int" />
+          <Property Name="ESTADO_RECEP" Type="varchar" MaxLength="10" />
+          <Property Name="MONTO_EXE" Type="numeric" Precision="12" Scale="3" />
+          <Property Name="MONTO_NETO" Type="numeric" Precision="12" Scale="3" />
+          <Property Name="MONTO_IVA" Type="numeric" Precision="12" Scale="3" />
+          <Property Name="MONTO_TOTAL" Type="numeric" Precision="12" Scale="3" />
+          <Property Name="RUTA_XML_ENV_SII" Type="varchar" MaxLength="400" />
+          <Property Name="RUTA_XML_ENV_CLIENTE" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="DTE_RECEPCION">
+          <Key>
+            <PropertyRef Name="ID_PROVEEDOR" />
+            <PropertyRef Name="NRO_DOC" />
+          </Key>
+          <Property Name="ID_TIPO" Type="int" />
+          <Property Name="ID_PROVEEDOR" Type="int" Nullable="false" />
+          <Property Name="NRO_DOC" Type="int" Nullable="false" />
+          <Property Name="ID_EMPESA" Type="int" />
+          <Property Name="ARCHIVO_XML" Type="varchar" MaxLength="400" />
+          <Property Name="ESTADO_DTE" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="EMP_USU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_USU" Type="int" Nullable="false" />
+          <Property Name="ID_EMP" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPRESA">
+          <Key>
+            <PropertyRef Name="ID_EMPESA" />
+          </Key>
+          <Property Name="ID_EMPESA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RUT_EMPRESA" Type="varchar" MaxLength="12" />
+          <Property Name="RAZON_SOCIAL" Type="varchar" MaxLength="200" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="200" />
+          <Property Name="COMUNA" Type="varchar" MaxLength="20" />
+          <Property Name="CIUDAD" Type="varchar" MaxLength="20" />
+          <Property Name="FECHA_RESOLUCION" Type="varchar" MaxLength="20" />
+          <Property Name="CODIGO_SII_SUCUR" Type="varchar" MaxLength="20" />
+          <Property Name="GIRO" Type="varchar" MaxLength="200" />
+          <Property Name="NUM_RESOL" Type="int" />
+        </EntityType>
+        <EntityType Name="ESTADO_SII">
+          <Key>
+            <PropertyRef Name="ID_ESTADO" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="CODIGO_ESTADO" Type="varchar" MaxLength="10" />
+          <Property Name="DESCRIPCION_ESTADO" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LIBRO_COMPRA">
+          <Key>
+            <PropertyRef Name="ID_LIBRO_COMPRA" />
+          </Key>
+          <Property Name="ID_LIBRO_COMPRA" Type="int" Nullable="false" />
+          <Property Name="ID_EMPESA" Type="int" />
+          <Property Name="PERIODO_LIBRO" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO_LIBRO" Type="varchar" MaxLength="10" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="LIBRO_VENTA">
+          <Key>
+            <PropertyRef Name="ID_LIBRO_VENTA" />
+          </Key>
+          <Property Name="ID_LIBRO_VENTA" Type="int" Nullable="false" />
+          <Property Name="PERIODO_LIBRO_VENTA" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="int" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO_LIBRO" Type="varchar" MaxLength="10" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="PARAMETROS">
+          <Key>
+            <PropertyRef Name="ID_PARAMETRO" />
+          </Key>
+          <Property Name="ID_PARAMETRO" Type="int" Nullable="false" />
+          <Property Name="DESC_CORTA" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DESC_LARGA" Type="varchar" MaxLength="200" />
+          <Property Name="VALOR" Type="varchar" MaxLength="200" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PROVEEDOR">
+          <Key>
+            <PropertyRef Name="ID_PROVEEDOR" />
+          </Key>
+          <Property Name="ID_PROVEEDOR" Type="int" Nullable="false" />
+          <Property Name="RUT_PROVEEDOR" Type="varchar" MaxLength="12" />
+          <Property Name="RAZON_SOCIAL" Type="varchar" MaxLength="100" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="150" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="15" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="80" />
+          <Property Name="COMUNA" Type="varchar" MaxLength="30" />
+          <Property Name="CIUDAD" Type="varchar" MaxLength="30" />
+          <Property Name="CONTACTO" Type="varchar" MaxLength="100" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RUTA_GUARDADO_EMPRESA">
+          <Key>
+            <PropertyRef Name="ID_RUTA_GUARDADO" />
+          </Key>
+          <Property Name="ID_RUTA_GUARDADO" Type="int" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="int" />
+          <Property Name="RUTA_EMPRESA" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_ENVIO_SII" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_ENVIO_CLIENTE" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_CERT_DIGITAL" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_FOLIO" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_DTE_SII" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_DTE_CLIE" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_PDF" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_PDF_417" Type="varchar" MaxLength="200" />
+          <Property Name="RUTA_XSLT" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="SEGUIMIENTO_DTE">
+          <Key>
+            <PropertyRef Name="ID_SEGUIMIENTO_DTE" />
+          </Key>
+          <Property Name="ID_SEGUIMIENTO_DTE" Type="int" Nullable="false" />
+          <Property Name="ID_DTE" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="FECHA_ESTADO" Type="varchar" MaxLength="50" />
+          <Property Name="OBSERVACION_ESTADO" Type="varchar" MaxLength="100" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_TIPO" />
+          </Key>
+          <Property Name="ID_TIPO" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION_TIPO" Type="varchar" MaxLength="30" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TRACKING_CAF">
+          <Key>
+            <PropertyRef Name="ID_TRACKING" />
+          </Key>
+          <Property Name="ID_TRACKING" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CAF" Type="int" />
+          <Property Name="ID_DTE" Type="int" />
+          <Property Name="NRO_ACTUAL" Type="int" />
+          <Property Name="FECHA" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+          <Property Name="TRACKING_ESTADO_DTE" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ID_USU" />
+          </Key>
+          <Property Name="ID_USU" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="30" />
+          <Property Name="RUT" Type="varchar" MaxLength="12" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="15" />
+          <Property Name="FECHA_CREACION" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_CAF_ADQUIERE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="CAF" Type="Self.CAF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="CAF">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CERTIFICADO_DIGITAL_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="CERTIFICADO_DIGITAL" Type="Self.CERTIFICADO_DIGITAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="CERTIFICADO_DIGITAL">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__CONTIENE_LIBRO_CO">
+          <End Role="LIBRO_COMPRA" Type="Self.LIBRO_COMPRA" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_COMPRA" Type="Self.DETALLE_LIBRO_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIBRO_COMPRA">
+              <PropertyRef Name="ID_LIBRO_COMPRA" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_COMPRA">
+              <PropertyRef Name="ID_LIBRO_COMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__GENERA_LIBRO_VE">
+          <End Role="LIBRO_VENTA" Type="Self.LIBRO_VENTA" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_VENTA" Type="Self.DETALLE_LIBRO_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIBRO_VENTA">
+              <PropertyRef Name="ID_LIBRO_VENTA" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_VENTA">
+              <PropertyRef Name="ID_LIBRO_VENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__PERTENECE_DTE_EMIS">
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_VENTA" Type="Self.DETALLE_LIBRO_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_EMISION">
+              <PropertyRef Name="ID_DTE" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_VENTA">
+              <PropertyRef Name="ID_DTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__POSEE_DTE_RECE">
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_COMPRA" Type="Self.DETALLE_LIBRO_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_PROVEEDOR" />
+              <PropertyRef Name="NRO_DOC" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_COMPRA">
+              <PropertyRef Name="ID_PROVEEDOR" />
+              <PropertyRef Name="NRO_DOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_PROD_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="1" />
+          <End Role="DETALLE_PROD" Type="Self.DETALLE_PROD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="DETALLE_PROD">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_EMIS_COMPRA_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Principal>
+            <Dependent Role="DTE_EMISION">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_EMIS_ES_PARTE2_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO" />
+            </Principal>
+            <Dependent Role="DTE_EMISION">
+              <PropertyRef Name="TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_EMIS_PROPIETAR_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="DTE_EMISION">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_RECE_ES_PARTE_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO" />
+            </Principal>
+            <Dependent Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_RECE_PROVEE_PROVEEDO">
+          <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="1" />
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVEEDOR">
+              <PropertyRef Name="ID_PROVEEDOR" />
+            </Principal>
+            <Dependent Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_PROVEEDOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_RECE_RELATIONS_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMP_USU_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="1" />
+          <End Role="EMP_USU" Type="Self.EMP_USU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="EMP_USU">
+              <PropertyRef Name="ID_EMP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMP_USU_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="EMP_USU" Type="Self.EMP_USU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ID_USU" />
+            </Principal>
+            <Dependent Role="EMP_USU">
+              <PropertyRef Name="ID_USU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LIBRO_CO_PERTENECE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="LIBRO_COMPRA" Type="Self.LIBRO_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="LIBRO_COMPRA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LIBRO_VE_PERTENECE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="LIBRO_VENTA" Type="Self.LIBRO_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="LIBRO_VENTA">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RUTA_GUARDADO_EMPRESA_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="RUTA_GUARDADO_EMPRESA" Type="Self.RUTA_GUARDADO_EMPRESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="RUTA_GUARDADO_EMPRESA">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEGUIMIE_CONTROLA_DTE_EMIS">
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="1" />
+          <End Role="SEGUIMIENTO_DTE" Type="Self.SEGUIMIENTO_DTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_EMISION">
+              <PropertyRef Name="ID_DTE" />
+            </Principal>
+            <Dependent Role="SEGUIMIENTO_DTE">
+              <PropertyRef Name="ID_DTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEGUIMIE_PERMITE_ESTADO_S">
+          <End Role="ESTADO_SII" Type="Self.ESTADO_SII" Multiplicity="1" />
+          <End Role="SEGUIMIENTO_DTE" Type="Self.SEGUIMIENTO_DTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO_SII">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="SEGUIMIENTO_DTE">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRACKING_UTILIZA_CAF">
+          <End Role="CAF" Type="Self.CAF" Multiplicity="0..1" />
+          <End Role="TRACKING_CAF" Type="Self.TRACKING_CAF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAF">
+              <PropertyRef Name="ID_CAF" />
+            </Principal>
+            <Dependent Role="TRACKING_CAF">
+              <PropertyRef Name="ID_CAF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRACKING_UTILIZADO_DTE_EMIS">
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="0..1" />
+          <End Role="TRACKING_CAF" Type="Self.TRACKING_CAF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_EMISION">
+              <PropertyRef Name="ID_DTE" />
+            </Principal>
+            <Dependent Role="TRACKING_CAF">
+              <PropertyRef Name="ID_DTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Tyscom_FacturaModelStoreContainer">
+          <EntitySet Name="CAF" EntityType="Self.CAF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CERTIFICADO_DIGITAL" EntityType="Self.CERTIFICADO_DIGITAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTRIBUYENTE_SII" EntityType="Self.CONTRIBUYENTE_SII" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_LIBRO_COMPRA" EntityType="Self.DETALLE_LIBRO_COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_LIBRO_VENTA" EntityType="Self.DETALLE_LIBRO_VENTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_PROD" EntityType="Self.DETALLE_PROD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DTE_EMISION" EntityType="Self.DTE_EMISION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DTE_RECEPCION" EntityType="Self.DTE_RECEPCION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMP_USU" EntityType="Self.EMP_USU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPRESA" EntityType="Self.EMPRESA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESTADO_SII" EntityType="Self.ESTADO_SII" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LIBRO_COMPRA" EntityType="Self.LIBRO_COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LIBRO_VENTA" EntityType="Self.LIBRO_VENTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PARAMETROS" EntityType="Self.PARAMETROS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RUTA_GUARDADO_EMPRESA" EntityType="Self.RUTA_GUARDADO_EMPRESA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEGUIMIENTO_DTE" EntityType="Self.SEGUIMIENTO_DTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRACKING_CAF" EntityType="Self.TRACKING_CAF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CAF_ADQUIERE_EMPRESA" Association="Self.FK_CAF_ADQUIERE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="CAF" EntitySet="CAF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CERTIFICADO_DIGITAL_EMPRESA" Association="Self.FK_CERTIFICADO_DIGITAL_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="CERTIFICADO_DIGITAL" EntitySet="CERTIFICADO_DIGITAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_EMPRESA" Association="Self.FK_CLIENTE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__CONTIENE_LIBRO_CO" Association="Self.FK_DETALLE__CONTIENE_LIBRO_CO">
+            <End Role="LIBRO_COMPRA" EntitySet="LIBRO_COMPRA" />
+            <End Role="DETALLE_LIBRO_COMPRA" EntitySet="DETALLE_LIBRO_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__GENERA_LIBRO_VE" Association="Self.FK_DETALLE__GENERA_LIBRO_VE">
+            <End Role="LIBRO_VENTA" EntitySet="LIBRO_VENTA" />
+            <End Role="DETALLE_LIBRO_VENTA" EntitySet="DETALLE_LIBRO_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__PERTENECE_DTE_EMIS" Association="Self.FK_DETALLE__PERTENECE_DTE_EMIS">
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+            <End Role="DETALLE_LIBRO_VENTA" EntitySet="DETALLE_LIBRO_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__POSEE_DTE_RECE" Association="Self.FK_DETALLE__POSEE_DTE_RECE">
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+            <End Role="DETALLE_LIBRO_COMPRA" EntitySet="DETALLE_LIBRO_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_PROD_EMPRESA" Association="Self.FK_DETALLE_PROD_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="DETALLE_PROD" EntitySet="DETALLE_PROD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_EMIS_COMPRA_CLIENTE" Association="Self.FK_DTE_EMIS_COMPRA_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_EMIS_ES_PARTE2_TIPO_DOC" Association="Self.FK_DTE_EMIS_ES_PARTE2_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_EMIS_PROPIETAR_EMPRESA" Association="Self.FK_DTE_EMIS_PROPIETAR_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_RECE_ES_PARTE_TIPO_DOC" Association="Self.FK_DTE_RECE_ES_PARTE_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_RECE_PROVEE_PROVEEDO" Association="Self.FK_DTE_RECE_PROVEE_PROVEEDO">
+            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_RECE_RELATIONS_EMPRESA" Association="Self.FK_DTE_RECE_RELATIONS_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMP_USU_EMPRESA" Association="Self.FK_EMP_USU_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="EMP_USU" EntitySet="EMP_USU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMP_USU_USUARIO" Association="Self.FK_EMP_USU_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="EMP_USU" EntitySet="EMP_USU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LIBRO_CO_PERTENECE_EMPRESA" Association="Self.FK_LIBRO_CO_PERTENECE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="LIBRO_COMPRA" EntitySet="LIBRO_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LIBRO_VE_PERTENECE_EMPRESA" Association="Self.FK_LIBRO_VE_PERTENECE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="LIBRO_VENTA" EntitySet="LIBRO_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RUTA_GUARDADO_EMPRESA_EMPRESA" Association="Self.FK_RUTA_GUARDADO_EMPRESA_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="RUTA_GUARDADO_EMPRESA" EntitySet="RUTA_GUARDADO_EMPRESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGUIMIE_CONTROLA_DTE_EMIS" Association="Self.FK_SEGUIMIE_CONTROLA_DTE_EMIS">
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+            <End Role="SEGUIMIENTO_DTE" EntitySet="SEGUIMIENTO_DTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGUIMIE_PERMITE_ESTADO_S" Association="Self.FK_SEGUIMIE_PERMITE_ESTADO_S">
+            <End Role="ESTADO_SII" EntitySet="ESTADO_SII" />
+            <End Role="SEGUIMIENTO_DTE" EntitySet="SEGUIMIENTO_DTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRACKING_UTILIZA_CAF" Association="Self.FK_TRACKING_UTILIZA_CAF">
+            <End Role="CAF" EntitySet="CAF" />
+            <End Role="TRACKING_CAF" EntitySet="TRACKING_CAF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRACKING_UTILIZADO_DTE_EMIS" Association="Self.FK_TRACKING_UTILIZADO_DTE_EMIS">
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+            <End Role="TRACKING_CAF" EntitySet="TRACKING_CAF" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Tyscom_FacturaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CAF">
+          <Key>
+            <PropertyRef Name="ID_CAF" />
+          </Key>
+          <Property Name="ID_CAF" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_EMPESA" Type="Int32" />
+          <Property Name="FOLLIO_DESDE" Type="Int32" />
+          <Property Name="FOLIO_HASTA" Type="Int32" />
+          <Property Name="FECHA_CARGA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAF1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_DOC_CAF" Type="Int32" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_CAF_ADQUIERE_EMPRESA" FromRole="CAF" ToRole="EMPRESA" />
+          <NavigationProperty Name="TRACKING_CAF" Relationship="Self.FK_TRACKING_UTILIZA_CAF" FromRole="CAF" ToRole="TRACKING_CAF" />
+        </EntityType>
+        <EntityType Name="CERTIFICADO_DIGITAL">
+          <Key>
+            <PropertyRef Name="ID_CERT" />
+          </Key>
+          <Property Name="ID_CERT" Type="Int32" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="Int32" />
+          <Property Name="RUTA_CERT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASS_CERT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_CERTIFICADO_DIGITAL_EMPRESA" FromRole="CERTIFICADO_DIGITAL" ToRole="EMPRESA" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="ID_CLIENTE" />
+          </Key>
+          <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_EMPRESA" Type="Int32" />
+          <Property Name="RUT_CLIENTE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="RZN_SOC_CLIE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CIUDAD" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="COMUNA" Type="String" MaxLength="170" FixedLength="false" Unicode="false" />
+          <Property Name="GIRO_CLIENTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION_CLIENTE" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO_CLIENTE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL_CLIENTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_CLIENTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_CLIENTE_EMPRESA" FromRole="CLIENTE" ToRole="EMPRESA" />
+          <NavigationProperty Name="DTE_EMISION" Relationship="Self.FK_DTE_EMIS_COMPRA_CLIENTE" FromRole="CLIENTE" ToRole="DTE_EMISION" />
+        </EntityType>
+        <EntityType Name="CONTRIBUYENTE_SII">
+          <Key>
+            <PropertyRef Name="ID_CONTRIBUYENTE_SII" />
+          </Key>
+          <Property Name="ID_CONTRIBUYENTE_SII" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RUT_CONTRIBUYENTE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RZN_CONTRIBUYENTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA_RESOLUCION" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL_CONTRIBUYENTE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PAGINA_WEB_CONTRIBUYENTE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DETALLE_LIBRO_COMPRA">
+          <Key>
+            <PropertyRef Name="ID_DETALLE_COMPRA" />
+          </Key>
+          <Property Name="ID_DETALLE_COMPRA" Type="Int32" Nullable="false" />
+          <Property Name="ID_PROVEEDOR" Type="Int32" />
+          <Property Name="NRO_DOC" Type="Int32" />
+          <Property Name="ID_LIBRO_COMPRA" Type="Int32" />
+          <NavigationProperty Name="LIBRO_COMPRA" Relationship="Self.FK_DETALLE__CONTIENE_LIBRO_CO" FromRole="DETALLE_LIBRO_COMPRA" ToRole="LIBRO_COMPRA" />
+          <NavigationProperty Name="DTE_RECEPCION" Relationship="Self.FK_DETALLE__POSEE_DTE_RECE" FromRole="DETALLE_LIBRO_COMPRA" ToRole="DTE_RECEPCION" />
+        </EntityType>
+        <EntityType Name="DETALLE_LIBRO_VENTA">
+          <Key>
+            <PropertyRef Name="ID_DETALLE_VENTA" />
+          </Key>
+          <Property Name="ID_DETALLE_VENTA" Type="Int32" Nullable="false" />
+          <Property Name="ID_DTE" Type="Int32" />
+          <Property Name="ID_LIBRO_VENTA" Type="Int32" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LIBRO_VENTA" Relationship="Self.FK_DETALLE__GENERA_LIBRO_VE" FromRole="DETALLE_LIBRO_VENTA" ToRole="LIBRO_VENTA" />
+          <NavigationProperty Name="DTE_EMISION" Relationship="Self.FK_DETALLE__PERTENECE_DTE_EMIS" FromRole="DETALLE_LIBRO_VENTA" ToRole="DTE_EMISION" />
+        </EntityType>
+        <EntityType Name="DETALLE_PROD">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_EMPRESA" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UMEDIDA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="STOCK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DESCRIPCION_PRODUCTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR_UNITARIO" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCUENTO_PCT" Type="Int32" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_DETALLE_PROD_EMPRESA" FromRole="DETALLE_PROD" ToRole="EMPRESA" />
+        </EntityType>
+        <EntityType Name="DTE_EMISION">
+          <Key>
+            <PropertyRef Name="ID_DTE" />
+          </Key>
+          <Property Name="ID_DTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_EMPESA" Type="Int32" />
+          <Property Name="TIPO" Type="Int32" />
+          <Property Name="ID_CLIENTE" Type="Int32" />
+          <Property Name="FECHA_EMISION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NUM_FOLIO" Type="Int32" />
+          <Property Name="ESTADO_RECEP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MONTO_EXE" Type="Decimal" Precision="12" Scale="3" />
+          <Property Name="MONTO_NETO" Type="Decimal" Precision="12" Scale="3" />
+          <Property Name="MONTO_IVA" Type="Decimal" Precision="12" Scale="3" />
+          <Property Name="MONTO_TOTAL" Type="Decimal" Precision="12" Scale="3" />
+          <Property Name="RUTA_XML_ENV_SII" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_XML_ENV_CLIENTE" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_DTE_EMIS_COMPRA_CLIENTE" FromRole="DTE_EMISION" ToRole="CLIENTE" />
+          <NavigationProperty Name="DETALLE_LIBRO_VENTA" Relationship="Self.FK_DETALLE__PERTENECE_DTE_EMIS" FromRole="DTE_EMISION" ToRole="DETALLE_LIBRO_VENTA" />
+          <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_DTE_EMIS_ES_PARTE2_TIPO_DOC" FromRole="DTE_EMISION" ToRole="TIPO_DOCUMENTO" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_DTE_EMIS_PROPIETAR_EMPRESA" FromRole="DTE_EMISION" ToRole="EMPRESA" />
+          <NavigationProperty Name="SEGUIMIENTO_DTE" Relationship="Self.FK_SEGUIMIE_CONTROLA_DTE_EMIS" FromRole="DTE_EMISION" ToRole="SEGUIMIENTO_DTE" />
+          <NavigationProperty Name="TRACKING_CAF" Relationship="Self.FK_TRACKING_UTILIZADO_DTE_EMIS" FromRole="DTE_EMISION" ToRole="TRACKING_CAF" />
+        </EntityType>
+        <EntityType Name="DTE_RECEPCION">
+          <Key>
+            <PropertyRef Name="ID_PROVEEDOR" />
+            <PropertyRef Name="NRO_DOC" />
+          </Key>
+          <Property Name="ID_TIPO" Type="Int32" />
+          <Property Name="ID_PROVEEDOR" Type="Int32" Nullable="false" />
+          <Property Name="NRO_DOC" Type="Int32" Nullable="false" />
+          <Property Name="ID_EMPESA" Type="Int32" />
+          <Property Name="ARCHIVO_XML" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_DTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DETALLE_LIBRO_COMPRA" Relationship="Self.FK_DETALLE__POSEE_DTE_RECE" FromRole="DTE_RECEPCION" ToRole="DETALLE_LIBRO_COMPRA" />
+          <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_DTE_RECE_ES_PARTE_TIPO_DOC" FromRole="DTE_RECEPCION" ToRole="TIPO_DOCUMENTO" />
+          <NavigationProperty Name="PROVEEDOR" Relationship="Self.FK_DTE_RECE_PROVEE_PROVEEDO" FromRole="DTE_RECEPCION" ToRole="PROVEEDOR" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_DTE_RECE_RELATIONS_EMPRESA" FromRole="DTE_RECEPCION" ToRole="EMPRESA" />
+        </EntityType>
+        <EntityType Name="EMP_USU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_USU" Type="Int32" Nullable="false" />
+          <Property Name="ID_EMP" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_EMP_USU_EMPRESA" FromRole="EMP_USU" ToRole="EMPRESA" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_EMP_USU_USUARIO" FromRole="EMP_USU" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="EMPRESA">
+          <Key>
+            <PropertyRef Name="ID_EMPESA" />
+          </Key>
+          <Property Name="ID_EMPESA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RUT_EMPRESA" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="RAZON_SOCIAL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="COMUNA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CIUDAD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_RESOLUCION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGO_SII_SUCUR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GIRO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NUM_RESOL" Type="Int32" />
+          <NavigationProperty Name="CAF" Relationship="Self.FK_CAF_ADQUIERE_EMPRESA" FromRole="EMPRESA" ToRole="CAF" />
+          <NavigationProperty Name="CERTIFICADO_DIGITAL" Relationship="Self.FK_CERTIFICADO_DIGITAL_EMPRESA" FromRole="EMPRESA" ToRole="CERTIFICADO_DIGITAL" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_EMPRESA" FromRole="EMPRESA" ToRole="CLIENTE" />
+          <NavigationProperty Name="DETALLE_PROD" Relationship="Self.FK_DETALLE_PROD_EMPRESA" FromRole="EMPRESA" ToRole="DETALLE_PROD" />
+          <NavigationProperty Name="DTE_EMISION" Relationship="Self.FK_DTE_EMIS_PROPIETAR_EMPRESA" FromRole="EMPRESA" ToRole="DTE_EMISION" />
+          <NavigationProperty Name="DTE_RECEPCION" Relationship="Self.FK_DTE_RECE_RELATIONS_EMPRESA" FromRole="EMPRESA" ToRole="DTE_RECEPCION" />
+          <NavigationProperty Name="EMP_USU" Relationship="Self.FK_EMP_USU_EMPRESA" FromRole="EMPRESA" ToRole="EMP_USU" />
+          <NavigationProperty Name="LIBRO_COMPRA" Relationship="Self.FK_LIBRO_CO_PERTENECE_EMPRESA" FromRole="EMPRESA" ToRole="LIBRO_COMPRA" />
+          <NavigationProperty Name="LIBRO_VENTA" Relationship="Self.FK_LIBRO_VE_PERTENECE_EMPRESA" FromRole="EMPRESA" ToRole="LIBRO_VENTA" />
+          <NavigationProperty Name="RUTA_GUARDADO_EMPRESA" Relationship="Self.FK_RUTA_GUARDADO_EMPRESA_EMPRESA" FromRole="EMPRESA" ToRole="RUTA_GUARDADO_EMPRESA" />
+        </EntityType>
+        <EntityType Name="ESTADO_SII">
+          <Key>
+            <PropertyRef Name="ID_ESTADO" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="CODIGO_ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_ESTADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SEGUIMIENTO_DTE" Relationship="Self.FK_SEGUIMIE_PERMITE_ESTADO_S" FromRole="ESTADO_SII" ToRole="SEGUIMIENTO_DTE" />
+        </EntityType>
+        <EntityType Name="LIBRO_COMPRA">
+          <Key>
+            <PropertyRef Name="ID_LIBRO_COMPRA" />
+          </Key>
+          <Property Name="ID_LIBRO_COMPRA" Type="Int32" Nullable="false" />
+          <Property Name="ID_EMPESA" Type="Int32" />
+          <Property Name="PERIODO_LIBRO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_LIBRO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DETALLE_LIBRO_COMPRA" Relationship="Self.FK_DETALLE__CONTIENE_LIBRO_CO" FromRole="LIBRO_COMPRA" ToRole="DETALLE_LIBRO_COMPRA" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_LIBRO_CO_PERTENECE_EMPRESA" FromRole="LIBRO_COMPRA" ToRole="EMPRESA" />
+        </EntityType>
+        <EntityType Name="LIBRO_VENTA">
+          <Key>
+            <PropertyRef Name="ID_LIBRO_VENTA" />
+          </Key>
+          <Property Name="ID_LIBRO_VENTA" Type="Int32" Nullable="false" />
+          <Property Name="PERIODO_LIBRO_VENTA" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="Int32" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_LIBRO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DETALLE_LIBRO_VENTA" Relationship="Self.FK_DETALLE__GENERA_LIBRO_VE" FromRole="LIBRO_VENTA" ToRole="DETALLE_LIBRO_VENTA" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_LIBRO_VE_PERTENECE_EMPRESA" FromRole="LIBRO_VENTA" ToRole="EMPRESA" />
+        </EntityType>
+        <EntityType Name="PARAMETROS">
+          <Key>
+            <PropertyRef Name="ID_PARAMETRO" />
+          </Key>
+          <Property Name="ID_PARAMETRO" Type="Int32" Nullable="false" />
+          <Property Name="DESC_CORTA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESC_LARGA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PROVEEDOR">
+          <Key>
+            <PropertyRef Name="ID_PROVEEDOR" />
+          </Key>
+          <Property Name="ID_PROVEEDOR" Type="Int32" Nullable="false" />
+          <Property Name="RUT_PROVEEDOR" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="RAZON_SOCIAL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="COMUNA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CIUDAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DTE_RECEPCION" Relationship="Self.FK_DTE_RECE_PROVEE_PROVEEDO" FromRole="PROVEEDOR" ToRole="DTE_RECEPCION" />
+        </EntityType>
+        <EntityType Name="RUTA_GUARDADO_EMPRESA">
+          <Key>
+            <PropertyRef Name="ID_RUTA_GUARDADO" />
+          </Key>
+          <Property Name="ID_RUTA_GUARDADO" Type="Int32" Nullable="false" />
+          <Property Name="ID_EMPRESA" Type="Int32" />
+          <Property Name="RUTA_EMPRESA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_ENVIO_SII" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_ENVIO_CLIENTE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_CERT_DIGITAL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_FOLIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_DTE_SII" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_DTE_CLIE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_PDF" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_PDF_417" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_XSLT" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.FK_RUTA_GUARDADO_EMPRESA_EMPRESA" FromRole="RUTA_GUARDADO_EMPRESA" ToRole="EMPRESA" />
+        </EntityType>
+        <EntityType Name="SEGUIMIENTO_DTE">
+          <Key>
+            <PropertyRef Name="ID_SEGUIMIENTO_DTE" />
+          </Key>
+          <Property Name="ID_SEGUIMIENTO_DTE" Type="Int32" Nullable="false" />
+          <Property Name="ID_DTE" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OBSERVACION_ESTADO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DTE_EMISION" Relationship="Self.FK_SEGUIMIE_CONTROLA_DTE_EMIS" FromRole="SEGUIMIENTO_DTE" ToRole="DTE_EMISION" />
+          <NavigationProperty Name="ESTADO_SII" Relationship="Self.FK_SEGUIMIE_PERMITE_ESTADO_S" FromRole="SEGUIMIENTO_DTE" ToRole="ESTADO_SII" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_TIPO" />
+          </Key>
+          <Property Name="ID_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION_TIPO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DTE_EMISION" Relationship="Self.FK_DTE_EMIS_ES_PARTE2_TIPO_DOC" FromRole="TIPO_DOCUMENTO" ToRole="DTE_EMISION" />
+          <NavigationProperty Name="DTE_RECEPCION" Relationship="Self.FK_DTE_RECE_ES_PARTE_TIPO_DOC" FromRole="TIPO_DOCUMENTO" ToRole="DTE_RECEPCION" />
+        </EntityType>
+        <EntityType Name="TRACKING_CAF">
+          <Key>
+            <PropertyRef Name="ID_TRACKING" />
+          </Key>
+          <Property Name="ID_TRACKING" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CAF" Type="Int32" />
+          <Property Name="ID_DTE" Type="Int32" />
+          <Property Name="NRO_ACTUAL" Type="Int32" />
+          <Property Name="FECHA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRACKING_ESTADO_DTE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CAF" Relationship="Self.FK_TRACKING_UTILIZA_CAF" FromRole="TRACKING_CAF" ToRole="CAF" />
+          <NavigationProperty Name="DTE_EMISION" Relationship="Self.FK_TRACKING_UTILIZADO_DTE_EMIS" FromRole="TRACKING_CAF" ToRole="DTE_EMISION" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ID_USU" />
+          </Key>
+          <Property Name="ID_USU" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="RUT" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EMP_USU" Relationship="Self.FK_EMP_USU_USUARIO" FromRole="USUARIO" ToRole="EMP_USU" />
+        </EntityType>
+        <Association Name="FK_CAF_ADQUIERE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="CAF" Type="Self.CAF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="CAF">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRACKING_UTILIZA_CAF">
+          <End Role="CAF" Type="Self.CAF" Multiplicity="0..1" />
+          <End Role="TRACKING_CAF" Type="Self.TRACKING_CAF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAF">
+              <PropertyRef Name="ID_CAF" />
+            </Principal>
+            <Dependent Role="TRACKING_CAF">
+              <PropertyRef Name="ID_CAF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CERTIFICADO_DIGITAL_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="CERTIFICADO_DIGITAL" Type="Self.CERTIFICADO_DIGITAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="CERTIFICADO_DIGITAL">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_EMIS_COMPRA_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Principal>
+            <Dependent Role="DTE_EMISION">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__CONTIENE_LIBRO_CO">
+          <End Role="LIBRO_COMPRA" Type="Self.LIBRO_COMPRA" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_COMPRA" Type="Self.DETALLE_LIBRO_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIBRO_COMPRA">
+              <PropertyRef Name="ID_LIBRO_COMPRA" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_COMPRA">
+              <PropertyRef Name="ID_LIBRO_COMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__POSEE_DTE_RECE">
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_COMPRA" Type="Self.DETALLE_LIBRO_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_PROVEEDOR" />
+              <PropertyRef Name="NRO_DOC" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_COMPRA">
+              <PropertyRef Name="ID_PROVEEDOR" />
+              <PropertyRef Name="NRO_DOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__GENERA_LIBRO_VE">
+          <End Role="LIBRO_VENTA" Type="Self.LIBRO_VENTA" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_VENTA" Type="Self.DETALLE_LIBRO_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIBRO_VENTA">
+              <PropertyRef Name="ID_LIBRO_VENTA" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_VENTA">
+              <PropertyRef Name="ID_LIBRO_VENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__PERTENECE_DTE_EMIS">
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="0..1" />
+          <End Role="DETALLE_LIBRO_VENTA" Type="Self.DETALLE_LIBRO_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_EMISION">
+              <PropertyRef Name="ID_DTE" />
+            </Principal>
+            <Dependent Role="DETALLE_LIBRO_VENTA">
+              <PropertyRef Name="ID_DTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_PROD_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="1" />
+          <End Role="DETALLE_PROD" Type="Self.DETALLE_PROD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="DETALLE_PROD">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_EMIS_ES_PARTE2_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO" />
+            </Principal>
+            <Dependent Role="DTE_EMISION">
+              <PropertyRef Name="TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_EMIS_PROPIETAR_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="DTE_EMISION">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEGUIMIE_CONTROLA_DTE_EMIS">
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="1" />
+          <End Role="SEGUIMIENTO_DTE" Type="Self.SEGUIMIENTO_DTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_EMISION">
+              <PropertyRef Name="ID_DTE" />
+            </Principal>
+            <Dependent Role="SEGUIMIENTO_DTE">
+              <PropertyRef Name="ID_DTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRACKING_UTILIZADO_DTE_EMIS">
+          <End Role="DTE_EMISION" Type="Self.DTE_EMISION" Multiplicity="0..1" />
+          <End Role="TRACKING_CAF" Type="Self.TRACKING_CAF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTE_EMISION">
+              <PropertyRef Name="ID_DTE" />
+            </Principal>
+            <Dependent Role="TRACKING_CAF">
+              <PropertyRef Name="ID_DTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_RECE_ES_PARTE_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO" />
+            </Principal>
+            <Dependent Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_RECE_PROVEE_PROVEEDO">
+          <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="1" />
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVEEDOR">
+              <PropertyRef Name="ID_PROVEEDOR" />
+            </Principal>
+            <Dependent Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_PROVEEDOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTE_RECE_RELATIONS_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="DTE_RECEPCION" Type="Self.DTE_RECEPCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="DTE_RECEPCION">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMP_USU_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="1" />
+          <End Role="EMP_USU" Type="Self.EMP_USU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="EMP_USU">
+              <PropertyRef Name="ID_EMP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMP_USU_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="EMP_USU" Type="Self.EMP_USU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ID_USU" />
+            </Principal>
+            <Dependent Role="EMP_USU">
+              <PropertyRef Name="ID_USU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LIBRO_CO_PERTENECE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="LIBRO_COMPRA" Type="Self.LIBRO_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="LIBRO_COMPRA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LIBRO_VE_PERTENECE_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="LIBRO_VENTA" Type="Self.LIBRO_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="LIBRO_VENTA">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RUTA_GUARDADO_EMPRESA_EMPRESA">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="0..1" />
+          <End Role="RUTA_GUARDADO_EMPRESA" Type="Self.RUTA_GUARDADO_EMPRESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="ID_EMPESA" />
+            </Principal>
+            <Dependent Role="RUTA_GUARDADO_EMPRESA">
+              <PropertyRef Name="ID_EMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEGUIMIE_PERMITE_ESTADO_S">
+          <End Role="ESTADO_SII" Type="Self.ESTADO_SII" Multiplicity="1" />
+          <End Role="SEGUIMIENTO_DTE" Type="Self.SEGUIMIENTO_DTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO_SII">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="SEGUIMIENTO_DTE">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Tyscom_FacturaEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CAF" EntityType="Self.CAF" />
+          <EntitySet Name="CERTIFICADO_DIGITAL" EntityType="Self.CERTIFICADO_DIGITAL" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="CONTRIBUYENTE_SII" EntityType="Self.CONTRIBUYENTE_SII" />
+          <EntitySet Name="DETALLE_LIBRO_COMPRA" EntityType="Self.DETALLE_LIBRO_COMPRA" />
+          <EntitySet Name="DETALLE_LIBRO_VENTA" EntityType="Self.DETALLE_LIBRO_VENTA" />
+          <EntitySet Name="DETALLE_PROD" EntityType="Self.DETALLE_PROD" />
+          <EntitySet Name="DTE_EMISION" EntityType="Self.DTE_EMISION" />
+          <EntitySet Name="DTE_RECEPCION" EntityType="Self.DTE_RECEPCION" />
+          <EntitySet Name="EMP_USU" EntityType="Self.EMP_USU" />
+          <EntitySet Name="EMPRESA" EntityType="Self.EMPRESA" />
+          <EntitySet Name="ESTADO_SII" EntityType="Self.ESTADO_SII" />
+          <EntitySet Name="LIBRO_COMPRA" EntityType="Self.LIBRO_COMPRA" />
+          <EntitySet Name="LIBRO_VENTA" EntityType="Self.LIBRO_VENTA" />
+          <EntitySet Name="PARAMETROS" EntityType="Self.PARAMETROS" />
+          <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" />
+          <EntitySet Name="RUTA_GUARDADO_EMPRESA" EntityType="Self.RUTA_GUARDADO_EMPRESA" />
+          <EntitySet Name="SEGUIMIENTO_DTE" EntityType="Self.SEGUIMIENTO_DTE" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" />
+          <EntitySet Name="TRACKING_CAF" EntityType="Self.TRACKING_CAF" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <AssociationSet Name="FK_CAF_ADQUIERE_EMPRESA" Association="Self.FK_CAF_ADQUIERE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="CAF" EntitySet="CAF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRACKING_UTILIZA_CAF" Association="Self.FK_TRACKING_UTILIZA_CAF">
+            <End Role="CAF" EntitySet="CAF" />
+            <End Role="TRACKING_CAF" EntitySet="TRACKING_CAF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CERTIFICADO_DIGITAL_EMPRESA" Association="Self.FK_CERTIFICADO_DIGITAL_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="CERTIFICADO_DIGITAL" EntitySet="CERTIFICADO_DIGITAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_EMPRESA" Association="Self.FK_CLIENTE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_EMIS_COMPRA_CLIENTE" Association="Self.FK_DTE_EMIS_COMPRA_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__CONTIENE_LIBRO_CO" Association="Self.FK_DETALLE__CONTIENE_LIBRO_CO">
+            <End Role="LIBRO_COMPRA" EntitySet="LIBRO_COMPRA" />
+            <End Role="DETALLE_LIBRO_COMPRA" EntitySet="DETALLE_LIBRO_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__POSEE_DTE_RECE" Association="Self.FK_DETALLE__POSEE_DTE_RECE">
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+            <End Role="DETALLE_LIBRO_COMPRA" EntitySet="DETALLE_LIBRO_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__GENERA_LIBRO_VE" Association="Self.FK_DETALLE__GENERA_LIBRO_VE">
+            <End Role="LIBRO_VENTA" EntitySet="LIBRO_VENTA" />
+            <End Role="DETALLE_LIBRO_VENTA" EntitySet="DETALLE_LIBRO_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__PERTENECE_DTE_EMIS" Association="Self.FK_DETALLE__PERTENECE_DTE_EMIS">
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+            <End Role="DETALLE_LIBRO_VENTA" EntitySet="DETALLE_LIBRO_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_PROD_EMPRESA" Association="Self.FK_DETALLE_PROD_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="DETALLE_PROD" EntitySet="DETALLE_PROD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_EMIS_ES_PARTE2_TIPO_DOC" Association="Self.FK_DTE_EMIS_ES_PARTE2_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_EMIS_PROPIETAR_EMPRESA" Association="Self.FK_DTE_EMIS_PROPIETAR_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGUIMIE_CONTROLA_DTE_EMIS" Association="Self.FK_SEGUIMIE_CONTROLA_DTE_EMIS">
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+            <End Role="SEGUIMIENTO_DTE" EntitySet="SEGUIMIENTO_DTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRACKING_UTILIZADO_DTE_EMIS" Association="Self.FK_TRACKING_UTILIZADO_DTE_EMIS">
+            <End Role="DTE_EMISION" EntitySet="DTE_EMISION" />
+            <End Role="TRACKING_CAF" EntitySet="TRACKING_CAF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_RECE_ES_PARTE_TIPO_DOC" Association="Self.FK_DTE_RECE_ES_PARTE_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_RECE_PROVEE_PROVEEDO" Association="Self.FK_DTE_RECE_PROVEE_PROVEEDO">
+            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTE_RECE_RELATIONS_EMPRESA" Association="Self.FK_DTE_RECE_RELATIONS_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="DTE_RECEPCION" EntitySet="DTE_RECEPCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMP_USU_EMPRESA" Association="Self.FK_EMP_USU_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="EMP_USU" EntitySet="EMP_USU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMP_USU_USUARIO" Association="Self.FK_EMP_USU_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="EMP_USU" EntitySet="EMP_USU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LIBRO_CO_PERTENECE_EMPRESA" Association="Self.FK_LIBRO_CO_PERTENECE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="LIBRO_COMPRA" EntitySet="LIBRO_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LIBRO_VE_PERTENECE_EMPRESA" Association="Self.FK_LIBRO_VE_PERTENECE_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="LIBRO_VENTA" EntitySet="LIBRO_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RUTA_GUARDADO_EMPRESA_EMPRESA" Association="Self.FK_RUTA_GUARDADO_EMPRESA_EMPRESA">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="RUTA_GUARDADO_EMPRESA" EntitySet="RUTA_GUARDADO_EMPRESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEGUIMIE_PERMITE_ESTADO_S" Association="Self.FK_SEGUIMIE_PERMITE_ESTADO_S">
+            <End Role="ESTADO_SII" EntitySet="ESTADO_SII" />
+            <End Role="SEGUIMIENTO_DTE" EntitySet="SEGUIMIENTO_DTE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Tyscom_FacturaModelStoreContainer" CdmEntityContainer="Tyscom_FacturaEntities2">
+          <EntitySetMapping Name="CAF">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.CAF">
+              <MappingFragment StoreEntitySet="CAF">
+                <ScalarProperty Name="ID_CAF" ColumnName="ID_CAF" />
+                <ScalarProperty Name="ID_EMPESA" ColumnName="ID_EMPESA" />
+                <ScalarProperty Name="FOLLIO_DESDE" ColumnName="FOLLIO_DESDE" />
+                <ScalarProperty Name="FOLIO_HASTA" ColumnName="FOLIO_HASTA" />
+                <ScalarProperty Name="FECHA_CARGA" ColumnName="FECHA_CARGA" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="CAF1" ColumnName="CAF" />
+                <ScalarProperty Name="TIPO_DOC_CAF" ColumnName="TIPO_DOC_CAF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CERTIFICADO_DIGITAL">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.CERTIFICADO_DIGITAL">
+              <MappingFragment StoreEntitySet="CERTIFICADO_DIGITAL">
+                <ScalarProperty Name="ID_CERT" ColumnName="ID_CERT" />
+                <ScalarProperty Name="ID_EMPRESA" ColumnName="ID_EMPRESA" />
+                <ScalarProperty Name="RUTA_CERT" ColumnName="RUTA_CERT" />
+                <ScalarProperty Name="PASS_CERT" ColumnName="PASS_CERT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+                <ScalarProperty Name="ID_EMPRESA" ColumnName="ID_EMPRESA" />
+                <ScalarProperty Name="RUT_CLIENTE" ColumnName="RUT_CLIENTE" />
+                <ScalarProperty Name="RZN_SOC_CLIE" ColumnName="RZN_SOC_CLIE" />
+                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+                <ScalarProperty Name="COMUNA" ColumnName="COMUNA" />
+                <ScalarProperty Name="GIRO_CLIENTE" ColumnName="GIRO_CLIENTE" />
+                <ScalarProperty Name="DIRECCION_CLIENTE" ColumnName="DIRECCION_CLIENTE" />
+                <ScalarProperty Name="TELEFONO_CLIENTE" ColumnName="TELEFONO_CLIENTE" />
+                <ScalarProperty Name="EMAIL_CLIENTE" ColumnName="EMAIL_CLIENTE" />
+                <ScalarProperty Name="ESTADO_CLIENTE" ColumnName="ESTADO_CLIENTE" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTRIBUYENTE_SII">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.CONTRIBUYENTE_SII">
+              <MappingFragment StoreEntitySet="CONTRIBUYENTE_SII">
+                <ScalarProperty Name="ID_CONTRIBUYENTE_SII" ColumnName="ID_CONTRIBUYENTE_SII" />
+                <ScalarProperty Name="RUT_CONTRIBUYENTE" ColumnName="RUT_CONTRIBUYENTE" />
+                <ScalarProperty Name="RZN_CONTRIBUYENTE" ColumnName="RZN_CONTRIBUYENTE" />
+                <ScalarProperty Name="FECHA_RESOLUCION" ColumnName="FECHA_RESOLUCION" />
+                <ScalarProperty Name="EMAIL_CONTRIBUYENTE" ColumnName="EMAIL_CONTRIBUYENTE" />
+                <ScalarProperty Name="PAGINA_WEB_CONTRIBUYENTE" ColumnName="PAGINA_WEB_CONTRIBUYENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_LIBRO_COMPRA">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.DETALLE_LIBRO_COMPRA">
+              <MappingFragment StoreEntitySet="DETALLE_LIBRO_COMPRA">
+                <ScalarProperty Name="ID_DETALLE_COMPRA" ColumnName="ID_DETALLE_COMPRA" />
+                <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
+                <ScalarProperty Name="NRO_DOC" ColumnName="NRO_DOC" />
+                <ScalarProperty Name="ID_LIBRO_COMPRA" ColumnName="ID_LIBRO_COMPRA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_LIBRO_VENTA">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.DETALLE_LIBRO_VENTA">
+              <MappingFragment StoreEntitySet="DETALLE_LIBRO_VENTA">
+                <ScalarProperty Name="ID_DETALLE_VENTA" ColumnName="ID_DETALLE_VENTA" />
+                <ScalarProperty Name="ID_DTE" ColumnName="ID_DTE" />
+                <ScalarProperty Name="ID_LIBRO_VENTA" ColumnName="ID_LIBRO_VENTA" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_PROD">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.DETALLE_PROD">
+              <MappingFragment StoreEntitySet="DETALLE_PROD">
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+                <ScalarProperty Name="ID_EMPRESA" ColumnName="ID_EMPRESA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="UMEDIDA" ColumnName="UMEDIDA" />
+                <ScalarProperty Name="STOCK" ColumnName="STOCK" />
+                <ScalarProperty Name="DESCRIPCION_PRODUCTO" ColumnName="DESCRIPCION_PRODUCTO" />
+                <ScalarProperty Name="VALOR_UNITARIO" ColumnName="VALOR_UNITARIO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="DESCUENTO_PCT" ColumnName="DESCUENTO_PCT" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DTE_EMISION">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.DTE_EMISION">
+              <MappingFragment StoreEntitySet="DTE_EMISION">
+                <ScalarProperty Name="ID_DTE" ColumnName="ID_DTE" />
+                <ScalarProperty Name="ID_EMPESA" ColumnName="ID_EMPESA" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="NUM_FOLIO" ColumnName="NUM_FOLIO" />
+                <ScalarProperty Name="ESTADO_RECEP" ColumnName="ESTADO_RECEP" />
+                <ScalarProperty Name="MONTO_EXE" ColumnName="MONTO_EXE" />
+                <ScalarProperty Name="MONTO_NETO" ColumnName="MONTO_NETO" />
+                <ScalarProperty Name="MONTO_IVA" ColumnName="MONTO_IVA" />
+                <ScalarProperty Name="MONTO_TOTAL" ColumnName="MONTO_TOTAL" />
+                <ScalarProperty Name="RUTA_XML_ENV_SII" ColumnName="RUTA_XML_ENV_SII" />
+                <ScalarProperty Name="RUTA_XML_ENV_CLIENTE" ColumnName="RUTA_XML_ENV_CLIENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DTE_RECEPCION">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.DTE_RECEPCION">
+              <MappingFragment StoreEntitySet="DTE_RECEPCION">
+                <ScalarProperty Name="ID_TIPO" ColumnName="ID_TIPO" />
+                <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
+                <ScalarProperty Name="NRO_DOC" ColumnName="NRO_DOC" />
+                <ScalarProperty Name="ID_EMPESA" ColumnName="ID_EMPESA" />
+                <ScalarProperty Name="ARCHIVO_XML" ColumnName="ARCHIVO_XML" />
+                <ScalarProperty Name="ESTADO_DTE" ColumnName="ESTADO_DTE" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMP_USU">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.EMP_USU">
+              <MappingFragment StoreEntitySet="EMP_USU">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_USU" ColumnName="ID_USU" />
+                <ScalarProperty Name="ID_EMP" ColumnName="ID_EMP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPRESA">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.EMPRESA">
+              <MappingFragment StoreEntitySet="EMPRESA">
+                <ScalarProperty Name="ID_EMPESA" ColumnName="ID_EMPESA" />
+                <ScalarProperty Name="RUT_EMPRESA" ColumnName="RUT_EMPRESA" />
+                <ScalarProperty Name="RAZON_SOCIAL" ColumnName="RAZON_SOCIAL" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="COMUNA" ColumnName="COMUNA" />
+                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+                <ScalarProperty Name="FECHA_RESOLUCION" ColumnName="FECHA_RESOLUCION" />
+                <ScalarProperty Name="CODIGO_SII_SUCUR" ColumnName="CODIGO_SII_SUCUR" />
+                <ScalarProperty Name="GIRO" ColumnName="GIRO" />
+                <ScalarProperty Name="NUM_RESOL" ColumnName="NUM_RESOL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESTADO_SII">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.ESTADO_SII">
+              <MappingFragment StoreEntitySet="ESTADO_SII">
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="CODIGO_ESTADO" ColumnName="CODIGO_ESTADO" />
+                <ScalarProperty Name="DESCRIPCION_ESTADO" ColumnName="DESCRIPCION_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIBRO_COMPRA">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.LIBRO_COMPRA">
+              <MappingFragment StoreEntitySet="LIBRO_COMPRA">
+                <ScalarProperty Name="ID_LIBRO_COMPRA" ColumnName="ID_LIBRO_COMPRA" />
+                <ScalarProperty Name="ID_EMPESA" ColumnName="ID_EMPESA" />
+                <ScalarProperty Name="PERIODO_LIBRO" ColumnName="PERIODO_LIBRO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO_LIBRO" ColumnName="ESTADO_LIBRO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIBRO_VENTA">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.LIBRO_VENTA">
+              <MappingFragment StoreEntitySet="LIBRO_VENTA">
+                <ScalarProperty Name="ID_LIBRO_VENTA" ColumnName="ID_LIBRO_VENTA" />
+                <ScalarProperty Name="PERIODO_LIBRO_VENTA" ColumnName="PERIODO_LIBRO_VENTA" />
+                <ScalarProperty Name="ID_EMPRESA" ColumnName="ID_EMPRESA" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO_LIBRO" ColumnName="ESTADO_LIBRO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARAMETROS">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.PARAMETROS">
+              <MappingFragment StoreEntitySet="PARAMETROS">
+                <ScalarProperty Name="ID_PARAMETRO" ColumnName="ID_PARAMETRO" />
+                <ScalarProperty Name="DESC_CORTA" ColumnName="DESC_CORTA" />
+                <ScalarProperty Name="DESC_LARGA" ColumnName="DESC_LARGA" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROVEEDOR">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.PROVEEDOR">
+              <MappingFragment StoreEntitySet="PROVEEDOR">
+                <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
+                <ScalarProperty Name="RUT_PROVEEDOR" ColumnName="RUT_PROVEEDOR" />
+                <ScalarProperty Name="RAZON_SOCIAL" ColumnName="RAZON_SOCIAL" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="COMUNA" ColumnName="COMUNA" />
+                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+                <ScalarProperty Name="CONTACTO" ColumnName="CONTACTO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RUTA_GUARDADO_EMPRESA">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.RUTA_GUARDADO_EMPRESA">
+              <MappingFragment StoreEntitySet="RUTA_GUARDADO_EMPRESA">
+                <ScalarProperty Name="ID_RUTA_GUARDADO" ColumnName="ID_RUTA_GUARDADO" />
+                <ScalarProperty Name="ID_EMPRESA" ColumnName="ID_EMPRESA" />
+                <ScalarProperty Name="RUTA_EMPRESA" ColumnName="RUTA_EMPRESA" />
+                <ScalarProperty Name="RUTA_ENVIO_SII" ColumnName="RUTA_ENVIO_SII" />
+                <ScalarProperty Name="RUTA_ENVIO_CLIENTE" ColumnName="RUTA_ENVIO_CLIENTE" />
+                <ScalarProperty Name="RUTA_CERT_DIGITAL" ColumnName="RUTA_CERT_DIGITAL" />
+                <ScalarProperty Name="RUTA_FOLIO" ColumnName="RUTA_FOLIO" />
+                <ScalarProperty Name="RUTA_DTE_SII" ColumnName="RUTA_DTE_SII" />
+                <ScalarProperty Name="RUTA_DTE_CLIE" ColumnName="RUTA_DTE_CLIE" />
+                <ScalarProperty Name="RUTA_PDF" ColumnName="RUTA_PDF" />
+                <ScalarProperty Name="RUTA_PDF_417" ColumnName="RUTA_PDF_417" />
+                <ScalarProperty Name="RUTA_XSLT" ColumnName="RUTA_XSLT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEGUIMIENTO_DTE">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.SEGUIMIENTO_DTE">
+              <MappingFragment StoreEntitySet="SEGUIMIENTO_DTE">
+                <ScalarProperty Name="ID_SEGUIMIENTO_DTE" ColumnName="ID_SEGUIMIENTO_DTE" />
+                <ScalarProperty Name="ID_DTE" ColumnName="ID_DTE" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="FECHA_ESTADO" ColumnName="FECHA_ESTADO" />
+                <ScalarProperty Name="OBSERVACION_ESTADO" ColumnName="OBSERVACION_ESTADO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_DOCUMENTO">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.TIPO_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TIPO_DOCUMENTO">
+                <ScalarProperty Name="ID_TIPO" ColumnName="ID_TIPO" />
+                <ScalarProperty Name="DESCRIPCION_TIPO" ColumnName="DESCRIPCION_TIPO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRACKING_CAF">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.TRACKING_CAF">
+              <MappingFragment StoreEntitySet="TRACKING_CAF">
+                <ScalarProperty Name="ID_TRACKING" ColumnName="ID_TRACKING" />
+                <ScalarProperty Name="ID_CAF" ColumnName="ID_CAF" />
+                <ScalarProperty Name="ID_DTE" ColumnName="ID_DTE" />
+                <ScalarProperty Name="NRO_ACTUAL" ColumnName="NRO_ACTUAL" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="TRACKING_ESTADO_DTE" ColumnName="TRACKING_ESTADO_DTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="Tyscom_FacturaModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="ID_USU" ColumnName="ID_USU" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServicioFactura" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:65385/ServicioFactura.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:65385/ServicioFactura.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:65385/ServicioFactura.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:65385/ServicioFactura.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicioFactura_det_InputMessage">
+    <wsdl:part name="parameters" element="tns:det" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_det_OutputMessage">
+    <wsdl:part name="parameters" element="tns:detResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_refer_InputMessage">
+    <wsdl:part name="parameters" element="tns:refer" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_refer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:referResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_desc_global_InputMessage">
+    <wsdl:part name="parameters" element="tns:desc_global" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_desc_global_OutputMessage">
+    <wsdl:part name="parameters" element="tns:desc_globalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_redondear_InputMessage">
+    <wsdl:part name="parameters" element="tns:redondear" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_redondear_OutputMessage">
+    <wsdl:part name="parameters" element="tns:redondearResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_generar_pdf_InputMessage">
+    <wsdl:part name="parameters" element="tns:generar_pdf" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_generar_pdf_OutputMessage">
+    <wsdl:part name="parameters" element="tns:generar_pdfResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_procedimientofirma_InputMessage">
+    <wsdl:part name="parameters" element="tns:procedimientofirma" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_procedimientofirma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:procedimientofirmaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_login_InputMessage">
+    <wsdl:part name="parameters" element="tns:login" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:loginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_empresa_InputMessage">
+    <wsdl:part name="parameters" element="tns:get_empresa" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_empresa_OutputMessage">
+    <wsdl:part name="parameters" element="tns:get_empresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_empresaRUT_InputMessage">
+    <wsdl:part name="parameters" element="tns:get_empresaRUT" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_empresaRUT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:get_empresaRUTResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ingresa_Caf_InputMessage">
+    <wsdl:part name="parameters" element="tns:ingresa_Caf" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ingresa_Caf_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ingresa_CafResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_upload_sii_InputMessage">
+    <wsdl:part name="parameters" element="tns:upload_sii" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_upload_sii_OutputMessage">
+    <wsdl:part name="parameters" element="tns:upload_siiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_parse_csv_to_xml_InputMessage">
+    <wsdl:part name="parameters" element="tns:parse_csv_to_xml" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_parse_csv_to_xml_OutputMessage">
+    <wsdl:part name="parameters" element="tns:parse_csv_to_xmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_xml_emp_to_db_InputMessage">
+    <wsdl:part name="parameters" element="tns:xml_emp_to_db" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_xml_emp_to_db_OutputMessage">
+    <wsdl:part name="parameters" element="tns:xml_emp_to_dbResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_token_InputMessage">
+    <wsdl:part name="parameters" element="tns:get_token" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_token_OutputMessage">
+    <wsdl:part name="parameters" element="tns:get_tokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_genera_libro_v_InputMessage">
+    <wsdl:part name="parameters" element="tns:genera_libro_v" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_genera_libro_v_OutputMessage">
+    <wsdl:part name="parameters" element="tns:genera_libro_vResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_setDTE_InputMessage">
+    <wsdl:part name="parameters" element="tns:get_setDTE" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_setDTE_OutputMessage">
+    <wsdl:part name="parameters" element="tns:get_setDTEResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_num_folio_InputMessage">
+    <wsdl:part name="parameters" element="tns:get_num_folio" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_get_num_folio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:get_num_folioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ObtieListaDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtieListaDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ObtieListaDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtieListaDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ObtieneListaEmpresa_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtieneListaEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ObtieneListaEmpresa_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtieneListaEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ObtieneListaClientes_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtieneListaClientes" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_ObtieneListaClientes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtieneListaClientesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_administrador_folios_InputMessage">
+    <wsdl:part name="parameters" element="tns:administrador_folios" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_administrador_folios_OutputMessage">
+    <wsdl:part name="parameters" element="tns:administrador_foliosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_Genera_dte_envia__InputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_dte_envia_" />
+  </wsdl:message>
+  <wsdl:message name="IServicioFactura_Genera_dte_envia__OutputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_dte_envia_Response" />
+  </wsdl:message>
+  <wsdl:portType name="IServicioFactura">
+    <wsdl:operation name="det">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/det" message="tns:IServicioFactura_det_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/detResponse" message="tns:IServicioFactura_det_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="refer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/refer" message="tns:IServicioFactura_refer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/referResponse" message="tns:IServicioFactura_refer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="desc_global">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/desc_global" message="tns:IServicioFactura_desc_global_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/desc_globalResponse" message="tns:IServicioFactura_desc_global_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="redondear">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/redondear" message="tns:IServicioFactura_redondear_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/redondearResponse" message="tns:IServicioFactura_redondear_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="generar_pdf">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/generar_pdf" message="tns:IServicioFactura_generar_pdf_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/generar_pdfResponse" message="tns:IServicioFactura_generar_pdf_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="procedimientofirma">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/procedimientofirma" message="tns:IServicioFactura_procedimientofirma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/procedimientofirmaResponse" message="tns:IServicioFactura_procedimientofirma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/login" message="tns:IServicioFactura_login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/loginResponse" message="tns:IServicioFactura_login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="get_empresa">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/get_empresa" message="tns:IServicioFactura_get_empresa_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/get_empresaResponse" message="tns:IServicioFactura_get_empresa_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="get_empresaRUT">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/get_empresaRUT" message="tns:IServicioFactura_get_empresaRUT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/get_empresaRUTResponse" message="tns:IServicioFactura_get_empresaRUT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ingresa_Caf">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/ingresa_Caf" message="tns:IServicioFactura_ingresa_Caf_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/ingresa_CafResponse" message="tns:IServicioFactura_ingresa_Caf_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="upload_sii">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/upload_sii" message="tns:IServicioFactura_upload_sii_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/upload_siiResponse" message="tns:IServicioFactura_upload_sii_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="parse_csv_to_xml">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/parse_csv_to_xml" message="tns:IServicioFactura_parse_csv_to_xml_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/parse_csv_to_xmlResponse" message="tns:IServicioFactura_parse_csv_to_xml_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="xml_emp_to_db">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/xml_emp_to_db" message="tns:IServicioFactura_xml_emp_to_db_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/xml_emp_to_dbResponse" message="tns:IServicioFactura_xml_emp_to_db_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="get_token">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/get_token" message="tns:IServicioFactura_get_token_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/get_tokenResponse" message="tns:IServicioFactura_get_token_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="genera_libro_v">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/genera_libro_v" message="tns:IServicioFactura_genera_libro_v_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/genera_libro_vResponse" message="tns:IServicioFactura_genera_libro_v_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="get_setDTE">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/get_setDTE" message="tns:IServicioFactura_get_setDTE_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/get_setDTEResponse" message="tns:IServicioFactura_get_setDTE_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="get_num_folio">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/get_num_folio" message="tns:IServicioFactura_get_num_folio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/get_num_folioResponse" message="tns:IServicioFactura_get_num_folio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtieListaDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/ObtieListaDetalle" message="tns:IServicioFactura_ObtieListaDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/ObtieListaDetalleResponse" message="tns:IServicioFactura_ObtieListaDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtieneListaEmpresa">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/ObtieneListaEmpresa" message="tns:IServicioFactura_ObtieneListaEmpresa_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/ObtieneListaEmpresaResponse" message="tns:IServicioFactura_ObtieneListaEmpresa_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtieneListaClientes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/ObtieneListaClientes" message="tns:IServicioFactura_ObtieneListaClientes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/ObtieneListaClientesResponse" message="tns:IServicioFactura_ObtieneListaClientes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="administrador_folios">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/administrador_folios" message="tns:IServicioFactura_administrador_folios_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/administrador_foliosResponse" message="tns:IServicioFactura_administrador_folios_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Genera_dte_envia_">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioFactura/Genera_dte_envia_" message="tns:IServicioFactura_Genera_dte_envia__InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioFactura/Genera_dte_envia_Response" message="tns:IServicioFactura_Genera_dte_envia__OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IServicioFactura" type="tns:IServicioFactura">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="det">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/det" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="refer">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/refer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="desc_global">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/desc_global" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="redondear">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/redondear" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generar_pdf">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/generar_pdf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="procedimientofirma">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/procedimientofirma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="login">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get_empresa">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/get_empresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get_empresaRUT">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/get_empresaRUT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ingresa_Caf">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/ingresa_Caf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="upload_sii">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/upload_sii" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="parse_csv_to_xml">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/parse_csv_to_xml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="xml_emp_to_db">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/xml_emp_to_db" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get_token">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/get_token" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="genera_libro_v">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/genera_libro_v" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get_setDTE">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/get_setDTE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get_num_folio">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/get_num_folio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtieListaDetalle">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/ObtieListaDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtieneListaEmpresa">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/ObtieneListaEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtieneListaClientes">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/ObtieneListaClientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="administrador_folios">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/administrador_folios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Genera_dte_envia_">
+      <soap:operation soapAction="http://tempuri.org/IServicioFactura/Genera_dte_envia_" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioFactura">
+    <wsdl:port name="BasicHttpBinding_IServicioFactura" binding="tns:BasicHttpBinding_IServicioFactura">
+      <soap:address location="http://localhost:65385/ServicioFactura.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

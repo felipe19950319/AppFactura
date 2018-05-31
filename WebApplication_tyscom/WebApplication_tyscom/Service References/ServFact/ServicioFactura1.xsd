@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:65385/ServicioFactura.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" />
+  <xs:element name="det">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dt" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="detResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="detResult" nillable="true" type="q1:ArrayOfDTE_DETALLE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="refer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dt" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="referResult" nillable="true" type="q2:ArrayOfDTE_referencia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="desc_global">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dt" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="desc_globalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="desc_globalResult" nillable="true" type="q3:ArrayOfDTE_DscrGlobal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="redondear">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="algo" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="redondearResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="redondearResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="generar_pdf">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rutadte" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="plantilla_xslt" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ruta_doc_firmado" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="generar_pdfResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="procedimientofirma">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetDTE" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DTE" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rut_session" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nom_doc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uri" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="procedimientofirmaResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="login">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rut" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="loginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="loginResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_empresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rut" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_empresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="get_empresaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_empresaRUT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rut_user" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_empresaRUTResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="get_empresaRUTResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ingresa_Caf">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ruta_xml_caf" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rut" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ingresa_CafResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ingresa_CafResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="upload_sii">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rutemisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rutempresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rutaxml" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="upload_siiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="upload_siiResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="parse_csv_to_xml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empresas_csv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ruta_save_xml" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="parse_csv_to_xmlResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="parse_csv_to_xmlResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xml_emp_to_db">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ruta_emp_contribuyente" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xml_emp_to_dbResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="xml_emp_to_dbResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_token">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_tokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="get_tokenResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="genera_libro_v">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fecha_perdiodo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="id_empresa" type="xs:int" />
+        <xs:element minOccurs="0" name="session" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="genera_libro_vResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_setDTE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="session" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_setDTEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="get_setDTEResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_num_folio">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rut_user" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipo_doc" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_num_folioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="get_num_folioResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtieListaDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id_emp" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtieListaDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtieListaDetalleResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtieneListaEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rut_usuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtieneListaEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtieneListaEmpresaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtieneListaClientes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id_emp" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtieneListaClientesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtieneListaClientesResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="administrador_folios">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nro_actual" type="xs:int" />
+        <xs:element minOccurs="0" name="xml_respuesta" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rut_user" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipo_doc" type="xs:int" />
+        <xs:element minOccurs="0" name="id_doc" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="administrador_foliosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="administrador_foliosResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_dte_envia_">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="setdte" nillable="true" type="q4:SetDTE" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="dte_idDoc" nillable="true" type="q5:DTE_idDoc" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="dte_emis" nillable="true" type="q6:DTE_Emisor" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="dte_recep" nillable="true" type="q7:DTE_Receptor" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="trans" nillable="true" type="q8:DTE_Transporte" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="tot" nillable="true" type="q9:DTE_Totales" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="det" nillable="true" type="q10:ArrayOfDTE_DETALLE" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="sub" nillable="true" type="q11:ArrayOfDTE_SubTotInfo" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="dscrcg" nillable="true" type="q12:ArrayOfDTE_DscrGlobal" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="refer" nillable="true" type="q13:ArrayOfDTE_referencia" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/WcfService_factura.clases" minOccurs="0" name="comi" nillable="true" type="q14:ArrayOfDTE_comisiones" />
+        <xs:element minOccurs="0" name="session_rut" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipo_doc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="hora_envio" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_dte_envia_Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Genera_dte_envia_Result" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
