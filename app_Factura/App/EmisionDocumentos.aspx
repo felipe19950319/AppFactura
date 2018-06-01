@@ -113,6 +113,32 @@
                        </div>
                          <!--receptor-->
 
+                          <!--detalle-->
+                             <div class="row">
+                              <div class="col-lg-12">
+                               <div class="card mb-3">
+                                    <div class="card-header bg-secondary">
+                            
+                                         <a class="text-white"> <i class="fa fa-clipboard"></i> Detalle</a>
+                                    </div>
+                                    <div class="card-body">
+                                <div class="col-md-12">  
+                                  <div class="row">
+                                        <table id="TablaDetalles">
+                                            <thead></thead>
+                                            <tbody></tbody>
+                                        </table>
+                                 </div>
+
+                                </div>
+                                                                                       
+                               </div>
+                                    </div>
+                                     <div class="card-footer small text-muted">&nbsp</div>
+                               </div>
+                           </div> 
+                          <!--detalle-->
+
                          <!--referencias-->
                            <div class="row">
                               <div class="col-lg-8">
@@ -152,6 +178,7 @@
                                </div>
                            </div>             
                          <!--referencias-->
+
                     
 
                      </div>

@@ -66,6 +66,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\App\JavaScript.js" />
+    <Content Include="Common\Datatables\DataTables-1.10.16.js" />
+    <Content Include="Common\images\favicon.ico" />
+    <Content Include="Common\images\sort_asc.png" />
+    <Content Include="Common\images\sort_asc_disabled.png" />
+    <Content Include="Common\images\sort_both.png" />
+    <Content Include="Common\images\sort_desc.png" />
+    <Content Include="Common\images\sort_desc_disabled.png" />
     <Content Include="packages.config" />
     <Content Include="Common\bootstrap 4.1.0\css\bootstrap-grid.css.map" />
     <Content Include="Common\bootstrap 4.1.0\css\bootstrap-grid.min.css.map" />
@@ -83,6 +91,8 @@
     <Content Include="Common\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Common\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Common\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Common\Datatables\DataTables-1.10.16.css" />
+    <Content Include="Common\images\Sorting icons.psd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -148,7 +158,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\Repos\CoreAppProject\WorkScheme\SqlConnector\SqlConnector.csproj">
+    <ProjectReference Include="..\SqlConnector\SqlConnector.csproj">
       <Project>{5ea0373b-c774-4df1-91f4-838cd9da24a2}</Project>
       <Name>SqlConnector</Name>
     </ProjectReference>

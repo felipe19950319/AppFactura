@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-WebServices", "1-WebServi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Componentes", "2-Componentes", "{B09E7C5B-4DA1-4C66-A73B-7CE09B24ECB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlConnector", "..\..\Source\Repos\CoreAppProject\WorkScheme\SqlConnector\SqlConnector.csproj", "{5EA0373B-C774-4DF1-91F4-838CD9DA24A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlConnector", "SqlConnector\SqlConnector.csproj", "{5EA0373B-C774-4DF1-91F4-838CD9DA24A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-WebApp", "3-WebApp", "{4FC01F33-ACEA-4B87-BC90-5E42AAEE67CC}"
 EndProject
