@@ -66,7 +66,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\HtmlTemplates\ModalDetalles.html" />
+    <Content Include="App\HtmlTemplates\ModalListaDetalles.html" />
+    <Content Include="App\SeleccionEmpresa.aspx" />
+    <Content Include="Common\App\EmisionDocumentos.js" />
     <Content Include="Common\App\JavaScript.js" />
+    <Content Include="Common\App\Master.js" />
+    <Content Include="Common\App\SeleccionEmpresa.js" />
     <Content Include="Common\Datatables\DataTables-1.10.16.js" />
     <Content Include="Common\images\favicon.ico" />
     <Content Include="Common\images\sort_asc.png" />
@@ -74,6 +80,7 @@
     <Content Include="Common\images\sort_both.png" />
     <Content Include="Common\images\sort_desc.png" />
     <Content Include="Common\images\sort_desc_disabled.png" />
+    <Content Include="Common\Mustache\Mustache.js" />
     <Content Include="packages.config" />
     <Content Include="Common\bootstrap 4.1.0\css\bootstrap-grid.css.map" />
     <Content Include="Common\bootstrap 4.1.0\css\bootstrap-grid.min.css.map" />
@@ -148,6 +155,14 @@
     <Compile Include="App\MenuPrincipal.aspx.designer.cs">
       <DependentUpon>MenuPrincipal.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\SeleccionEmpresa.aspx.cs">
+      <DependentUpon>SeleccionEmpresa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\SeleccionEmpresa.aspx.designer.cs">
+      <DependentUpon>SeleccionEmpresa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\Session.cs" />
     <Compile Include="App\Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -60,7 +60,7 @@ $("#TablaDetalles").DataTable({
           {
               "title": "Accion",
               "mRender": function (data, type, row) {
-                  return '<center><a class="btn btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i></a></center>';
+                  return '<center><a class="btn btn-danger" ><i class="fa fa-trash" style="color:white" aria-hidden="true"></i></a></center>';
               }
           }
     ], "language": {

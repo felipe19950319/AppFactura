@@ -28,19 +28,26 @@ namespace app_Factura.App
 
             DataTable dt = new DataTable();
             MySqlConnector mysql = new MySqlConnector();
-            mysql.ConnectionString = cnString;
+
+            Session.Clear();
+            HttpContext.Current.Session["cnString"] = cnString;
+            mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
 
             mysql.AddProcedure("Login");
             mysql
                 .AddParameter("Rut",_rut)
                 .AddParameter("Contrasenia",_pass);
-          
+
+
+
+
            dt = mysql.ExecQuery().ToDataTable();
 
             if (dt.Rows[0][0].ToString() == "FALSE")
                 Response.Redirect("Login.aspx");
             else
-                Response.Redirect("MenuPrincipal.aspx");
+                 HttpContext.Current.Session["_UserRut"] = _rut;
+                 Response.Redirect("SeleccionEmpresa.aspx");
         }
     }
 }

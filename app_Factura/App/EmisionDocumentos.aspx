@@ -2,9 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <script src="../Common/App/EmisionDocumentos.js"></script>
     <br/>
     <br/>
-    <br/>
+    <br/>  
       <div class="content-wrapper">
            <div class="row">
                 <div class="col-md-12">
@@ -123,11 +124,25 @@
                                     </div>
                                     <div class="card-body">
                                 <div class="col-md-12">  
+
+                                    <div class="row">                                      
+
+                                     <div class="col-md-2">
+                                        <input id="btnAddDetalle" type="button" class="btn btn-danger" value="Agregar nuevo detalle"/>         
+                                      </div> 
+                                          <div class="col-md-2">
+                                        <input id="btnAddListaDetalle" type="button" class="btn btn-success" value="Agregar desde lista"/>         
+                                      </div>                        
+                                    </div>
+                                    <br/>
+                                      
                                   <div class="row">
+                                       <div class="col-md-12">
                                         <table id="TablaDetalles">
                                             <thead></thead>
                                             <tbody></tbody>
                                         </table>
+                                           </div>
                                  </div>
 
                                 </div>
