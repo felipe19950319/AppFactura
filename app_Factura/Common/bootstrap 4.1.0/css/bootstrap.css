@@ -5449,13 +5449,13 @@ button.close {
     min-height: calc(100% - (1.75rem * 2));
   }
   .modal-sm {
-    max-width: 300px;
+    max-width: 350px;
   }
 }
 
 @media (min-width: 992px) {
   .modal-lg {
-    max-width: 800px;
+    max-width: 1100px;
   }
 }
 
