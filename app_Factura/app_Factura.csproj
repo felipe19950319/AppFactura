@@ -66,14 +66,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\General.aspx" />
     <Content Include="App\HtmlTemplates\ModalDetalles.html" />
     <Content Include="App\HtmlTemplates\ModalListaDetalles.html" />
     <Content Include="App\SeleccionEmpresa.aspx" />
     <Content Include="Common\App\EmisionDocumentos.js" />
-    <Content Include="Common\App\JavaScript.js" />
-    <Content Include="Common\App\Master.js" />
+    <Content Include="Common\App\General.js" />
+    <Content Include="Common\App\Modal\Modal.js" />
+    <Content Include="Common\App\Utilities\Utilities.js" />
     <Content Include="Common\App\SeleccionEmpresa.js" />
     <Content Include="Common\Datatables\DataTables-1.10.16.js" />
+    <Content Include="Common\Datatables\dataTables.editor.js" />
+    <Content Include="Common\Datatables\editor.jqueryui.js" />
     <Content Include="Common\images\favicon.ico" />
     <Content Include="Common\images\sort_asc.png" />
     <Content Include="Common\images\sort_asc_disabled.png" />
@@ -140,6 +144,13 @@
     </Compile>
     <Compile Include="App\EmisionDocumentos.aspx.designer.cs">
       <DependentUpon>EmisionDocumentos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\General.aspx.cs">
+      <DependentUpon>General.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\General.aspx.designer.cs">
+      <DependentUpon>General.aspx</DependentUpon>
     </Compile>
     <Compile Include="App\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

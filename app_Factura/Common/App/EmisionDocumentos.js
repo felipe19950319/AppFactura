@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
 
-    var x = [
+   /* var x = [
 
     {
         "CodigoDet": "12345",
@@ -39,16 +39,14 @@ $(document).ready(function () {
         "TipoDescuento": "+%",
         "Total": "9990"
     }
-    ];
-
-
+    ];*/
    var objTable= $("#TablaDetalles").DataTable({
         "destroy": true,
         "pageLength": 5,
         "lengthChange": false,
         "searching": false,
         "info": false,
-        "data": x,
+      //  "data": x,
         "bAutoWidth": false,
         "columns": [
             { "data": "CodigoDet", "title": "Codigo" },
@@ -114,6 +112,42 @@ $(document).ready(function () {
                }
            });
 
+           $("#btnAddNewDet").off().on('click', function () {
+
+               var obj = new Object();
+               var date = new Date();
+
+
+               obj.p_ID_EMPRESA = $("#_SES_IdEmpresa").val();
+               obj.p_NOMBRE = $("#txtNombreDetModal").val();
+               obj.p_CODIGO = $("#txtCodigoDetModal").val();
+               obj.p_STOCK = $("#txtCantidadDetModal").val();
+               obj.p_DESCRIPCION_PRODUCTO = $("#txtDescripcionDetModal").val();
+               obj.p_VALOR_UNITARIO = $("#txtPrecioDetModal").val();
+               obj.p_FECHA_CREACION = date.yyyymmdd('-');
+               obj.p_DESCUENTO_PCT = "0";
+               obj.p_ESTADO = "CSTOCK";
+               obj.p_IdUnidadMedida = $("#UnidadMedidaDetModal").val();
+
+               ServerSide('EmisionDocumentos.aspx', 'InsertProducto', obj, function (r) {
+                   console.log(r);
+                   var response = JSON.parse(r.d);
+                   var RowInserted = response[0].RowInserted;
+                   console.log(RowInserted);
+
+                   if (RowInserted != null || RowInserted != undefined || RowInserted != "" && RowInserted > 0) {
+                       $("#ModalDetalles").modal('hide');
+                       ModalElement.Create();
+                       ModalElement.Class("success");
+                       ModalElement.Header("Registro agregado");
+                       ModalElement.Message("Se ha agregado el registro correctamente!");
+                       ModalElement.Show();
+                   }
+
+               });
+            
+           });
+
        });
         /*
         console.log("hola");
@@ -148,9 +182,7 @@ $(document).ready(function () {
                contentType: 'application/json; charset=utf-8',
                dataType: 'json',
                success: function (msg) {
-                  
-
-                   $("#TblListaDetalles").DataTable({
+                   var  TblListaDetalles= $("#TblListaDetalles").DataTable({
                        "destroy": true,
                        "pageLength": 5,
                        "lengthChange": false,
@@ -201,7 +233,13 @@ $(document).ready(function () {
                            }
                        }
                    });
-                   console.log(msg);
+
+
+                   $('#TblListaDetalles tbody').on('click', '.AddDetalleLista', function () {
+                       var data = TblListaDetalles.row($(this).parents('tr')).data();
+                       console.log(data);
+                   });
+
                }
            });
 

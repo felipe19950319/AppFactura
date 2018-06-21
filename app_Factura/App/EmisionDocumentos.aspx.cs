@@ -27,7 +27,8 @@ namespace app_Factura.App
         }
 
         [WebMethod]
-        public static string GetDetalleProducto(string RegInicio,string RegFin) {
+        public static string GetDetalleProducto(string RegInicio,string RegFin)
+        {
 
             var Id_emp = HttpContext.Current.Session["Id_emp"].ToString();
             MySqlConnector mysql = new MySqlConnector();
@@ -39,6 +40,25 @@ namespace app_Factura.App
                 .AddParameter("Fin",RegFin);
 
             return mysql.ExecQuery().ToJson();
+        }
+
+        [WebMethod]
+        public static string InsertProducto(string json)
+        {
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                MySqlConnector mysql = new MySqlConnector();
+                mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+                mysql.AddProcedure("sp_ins_detalle_producto");
+
+                mysql.ParametersFromJson(json);
+
+                return mysql.ExecQuery().ToJson();
+            }
+            else {
+                return "ERROR";
+            }     
         }
 
 

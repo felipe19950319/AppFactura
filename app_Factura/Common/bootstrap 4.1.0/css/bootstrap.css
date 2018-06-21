@@ -5453,9 +5453,9 @@ button.close {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1000px) {
   .modal-lg {
-    max-width: 1100px;
+    max-width: 1200px;
   }
 }
 

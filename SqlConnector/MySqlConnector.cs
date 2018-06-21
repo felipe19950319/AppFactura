@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
-
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace SqlConnector
 {
@@ -33,14 +35,65 @@ namespace SqlConnector
                 cmd.Parameters.AddWithValue(Item.Key, Item.Value);
             }
 
-            cmd.ExecuteNonQuery();
+            // cmd.ExecuteNonQuery();
 
-            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+            // MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
             //retornaremos finalmente 
             //DataSet ds = new DataSet();
+
+            /**/
             ds.Dispose();
             ds.Clear();
-            adapter.Fill(ds);
+
+            /* using (MySqlDataReader dr = cmd.ExecuteReader())
+             {
+
+
+                 DataTable dataTable = new DataTable();
+                 dataTable.Load(dr);
+                 ds.Tables.Add(dataTable);            
+                 dr.Close();
+             }*/
+            MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            DataTable dtSchema = dr.GetSchemaTable();
+            DataTable dt = new DataTable();
+            // You can also use an ArrayList instead of List<> 
+            List<DataColumn> listCols = new List<DataColumn>();
+            if (dtSchema != null)
+            {
+                foreach (DataRow drow in dtSchema.Rows)
+                {
+                    string columnName = System.Convert.ToString(drow["ColumnName"]);
+                    DataColumn column = new DataColumn(columnName, (Type)(drow["DataType"]));
+                    column.Unique = (bool)drow["IsUnique"];
+                    column.AllowDBNull = (bool)drow["AllowDBNull"];
+                    column.AutoIncrement = (bool)drow["IsAutoIncrement"];
+                    listCols.Add(column);
+                    dt.Columns.Add(column);
+                }
+
+            }
+
+            // Read rows from DataReader and populate the DataTable 
+
+            while (dr.Read())
+            {
+                DataRow dataRow = dt.NewRow();
+                for (int i = 0; i < listCols.Count; i++)
+                {
+                    dataRow[((DataColumn)listCols[i])] = dr[i];
+                }
+
+                dt.Rows.Add(dataRow);
+            }
+
+            ds.Tables.Add(dt);
+            /**/
+
+
+
+            // adapter.Fill(ds);
 
             CloseConnection();
             return this;

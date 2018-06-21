@@ -10,28 +10,46 @@ namespace app_Factura.App
     public partial class Site1 : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-            //variables de sesion
-           /* HttpContext.Current.Session["Razon_social"] = "";
-            HttpContext.Current.Session["_UserRut"] = "";
-            HttpContext.Current.Session["Id_emp"] = "";
-            HttpContext.Current.Session["cnString"] = "";*/
-
-
-
-            if (!string.IsNullOrEmpty(HttpContext.Current.Session["_UserRut"].ToString()))
+        {    
+            if (!string.IsNullOrEmpty(GetSessionVariable("_UserRut")))
             {
-                lblUserRut.Text = HttpContext.Current.Session["_UserRut"].ToString();
-            }
-
-            if (HttpContext.Current.Session["Razon_social"]!=null)
-            {
-                NombreEmpresa.Text = HttpContext.Current.Session["Razon_social"].ToString();
+                lblUserRut.Text = GetSessionVariable("_UserRut");
+                SetHiddenFields();
             }
             else
             {
-                NombreEmpresa.Text = "";
+                Response.Redirect("Login.aspx");
             }
+
+            if (!string.IsNullOrEmpty( GetSessionVariable("Razon_social")))
+            {
+                NombreEmpresa.Text = GetSessionVariable("Razon_social");
+            }
+
+           
         }
+
+        public void SetHiddenFields()
+        {
+            _SES_IdEmpresa.Value = GetSessionVariable("Id_emp");
+            _SES_RutUser.Value= GetSessionVariable("_UserRut");
+        }
+
+        public string GetSessionVariable(string SessionVarName)
+        {
+            var x = string.Empty;
+
+            try
+            {
+                x = HttpContext.Current.Session[SessionVarName].ToString();
+            }
+            catch (Exception ex)
+            {
+                x = "";
+            }
+
+            return x;
+        }
+
     }
 }

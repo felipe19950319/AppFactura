@@ -15,17 +15,28 @@
 <script src="../Common/sb-Admin/js/sb-admin.min.js"></script>
 <script src="../Common/Datatables/DataTables-1.10.16.js"></script>
 <script src="../Common/Mustache/Mustache.js"></script>
+<script src="../Common/App/Utilities/Utilities.js"></script>
+<script src="../Common/App/Modal/Modal.js"></script>
+
+
+
 
 <link href="../Common/bootstrap%204.1.0/css/bootstrap.min.css" rel="stylesheet" />
 <link href="../Common/font-awesome/Content/font-awesome.min.css" rel="stylesheet" />
 <link href="../Common/sb-Admin/css/sb-admin.css" rel="stylesheet" />
 <link href="../Common/Datatables/DataTables-1.10.16.css" rel="stylesheet" />
- 
+   
 
 
 </head>
 <body>
     <form id="form1" runat="server">
+        <!--Inputs con variables de Session-->
+        <asp:HiddenField  ID="_SES_RutUser" runat="server"/>
+        <asp:HiddenField  ID="_SES_IdEmpresa" runat="server"/>
+        <!--Inputs con variables de Session-->
+
+
     <div>
 
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
@@ -223,7 +234,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © Your Website 2018</small>
+          <small>Copyright © Felipe pasache rivas 2018</small>
         </div>
       </div>
     </footer>

@@ -23,7 +23,7 @@ namespace app_Factura.App
             mysql.AddProcedure("GetEmpresaByRut");
             mysql
                 .AddParameter("_UserRut", _UserRut);
-
+           // string x = mysql.ExecQuery().ToJson();
             dt = mysql.ExecQuery().ToDataTable();
 
             DropEmpresa.DataTextField = "RAZON_SOCIAL";
@@ -38,9 +38,8 @@ namespace app_Factura.App
         public static void ajax_SeleccionEmpresa(string Id_emp, string Razon_social)
         {
             HttpContext.Current.Session["Id_emp"] = Id_emp;
-            HttpContext.Current.Session["Razon_social"] = Razon_social;     
+            HttpContext.Current.Session["Razon_social"] = Razon_social;
             //menu estatico 
-        
         }
 
        
