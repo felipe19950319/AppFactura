@@ -33,6 +33,41 @@
         ].join(separator);
     };
 
+
+    MakeTable = function (pageLength,data,ColumnsDefs,Id) {
+        var table = $(Id).DataTable({
+            "destroy": true,
+            "pageLength": pageLength,
+            "lengthChange": false,
+            "searching": false,
+            "info": false,
+            "data": data,
+            "bAutoWidth": false,
+            "columns": ColumnsDefs,
+            "language": {
+                "emptyTable": "No hay registros para mostrar.",
+                "info": "Mostrando registros _START_ al _END_ de _TOTAL_ registros totales",
+                "infoEmpty": "Mostrando 0 registros",
+                "infoFiltered": "(filtrados de _MAX_)",
+                "infoPostFix": "",
+                "thousands": ".",
+                "loadingRecords": "Cargando grilla...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "No se encontraron registros para la búsqueda",
+                "paginate": {
+                    "first": "Primer",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+       });
+
+       return table;
+
+    }
+
  
 
 });

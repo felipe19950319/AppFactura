@@ -1,60 +1,19 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
-   /* var x = [
-
-    {
-        "CodigoDet": "12345",
-        "NombreDet": "Pendrive",
-        "Descripcion": "Guardar Archivos",
-        "UnidadMedida": "UN",
-        "PrecioDet": "9990",
-        "Iva": "SI",
-        "Cantidad": "20",
-        "Descuento": "20",
-        "TipoDescuento": "+%",
-        "Total": "9990"
-    },
-    {
-        "CodigoDet": "12345",
-        "NombreDet": "Pendrive",
-        "Descripcion": "Guardar Archivos",
-        "UnidadMedida": "UN",
-        "PrecioDet": "9990",
-        "Iva": "SI",
-        "Cantidad": "20",
-        "Descuento": "20",
-        "TipoDescuento": "+%",
-        "Total": "9990"
-    },
-    {
-        "CodigoDet": "12345",
-        "NombreDet": "Pendrive",
-        "Descripcion": "Guardar Archivos",
-        "UnidadMedida": "UN",
-        "PrecioDet": "9990",
-        "Iva": "SI",
-        "Cantidad": "20",
-        "Descuento": "20",
-        "TipoDescuento": "+%",
-        "Total": "9990"
-    }
-    ];*/
-   var objTable= $("#TablaDetalles").DataTable({
-        "destroy": true,
-        "pageLength": 5,
-        "lengthChange": false,
-        "searching": false,
-        "info": false,
-      //  "data": x,
-        "bAutoWidth": false,
-        "columns": [
+    var TblListaDetCols = [
             { "data": "CodigoDet", "title": "Codigo" },
             { "data": "NombreDet", "title": "Nombre" },
             { "data": "Descripcion", "title": "Descripcion" },
             { "data": "UnidadMedida", "title": "U.Medida" },
             { "data": "PrecioDet", "title": "Precio" },
-            { "data": "Iva", "title": "Iva" },
+           // { "data": "Iva", "title": "Iva" },
+              {
+                  "title": "Iva",
+                  "mRender": function (data, type, row,meta) {
+                      //console.log(meta);
+                      return '<select id="SelectIva'+meta.row+'" class="form-control _iva" oldValue=""><option value="na">Seleccione</option><option value="si">SI</option><option value="no">NO</option></select>';
+                  }
+              },
             { "data": "Cantidad", "title": "Cantidad" },
             { "data": "Descuento", "title": "Descuento" },
             { "data": "Total", "title": "Total" },
@@ -65,26 +24,52 @@ $(document).ready(function () {
                       return '<center><a class="btn btn-danger" ><i class="fa fa-trash" style="color:white" aria-hidden="true"></i></a></center>';
                   }
               }
-        ], "language": {
-            "emptyTable": "No hay registros para mostrar.",
-            "info": "Mostrando registros _START_ al _END_ de _TOTAL_ registros totales",
-            "infoEmpty": "Mostrando 0 registros",
-            "infoFiltered": "(filtrados de _MAX_)",
-            "infoPostFix": "",
-            "thousands": ".",
-            "loadingRecords": "Cargando grilla...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "No se encontraron registros para la búsqueda",
-            "paginate": {
-                "first": "Primer",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        }
-    });
+    ];
+    //tabla que contiene los detalles del formulario principal
+    var objTableListaDetalles = MakeTable(
+                    5,
+                    null,
+                    TblListaDetCols,
+                    "#TablaDetalles"
+                    );
 
+
+    var TempDataRow = [];
+    $('#TablaDetalles tbody').on('change', '._iva', function () {
+        var dataRow = objTableListaDetalles.row($(this).parents('tr')).data();
+
+
+        var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
+        var elem = $(this).parents('tr');       
+        var _iva = elem.find('._iva');
+
+       // console.log(dataRow);
+        var valueWithIva = "";
+
+        switch (_iva.val())
+        {
+            case "si":
+                //asigno
+                //_iva.attr("oldValue", dataRow.Total);
+                // console.log(_iva[0]);
+                valueWithIva = (dataRow.Total * (1.19));
+                dataRow.Total = valueWithIva;
+               
+                break;
+            case "no":
+                //obtengo
+               // console.log(_iva[0]);
+                dataRow.Total = $("#SelectIva"+RowIndex+"").attr("oldValue");
+                break;
+            default:
+                break;
+        }
+        objTableListaDetalles.row(RowIndex).data(dataRow).draw();
+ 
+       
+
+
+    });
 
    $("#btnAddDetalle").on('click', function () {
        //cargamos el template 
@@ -103,7 +88,7 @@ $(document).ready(function () {
                    console.log(msg);
     
                    $.each(JSON.parse(msg.d), function (i, item) {
-                       console.log(i, item);
+                     //  console.log(i, item);
                        $('#UnidadMedidaDetModal').append($('<option>', {
                            value: item.IdUnidadMedida,
                            text: item.CodUnidadMedida
@@ -116,7 +101,6 @@ $(document).ready(function () {
 
                var obj = new Object();
                var date = new Date();
-
 
                obj.p_ID_EMPRESA = $("#_SES_IdEmpresa").val();
                obj.p_NOMBRE = $("#txtNombreDetModal").val();
@@ -149,22 +133,6 @@ $(document).ready(function () {
            });
 
        });
-        /*
-        console.log("hola");
-        console.log(objTable);
-        objTable.rows.add(
-                         [{
-                             "CodigoDet": "1",
-                             "NombreDet": "2",
-                             "Descripcion": "3",
-                             "UnidadMedida": "4",
-                             "PrecioDet": "5",
-                             "Iva": "6",
-                             "Cantidad": "7",
-                             "Descuento": "8",
-                             "Total":"9"
-                         }]
-                 ).draw();*/
    });
 
    $("#btnAddListaDetalle").on('click', function () {
@@ -182,30 +150,18 @@ $(document).ready(function () {
                contentType: 'application/json; charset=utf-8',
                dataType: 'json',
                success: function (msg) {
-                   var  TblListaDetalles= $("#TblListaDetalles").DataTable({
-                       "destroy": true,
-                       "pageLength": 5,
-                       "lengthChange": false,
-                       "searching": false,
-                       "info": false,
-                       "responsive": true,
-                       "data": JSON.parse(msg.d),
-                       "bAutoWidth": false,
-                       "columns": [
+                   //definimos las columnas 
+                  var ColumnDefs = [
                            { "data": "CodigoDet", "title": "Codigo" },
                            { "data": "NombreDet", "title": "Nombre" },
                            { "data": "Descripcion", "title": "Descripcion" },
                            { "data": "CodUnidadMedida", "title": "U.Medida" },
                            { "data": "PrecioDet", "title": "Precio" },
-                          // { "data": "Iva", "title": "Iva" },
                            { "data": "Cantidad", "title": "Stock" },
-
-                          // { "data": "Descuento", "title": "Descuento" },
-                         //  { "data": "Total", "title": "Total" },
                              {
                                  "title": "Cantidad",
                                  "mRender": function (data, type, row) {
-                                     return '<input type="number" min="0" value="0" class="form-control">';
+                                     return '<input type="number" min="0" value="0" class="form-control CantidadProd">';
                                  }
                              },
                              {
@@ -213,31 +169,50 @@ $(document).ready(function () {
                                  "mRender": function (data, type, row) {
                                      return '<center><a class="btn btn-success AddDetalleLista" ><i class="fa fa-plus" style="color:white" aria-hidden="true"></i></a></center>';
                                  }
-                             }
-                       ], "language": {
-                           "emptyTable": "No hay registros para mostrar.",
-                           "info": "Mostrando registros _START_ al _END_ de _TOTAL_ registros totales",
-                           "infoEmpty": "Mostrando 0 registros",
-                           "infoFiltered": "(filtrados de _MAX_)",
-                           "infoPostFix": "",
-                           "thousands": ".",
-                           "loadingRecords": "Cargando grilla...",
-                           "processing": "Procesando...",
-                           "search": "Buscar:",
-                           "zeroRecords": "No se encontraron registros para la búsqueda",
-                           "paginate": {
-                               "first": "Primer",
-                               "last": "Último",
-                               "next": "Siguiente",
-                               "previous": "Anterior"
-                           }
-                       }
-                   });
+                             }];
+                   //construimos la tabla
+                  var TblListaDetalles = MakeTable(
+                      5,
+                      JSON.parse(msg.d),
+                      ColumnDefs,
+                      "#TblListaDetalles"
+                      );
 
-
+                    //eventos de la tabla
                    $('#TblListaDetalles tbody').on('click', '.AddDetalleLista', function () {
                        var data = TblListaDetalles.row($(this).parents('tr')).data();
-                       console.log(data);
+                      // console.log(data);
+                       var elem = $(this).parents('tr');
+                       var CantidadProd = elem.find('.CantidadProd').val();
+
+                       if (CantidadProd > data.Cantidad)
+                       {
+                           ModalElement.Create();
+                           ModalElement.Class("warning");
+                           ModalElement.Header("Error en cantidad!");
+                           ModalElement.Message("La cantidad no puede superar al stock!");
+                           ModalElement.Show();
+                       }
+                       else
+                       {
+                           console.log(data);
+
+                           objTableListaDetalles.rows.add(
+                                [{
+                                    "CodigoDet": data.CodigoDet,
+                                    "NombreDet": data.NombreDet,
+                                    "Descripcion": data.Descripcion,
+                                    "UnidadMedida": data.IdUnidadMedida,
+                                    "PrecioDet": data.PrecioDet,
+                                   // "Iva": "6",
+                                    "Cantidad": CantidadProd,
+                                    "Descuento": "8",
+                                    "Total": (CantidadProd * data.PrecioDet)
+                                }]
+                                  ).draw();
+                       }
+
+                       //console.log(CantidadProd);
                    });
 
                }
