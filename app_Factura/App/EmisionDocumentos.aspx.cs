@@ -14,7 +14,7 @@ namespace app_Factura.App
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        
+
         }
 
         [WebMethod]
@@ -25,6 +25,18 @@ namespace app_Factura.App
 
             return mysql.ExecQuery().ToJson();
         }
+
+        [WebMethod]
+        public static string GetComuna() {
+            //sp_sel_comuna
+
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+            mysql.AddProcedure("sp_sel_comuna");
+
+            return mysql.ExecQuery().ToJson();
+        }
+
 
         [WebMethod]
         public static string GetDetalleProducto(string RegInicio,string RegFin)

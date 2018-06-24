@@ -10,8 +10,8 @@
               {
                   "title": "Iva",
                   "mRender": function (data, type, row,meta) {
-                      //console.log(meta);
-                      return '<select id="SelectIva'+meta.row+'" class="form-control _iva" oldValue=""><option value="na">Seleccione</option><option value="si">SI</option><option value="no">NO</option></select>';
+                   //   console.log(data);
+                      return '<select id="SelectIva' + meta.row +'" class="form-control form-control-sm _iva" oldValue="'+row.Total+'"><option value="na" selected="selected">Seleccione</option><option value="si">SI</option><option value="no">NO</option></select>';
                   }
               },
             { "data": "Cantidad", "title": "Cantidad" },
@@ -21,7 +21,7 @@
               {
                   "title": "Accion",
                   "mRender": function (data, type, row) {
-                      return '<center><a class="btn btn-danger" ><i class="fa fa-trash" style="color:white" aria-hidden="true"></i></a></center>';
+                      return '<center><a class="btn btn-danger btn-sm DeleteDetalle" ><i class="fa fa-trash" style="color:white" aria-hidden="true"></i></a></center>';
                   }
               }
     ];
@@ -33,43 +33,59 @@
                     "#TablaDetalles"
                     );
 
-
-    var TempDataRow = [];
+    //asignacion de iva
     $('#TablaDetalles tbody').on('change', '._iva', function () {
         var dataRow = objTableListaDetalles.row($(this).parents('tr')).data();
-
-
         var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
         var elem = $(this).parents('tr');       
         var _iva = elem.find('._iva');
 
-       // console.log(dataRow);
         var valueWithIva = "";
 
         switch (_iva.val())
         {
             case "si":
                 //asigno
-                //_iva.attr("oldValue", dataRow.Total);
-                // console.log(_iva[0]);
+               // $("#SelectIva" + RowIndex + "").attr("oldValue", dataRow.Total);
                 valueWithIva = (dataRow.Total * (1.19));
-                dataRow.Total = valueWithIva;
-               
+                dataRow.Total = valueWithIva;                        
                 break;
             case "no":
                 //obtengo
-               // console.log(_iva[0]);
                 dataRow.Total = $("#SelectIva"+RowIndex+"").attr("oldValue");
                 break;
             default:
                 break;
         }
-        objTableListaDetalles.row(RowIndex).data(dataRow).draw();
- 
-       
-
-
+       // console.log(GetCellIndexByName(objTableListaDetalles, 'Total'));
+        SetCellValue(
+            objTableListaDetalles,
+            RowIndex,
+            GetCellIndexByName(objTableListaDetalles, 'Total'),
+            dataRow.Total
+        );
+        //objTableListaDetalles.row(RowIndex).data(dataRow).draw();    
     });
+
+    //eliminacion de data de la grilla de detalles principal
+    $('#TablaDetalles tbody').on('click', '.DeleteDetalle', function () {
+        ModalElement.Create();
+        ModalElement.Class("danger");
+        ModalElement.Header("Eliminar detalle");
+        ModalElement.Message("Desea quitar este detalle?");
+  
+        ModalElement.Confirm(true, function (r) {
+
+            if (r == true) {
+                var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
+                objTableListaDetalles.row(RowIndex).remove().draw();
+            }
+        });
+
+        ModalElement.Show();
+    });
+
+
 
    $("#btnAddDetalle").on('click', function () {
        //cargamos el template 
@@ -161,13 +177,13 @@
                              {
                                  "title": "Cantidad",
                                  "mRender": function (data, type, row) {
-                                     return '<input type="number" min="0" value="0" class="form-control CantidadProd">';
+                                     return '<input type="number" min="0" value="0" class="form-control form-control-sm CantidadProd">';
                                  }
                              },
                              {
                                  "title": "Accion",
                                  "mRender": function (data, type, row) {
-                                     return '<center><a class="btn btn-success AddDetalleLista" ><i class="fa fa-plus" style="color:white" aria-hidden="true"></i></a></center>';
+                                     return '<center><a class="btn btn-success btn-sm AddDetalleLista" ><i class="fa fa-plus" style="color:white" aria-hidden="true"></i></a></center>';
                                  }
                              }];
                    //construimos la tabla
@@ -221,6 +237,56 @@
        });
 
    });
+
+ 
+   $("#AddReceptor").on("click", function () {
+
+       $(".TemplateZone").load("HtmlTemplates/ModalReceptor.html", function () {
+
+           $("#ModalReceptor").modal('show');
+
+
+           ServerSide('EmisionDocumentos.aspx', 'GetComuna', null, function (r) {
+
+
+              var comuna = JSON.parse(r.d);
+              console.log(comuna);
+
+              var availableTags = [
+                  "ActionScript",
+                  "AppleScript",
+                  "Asp",
+                  "BASIC",
+                  "C",
+                  "C++",
+                  "Clojure",
+                  "COBOL",
+                  "ColdFusion",
+                  "Erlang",
+                  "Fortran",
+                  "Groovy",
+                  "Haskell",
+                  "Java",
+                  "JavaScript",
+                  "Lisp",
+                  "Perl",
+                  "PHP",
+                  "Python",
+                  "Ruby",
+                  "Scala",
+                  "Scheme"
+              ];
+
+               $("#txtComunaRecep").autocomplete({
+                   source: availableTags
+               });
+         
+
+           });
+
+       });
+   });
+
 
 
 });

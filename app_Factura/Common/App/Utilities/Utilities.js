@@ -40,6 +40,7 @@
             "pageLength": pageLength,
             "lengthChange": false,
             "searching": false,
+            "responsive":true,
             "info": false,
             "data": data,
             "bAutoWidth": false,
@@ -68,6 +69,12 @@
 
     }
 
- 
+    GetCellIndexByName = function (table,IndexName) {
+        return table.column(':contains(' + IndexName+')')[0][0];
+    } 
+
+    SetCellValue = function(table,RowIndex,ColIndex,value) {
+        table.cell({ row: RowIndex, column: ColIndex }).data(value).draw();
+    }
 
 });

@@ -118,6 +118,7 @@
                 IdMessage = "Message_" + Id.toString().replace(".", "");
                 IdButton = "Button" + Id.toString().replace(".", "");
 
+                //se opta por insertar en tiempo de ejecucion el codigo html en forma de string es mas rapido que insetar un template externo 
                 var x = '<div class="modal fade" id="ModalComponent" role="dialog">';
                 x = x + '<div class="modal-dialog">';
                 x = x + '<div class="modal-content">';

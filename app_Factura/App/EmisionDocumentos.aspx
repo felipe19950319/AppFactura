@@ -70,13 +70,26 @@
                                     <div class="card-header bg-primary">
                             
                                          <a class="text-white"> <i class="fa fa-user"></i> Datos del Receptor</a>
+
+                                        <a id="AddReceptor" class="btn btn-sm btn-primary float-sm-right text-white"> <i class="fa fa-plus"></i> Nuevo Receptor</a>
                                     </div>
                                     <div class="card-body">
                                 <div class="col-md-12">  
+                               
                                   <div class="row">
                                          <div class="col-md-4">
-                                          Rut Receptor:<br/>
-                                             <input type="text" id="txtRutReceptor" class="form-control"/>
+                                             Rut Receptor:<br/>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control"/>
+                                              <div class="input-group-append">
+                                                <button id="btnModalReceptor" class="btn btn-success" type="button">
+                                                    <i class="fa fa-search" style="color:white" aria-hidden="true"></i>
+                                                </button>
+                                              </div>
+                                            </div>
+
+                                          
+                                             <!--<input type="text" id="txtRutReceptor" class="form-control"/>-->
                                          </div>
                                           <div class="col-md-4">
                                           Razon social:<br/>
@@ -116,7 +129,7 @@
 
                           <!--detalle-->
                              <div class="row">
-                              <div class="col-lg-12">
+                              <div class="col-lg-10">
                                <div class="card mb-3">
                                     <div class="card-header bg-secondary">
                             
@@ -124,26 +137,28 @@
                                     </div>
                                     <div class="card-body">
                                 <div class="col-md-12">  
-
-                                    <div class="row">                                      
-
-                                     <div class="col-md-2">
-                                        <input id="btnAddDetalle" type="button" class="btn btn-danger" value="Agregar nuevo detalle"/>         
-                                      </div> 
-                                          <div class="col-md-2">
-                                        <input id="btnAddListaDetalle" type="button" class="btn btn-success" value="Agregar desde lista"/>         
-                                      </div>                        
-                                    </div>
-                                    <br/>
-                                      
-                                  <div class="row">
+                                                              
+                                 
+                                       <div class="row">       
+                                            
+                                            <div class="col-md-2">
+                                                    <input id="btnAddDetalle" type="button" class="btn btn-danger btn-sm" value="Agregar nuevo detalle"/>         
+                                            </div>
+                                             <div class="col-md-2">
+                                                    <input id="btnAddListaDetalle" type="button" class="btn btn-success btn-sm" value="Agregar desde lista"/>         
+                                            </div>  
+                                            <div class="col-md-8">
+                                                    </div>
+                                    </div>   
+                                    <div class="row">       
                                        <div class="col-md-12">
-                                        <table id="TablaDetalles">
+                                        <table id="TablaDetalles" class="display compact">
                                             <thead></thead>
                                             <tbody></tbody>
                                         </table>
                                         </div>
-                                 </div>
+                                    </div>                               
+                           
 
                                 </div>
                                                                                        
