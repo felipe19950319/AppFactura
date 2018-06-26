@@ -77,4 +77,49 @@
         table.cell({ row: RowIndex, column: ColIndex }).data(value).draw();
     }
 
+    likeRut = function (rut, NumberSplit, dvSplit) {
+        rut = rut.replace(/\-/g, '').replace(/\./g, '').replace(/\ /g, '');
+        if (rut.length < 2) return rut;
+        var nr = "", dig = 0;
+        for (var x = rut.length - 2; x >= 0; x--) {
+            dig++;
+            if (dig > 3) {
+                dig = 1;
+                nr = NumberSplit + nr;
+            }
+            nr = rut[x] + nr;
+        }
+        return nr + dvSplit + rut[rut.length - 1].toLowerCase();
+    }
+
+    isNumeric = function (n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    isRut = function (campo) {
+        campo = campo.replace(/\-/g, '').replace(/\./g, '').replace(/\ /g, '');
+        if (campo.length < 2) return false;
+        var rut = campo.substring(0, campo.length - 1), drut = campo.substring(campo.length - 1).toLowerCase(), dvr = '0', mul = 2, suma = 0;
+        if (!isNumeric(rut) || (!isNumeric(drut) && drut != "k")) return false;
+
+        for (i = rut.length - 1 ; i >= 0; i--) {
+            suma = suma + rut.charAt(i) * mul;
+            if (mul == 7)
+                mul = 2;
+            else
+                mul++
+        }
+        res = suma % 11;
+        if (res == 1)
+            dvr = 'k';
+        else if (res == 0)
+            dvr = '0';
+        else {
+            dvi = 11 - res;
+            dvr = dvi + "";
+        }
+
+        return dvr == drut;
+    }
+
 });

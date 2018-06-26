@@ -306,11 +306,27 @@
          
            /*------------------------autocomplete-----------------------------*/
 
+               $("#txtRutRecep").on('change', function () { 
+                   var rut = $("#txtRutRecep").val();
+                   $("#txtRutRecep").val( likeRut(rut, "", "-"));
+               });
+
+          
+               ValidateRecep = function (obj) {
+                   var Error = "";
+
+                   if (isRut((obj.rut + obj.DvReceptor))==false)
+                   {
+                       Error = Error + "el rut ingresado no es valido!";
+                   }
+                   console.log(Error);
+               }
+
                $("#btnAddNewRecep").on('click', function () {
                    var obj = new Object();
                    obj.NombreReceptor = $("#txtNombreRecep").val();
-                   obj.RutReceptor = $("#txtRutRecep").val();
-                   obj.DvReceptor = $("#txtRutRecep").val();
+                   obj.RutReceptor = $("#txtRutRecep").val().split('-')[0];
+                   obj.DvReceptor = $("#txtRutRecep").val().split('-')[1];
                    obj.EmailReceptor = $("#txtEmailRecep").val();
                    obj.DireccionReceptor = $("#txtDireccionRecep").val();
                    obj.TelefonoReceptor = $("#txtTelefonoRecep").val();
@@ -318,6 +334,7 @@
                    obj.Comuna = $("#txtComunaRecep").val();
                    obj.IdGiro = $("#txtGiroRecep").attr("IdGiro");
 
+                   ValidateRecep(obj);
                });
       
        });
