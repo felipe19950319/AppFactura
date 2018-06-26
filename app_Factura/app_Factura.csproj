@@ -86,6 +86,9 @@
     <Content Include="Common\images\sort_both.png" />
     <Content Include="Common\images\sort_desc.png" />
     <Content Include="Common\images\sort_desc_disabled.png" />
+    <Content Include="Common\jquery-ui\jquery-ui.css" />
+    <Content Include="Common\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="Common\jquery-ui\jquery-ui.theme.css" />
     <Content Include="Common\Mustache\Mustache.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />

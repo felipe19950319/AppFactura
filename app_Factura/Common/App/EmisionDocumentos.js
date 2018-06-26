@@ -244,47 +244,82 @@
        $(".TemplateZone").load("HtmlTemplates/ModalReceptor.html", function () {
 
            $("#ModalReceptor").modal('show');
-
-
-           ServerSide('EmisionDocumentos.aspx', 'GetComuna', null, function (r) {
-
-
-              var comuna = JSON.parse(r.d);
-              console.log(comuna);
-
-              var availableTags = [
-                  "ActionScript",
-                  "AppleScript",
-                  "Asp",
-                  "BASIC",
-                  "C",
-                  "C++",
-                  "Clojure",
-                  "COBOL",
-                  "ColdFusion",
-                  "Erlang",
-                  "Fortran",
-                  "Groovy",
-                  "Haskell",
-                  "Java",
-                  "JavaScript",
-                  "Lisp",
-                  "Perl",
-                  "PHP",
-                  "Python",
-                  "Ruby", 
-
-                  "Scala",
-                  "Scheme"
-              ];
-
+           /*------------------------autocomplete-----------------------------*/
                $("#txtComunaRecep").autocomplete({
-                   source: availableTags
+                   minLength: 2,
+                   source: function (request,response) {
+                       var object = new Object();
+                       object.NombreComuna = request.term;
+
+                       ServerSide('EmisionDocumentos.aspx', 'GetComuna', object, function (r) {
+                          var response_ = JSON.parse(r.d);
+                            response($.map(response_, function (val, i) {
+                                return {
+                                    label: val.Label,
+                                    value: val.Label
+                                };
+                           }));
+                       });
+                   }
                });
+
+
+               $("#txtCiudadRecep").autocomplete({
+                   minLength: 2,
+                   source: function (request, response) {
+                       var object = new Object();
+                       object.NombreRegion = request.term;
+
+                       ServerSide('EmisionDocumentos.aspx', 'GetRegion', object, function (r) {
+                           var response_ = JSON.parse(r.d);
+                           response($.map(response_, function (val, i) {
+                               return {
+                                   label: val.Label,
+                                   value: val.Label
+                               };
+                           }));
+                       });
+                   }
+               });
+
+               $("#txtGiroRecep").autocomplete({
+                   minLength: 2,
+                   source: function (request, response) {
+                       var object = new Object();
+                       object.GIRO = request.term;
+
+                       ServerSide('EmisionDocumentos.aspx', 'GetGiro', object, function (r) {
+                           var response_ = JSON.parse(r.d);
+                           response($.map(response_, function (val, i) {
+                               return {
+                                   label:val.IdGiro+' '+ val.Label,
+                                   value: val.Label
+                               };
+                           }));
+                       });
+                   },
+                   select: function (event, ui) {
+                      // var Id = ui.item.label.replace(/^\D+/g, '');
+                       $("#txtGiroRecep").attr("IdGiro",parseInt(ui.item.label));
+                   }
+               }); 
          
+           /*------------------------autocomplete-----------------------------*/
 
-           });
+               $("#btnAddNewRecep").on('click', function () {
+                   var obj = new Object();
+                   obj.NombreReceptor = $("#txtNombreRecep").val();
+                   obj.RutReceptor = $("#txtRutRecep").val();
+                   obj.DvReceptor = $("#txtRutRecep").val();
+                   obj.EmailReceptor = $("#txtEmailRecep").val();
+                   obj.DireccionReceptor = $("#txtDireccionRecep").val();
+                   obj.TelefonoReceptor = $("#txtTelefonoRecep").val();
+                   obj.Ciudad = $("#txtCiudadRecep").val();
+                   obj.Comuna = $("#txtComunaRecep").val();
+                   obj.IdGiro = $("#txtGiroRecep").attr("IdGiro");
 
+               });
+      
        });
    });
 

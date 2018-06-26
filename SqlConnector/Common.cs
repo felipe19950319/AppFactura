@@ -53,9 +53,9 @@ namespace SqlConnector
                 }
                string[] t =  c.Split(new char[] { ':' }, 2);
 
-               Parameters.Add(
-                   t[0].Replace("\"",""),
-                   t[1].Replace("\"", "")
+                Parameters.Add(
+                    t[0].Replace("\"", ""),
+                    t[1].Replace("\"", "").Substring(1)
                    );                 
             }
 

@@ -23,8 +23,10 @@
 <link href="../Common/font-awesome/Content/font-awesome.min.css" rel="stylesheet" />
 <link href="../Common/sb-Admin/css/sb-admin.css" rel="stylesheet" />
 <link href="../Common/Datatables/DataTables-1.10.16.css" rel="stylesheet" />
-   
 
+    <link href="../Common/jquery-ui/jquery-ui.css" rel="stylesheet" />
+    <link href="../Common/jquery-ui/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="../Common/jquery-ui/jquery-ui.theme.css" rel="stylesheet" />
 
 </head>
 <body>

@@ -27,12 +27,42 @@ namespace app_Factura.App
         }
 
         [WebMethod]
-        public static string GetComuna() {
+        public static string GetComuna(string json) {
             //sp_sel_comuna
 
             MySqlConnector mysql = new MySqlConnector();
             mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
             mysql.AddProcedure("sp_sel_comuna");
+            mysql.ParametersFromJson(json);
+
+
+            return mysql.ExecQuery().ToJson();
+        }
+
+        [WebMethod]
+        public static string GetRegion(string json)
+        {
+            //sp_sel_comuna
+
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+            mysql.AddProcedure("sp_sel_region");
+            mysql.ParametersFromJson(json);
+
+
+            return mysql.ExecQuery().ToJson();
+        }
+
+        [WebMethod]
+        public static string GetGiro(string json)
+        {
+            //sp_sel_comuna
+
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+            mysql.AddProcedure("sp_sel_giro");
+            mysql.ParametersFromJson(json);
+
 
             return mysql.ExecQuery().ToJson();
         }
