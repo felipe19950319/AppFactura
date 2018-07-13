@@ -70,6 +70,7 @@
     <Content Include="App\General.aspx" />
     <Content Include="App\HtmlTemplates\ModalDetalles.html" />
     <Content Include="App\HtmlTemplates\ModalListaDetalles.html" />
+    <Content Include="App\HtmlTemplates\ModalListaReceptor.html" />
     <Content Include="App\HtmlTemplates\ModalReceptor.html" />
     <Content Include="App\SeleccionEmpresa.aspx" />
     <Content Include="Common\App\EmisionDocumentos.js" />

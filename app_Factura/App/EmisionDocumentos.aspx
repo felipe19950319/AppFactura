@@ -11,7 +11,7 @@
                 <div class="col-md-12">
 
                      <div class="container-fluid">
-                         
+                   
                    
                          <!--emisor -->
                           <div class="row">
@@ -80,7 +80,7 @@
                                          <div class="col-md-4">
                                              Rut Receptor:<br/>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control"/>
+                                              <input type="text" class="form-control" disabled="disabled" id="txtRutReceptor"/>
                                               <div class="input-group-append">
                                                 <button id="btnModalReceptor" class="btn btn-success" type="button">
                                                     <i class="fa fa-search" style="color:white" aria-hidden="true"></i>
@@ -93,12 +93,12 @@
                                          </div>
                                           <div class="col-md-4">
                                           Razon social:<br/>
-                                             <input type="text" id="txtRazonSocialReceptor" class="form-control"/>
+                                             <input type="text" id="txtRazonSocialReceptor" class="form-control" disabled="disabled"/>
                                          </div>
 
                                          <div class="col-md-4">
                                           Giro:<br/>
-                                             <input type="text" id="txtGiroReceptor" class="form-control"/>
+                                             <input type="text" id="txtGiroReceptor" class="form-control" disabled="disabled"/>
                                          </div>
                                    
                                      </div>
@@ -106,16 +106,16 @@
                                      <div class="row">
                                          <div class="col-md-4">
                                           Comuna:<br/>
-                                             <input type="text" id="txtComunaReceptor" class="form-control"/>
+                                             <input type="text" id="txtComunaReceptor" class="form-control" disabled="disabled"/>
                                          </div>
                                           <div class="col-md-4">
                                           Direccion:<br/>
-                                             <input type="text" id="txtDireccionReceptor" class="form-control"/>
+                                             <input type="text" id="txtDireccionReceptor" class="form-control" disabled="disabled"/>
                                          </div>
 
                                          <div class="col-md-4">
                                           Ciudad:<br/>
-                                             <input type="text" id="txtCiudadReceptor" class="form-control"/>
+                                             <input type="text" id="txtCiudadReceptor" class="form-control" disabled="disabled"/>
                                          </div>
                                          
                                      </div>
@@ -130,15 +130,15 @@
                           <!--detalle-->
                              <div class="row">
                               <div class="col-lg-10">
-                               <div class="card mb-3">
+                               <div class="card mb-3" style="width:120%">
                                     <div class="card-header bg-secondary">
                             
                                          <a class="text-white"> <i class="fa fa-clipboard"></i> Detalle</a>
                                     </div>
                                     <div class="card-body">
                                 <div class="col-md-12">  
-                                                              
-                                 
+
+                                                                                
                                        <div class="row">       
                                             
                                             <div class="col-md-2">
@@ -148,7 +148,8 @@
                                                     <input id="btnAddListaDetalle" type="button" class="btn btn-success btn-sm" value="Agregar desde lista"/>         
                                             </div>  
                                             <div class="col-md-8">
-                                                    </div>
+                                                  <input id="PruebaTotal" type="button" class="btn btn-success btn-sm" value="Prueba total"/>         
+                                              </div>
                                     </div>   
                                     <div class="row">       
                                        <div class="col-md-12">
@@ -157,7 +158,50 @@
                                             <tbody></tbody>
                                         </table>
                                         </div>
-                                    </div>                               
+                                    </div>    
+                                    
+                                           <div class="row">
+
+                                            <div class="col-md-2">
+                                                Dscto. Global:<br/>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control form-control-sm" id="txtDctoRcrgoTotal"/>
+                                              <div class="input-group-append">
+                                                <select id="ListaDctoRcrgoTotal" class="btn btn-primary btn-sm">
+                                                    <option value="0">N/A</option>
+                                                    <option value="1">+%</option>
+                                                    <option value="2">-%</option>
+                                                    <option value="3">+$</option>
+                                                    <option value="4">-$</option>
+                                                </select>
+                                              </div>
+                                            </div>
+
+                                                </div>
+                                            <div class="col-md-2">
+                                                     Exento:<br/>
+                                                   <input type="text" id="txtExentoTot" class="form-control form-control-sm" disabled="disabled" value="0"/>
+                                   
+                                                </div>
+                                            <div class="col-md-2">
+                                                Tasa Iva:<br/>
+                                                   <input type="text" id="txtTasaIvaTot" class="form-control form-control-sm" disabled="disabled" value="19.00 %"/>
+                                                </div>
+                                            <div class="col-md-2">
+                                                Iva:<br/>
+                                                  <input type="text" id="txtIvaTot" class="form-control form-control-sm" disabled="disabled" value="0"/>
+                                                </div>
+
+                                            <div class="col-md-2">
+                                                Neto:<br/>
+                                                 <input type="text" id="txtNetoTot" class="form-control form-control-sm" disabled="disabled" value="0"/>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                Total:<br/>
+                                                <input type="text" id="txtDetTotal" class="form-control form-control-sm" disabled="disabled" value="0"/>
+                                                </div>
+                                        </div>                             
                            
 
                                 </div>

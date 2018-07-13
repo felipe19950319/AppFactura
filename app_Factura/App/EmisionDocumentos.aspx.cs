@@ -29,12 +29,10 @@ namespace app_Factura.App
         [WebMethod]
         public static string GetComuna(string json) {
             //sp_sel_comuna
-
             MySqlConnector mysql = new MySqlConnector();
             mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
             mysql.AddProcedure("sp_sel_comuna");
             mysql.ParametersFromJson(json);
-
 
             return mysql.ExecQuery().ToJson();
         }
@@ -43,10 +41,22 @@ namespace app_Factura.App
         public static string GetRegion(string json)
         {
             //sp_sel_comuna
-
             MySqlConnector mysql = new MySqlConnector();
             mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
             mysql.AddProcedure("sp_sel_region");
+            mysql.ParametersFromJson(json);
+
+            return mysql.ExecQuery().ToJson();
+        }
+
+        [WebMethod]
+        public static string GetEmpresa(string json)
+        {
+            //sp_sel_comuna
+
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+            mysql.AddProcedure("sp_sel_empresa");
             mysql.ParametersFromJson(json);
 
 
@@ -103,6 +113,42 @@ namespace app_Factura.App
             }     
         }
 
+        [WebMethod]
+        public static string InsertReceptor(string json)
+        {
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                MySqlConnector mysql = new MySqlConnector();
+                mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+                mysql.AddProcedure("sp_ins_receptor");
+
+                mysql.ParametersFromJson(json);
+
+                return mysql.ExecQuery().ToJson();
+            }
+            else {
+                return "ERROR";
+            }
+        }
+
+        [WebMethod]
+        public static string GetReceptor(string json)
+        {
+            if (!string.IsNullOrEmpty(json))
+            {
+                MySqlConnector mysql = new MySqlConnector();
+                mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+                mysql.AddProcedure("sp_sel_receptor");
+
+                mysql.ParametersFromJson(json);
+
+                return mysql.ExecQuery().ToJson();
+            }
+            else {
+                return "ERROR";
+            }
+        }
 
     }
 }

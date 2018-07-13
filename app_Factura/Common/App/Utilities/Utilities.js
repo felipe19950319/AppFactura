@@ -22,6 +22,10 @@
             }
         });
     }
+    
+    RoundDecimal = function (Number) {
+       return Math.floor(Number * 100) / 100;
+    }
 
     Date.prototype.yyyymmdd = function (separator) {
         var mm = this.getMonth() + 1; // getMonth() is zero-based

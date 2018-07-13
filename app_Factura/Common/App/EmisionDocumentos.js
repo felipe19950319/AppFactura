@@ -1,12 +1,18 @@
 ﻿$(document).ready(function () {
 
+    var ObjEmpresa = new Object();
+    ObjEmpresa.ID_EMPRESA = $("#_SES_IdEmpresa").val();
+    ServerSide('EmisionDocumentos.aspx', 'GetEmpresa', ObjEmpresa, function (r) {
+        console.log(r);
+    });
+
     var TblListaDetCols = [
             { "data": "CodigoDet", "title": "Codigo" },
             { "data": "NombreDet", "title": "Nombre" },
             { "data": "Descripcion", "title": "Descripcion" },
             { "data": "UnidadMedida", "title": "U.Medida" },
             { "data": "PrecioDet", "title": "Precio" },
-           // { "data": "Iva", "title": "Iva" },
+            { "data": "HasIva", "title": "HasIva" }, //para saber si el detalle tiene iva o no
               {
                   "title": "Iva",
                   "mRender": function (data, type, row,meta) {
@@ -33,6 +39,51 @@
                     "#TablaDetalles"
                     );
 
+    objTableListaDetalles.column(5).visible(false);//desabilitamos la visibilidad de HasIva
+
+    SumDetails = function (TablaDetalles)
+    {
+        var AcumTotal = 0;
+        var AcumExento = 0;
+        var AcumTasaIva = 0;
+        var AcumSinIva = 0;
+        var AcumConIva = 0;
+        var AcumDiffIva = 0;
+        var AcumNeto = 0;
+
+        TablaDetalles.rows().every(function () {
+            var data = this.data();
+            console.log(data);       
+            switch (data.HasIva)
+            {
+                case "SI":
+                    AcumNeto = AcumNeto + (data.PrecioDet * parseInt(data.Cantidad));
+                    AcumConIva = AcumConIva + data.Total;
+                   // AcumDiffIva = AcumDiffIva + (data.Total - data.PrecioDet);
+                    break;
+
+                case "NO":
+                    AcumExento = AcumExento + data.Total;
+                    break;
+            } 
+                
+        });
+
+        AcumDiffIva = AcumConIva-AcumNeto;
+        AcumTotal = AcumExento + AcumConIva;
+        $("#txtIvaTot").val(RoundDecimal(AcumDiffIva));
+        $("#txtExentoTot").val(AcumExento);
+        $("#txtNetoTot").val(AcumNeto);
+        $("#txtDetTotal").val(AcumTotal);
+       // console.log("TotalExento", AcumExento);
+       // console.log("TotalConIva", AcumConIva);
+    }
+
+    $("#PruebaTotal").off().on('click', function () {
+
+        SumDetails(objTableListaDetalles);
+    });
+
     //asignacion de iva
     $('#TablaDetalles tbody').on('change', '._iva', function () {
         var dataRow = objTableListaDetalles.row($(this).parents('tr')).data();
@@ -48,11 +99,13 @@
                 //asigno
                // $("#SelectIva" + RowIndex + "").attr("oldValue", dataRow.Total);
                 valueWithIva = (dataRow.Total * (1.19));
-                dataRow.Total = valueWithIva;                        
+                dataRow.Total =valueWithIva;
+                dataRow.HasIva = 'SI';
                 break;
             case "no":
                 //obtengo
-                dataRow.Total = $("#SelectIva"+RowIndex+"").attr("oldValue");
+                dataRow.Total =parseFloat( $("#SelectIva" + RowIndex + "").attr("oldValue"));
+                dataRow.HasIva = 'NO';
                 break;
             default:
                 break;
@@ -101,7 +154,7 @@
                contentType: 'application/json; charset=utf-8',
                dataType: 'json',
                success: function (msg) {
-                   console.log(msg);
+                   //console.log(msg);
     
                    $.each(JSON.parse(msg.d), function (i, item) {
                      //  console.log(i, item);
@@ -130,10 +183,10 @@
                obj.p_IdUnidadMedida = $("#UnidadMedidaDetModal").val();
 
                ServerSide('EmisionDocumentos.aspx', 'InsertProducto', obj, function (r) {
-                   console.log(r);
+                  // console.log(r);
                    var response = JSON.parse(r.d);
                    var RowInserted = response[0].RowInserted;
-                   console.log(RowInserted);
+                 //  console.log(RowInserted);
 
                    if (RowInserted != null || RowInserted != undefined || RowInserted != "" && RowInserted > 0) {
                        $("#ModalDetalles").modal('hide');
@@ -174,6 +227,7 @@
                            { "data": "CodUnidadMedida", "title": "U.Medida" },
                            { "data": "PrecioDet", "title": "Precio" },
                            { "data": "Cantidad", "title": "Stock" },
+                         
                              {
                                  "title": "Cantidad",
                                  "mRender": function (data, type, row) {
@@ -186,6 +240,8 @@
                                      return '<center><a class="btn btn-success btn-sm AddDetalleLista" ><i class="fa fa-plus" style="color:white" aria-hidden="true"></i></a></center>';
                                  }
                              }];
+
+              
                    //construimos la tabla
                   var TblListaDetalles = MakeTable(
                       5,
@@ -211,8 +267,8 @@
                        }
                        else
                        {
-                           console.log(data);
-
+                        //   console.log(data);
+                           var aux = (CantidadProd * data.PrecioDet);
                            objTableListaDetalles.rows.add(
                                 [{
                                     "CodigoDet": data.CodigoDet,
@@ -220,10 +276,11 @@
                                     "Descripcion": data.Descripcion,
                                     "UnidadMedida": data.IdUnidadMedida,
                                     "PrecioDet": data.PrecioDet,
+                                    "HasIva":'NO',
                                    // "Iva": "6",
                                     "Cantidad": CantidadProd,
                                     "Descuento": "8",
-                                    "Total": (CantidadProd * data.PrecioDet)
+                                    "Total": aux
                                 }]
                                   ).draw();
                        }
@@ -315,11 +372,25 @@
                ValidateRecep = function (obj) {
                    var Error = "";
 
-                   if (isRut((obj.rut + obj.DvReceptor))==false)
+                   if (isRut((obj.RutReceptor + obj.DvReceptor)) == false)
                    {
-                       Error = Error + "el rut ingresado no es valido!";
+                       Error = Error + 'el <strong>RUT</strong> ingresado no es valido! \n';
                    }
-                   console.log(Error);
+
+                   if (obj.NombreReceptor == "" || obj.NombreReceptor == null)
+                   {
+                       Error = Error + 'el <strong>Nombre</strong> ingresado no puede estar vacio! \n';
+                   }
+
+                   if (obj.DireccionReceptor == "" || obj.DireccionReceptor == null) {
+                       Error = Error + 'la <strong>Direccion</strong> ingresada no puede estar vacia! \n';
+                   }
+
+                   if (obj.IdGiro == "" || obj.IdGiro == null) {
+                       Error = Error + 'debe seleccionar un <strong>Giro</strong> de la lista! \n';
+                   }
+                  
+                   return Error;
                }
 
                $("#btnAddNewRecep").on('click', function () {
@@ -334,12 +405,97 @@
                    obj.Comuna = $("#txtComunaRecep").val();
                    obj.IdGiro = $("#txtGiroRecep").attr("IdGiro");
 
-                   ValidateRecep(obj);
+                   var Error = ValidateRecep(obj);
+                   if (Error.length > 0) {
+
+                       ModalElement.Create();
+                       ModalElement.Class("danger");
+                       ModalElement.Header("Error al Agregar Receptor");
+                       ModalElement.Message(Error);
+                       ModalElement.Show();
+                   }
+                   else
+                   {
+                       ServerSide('EmisionDocumentos.aspx', 'InsertReceptor', obj, function (r) {
+                           var response_ = JSON.parse(r.d);
+                           if (response_[0].RESPONSE == "OK")
+                           {
+                               $("#ModalReceptor").modal('hide');
+
+                               ModalElement.Create();
+                               ModalElement.Class("success");
+                               ModalElement.Header("Operacion exitosa!");
+                               ModalElement.Message("Se ha agregado el registro correctamente!");
+                               ModalElement.Show();
+                           }
+                       
+                       });
+                   }
                });
       
        });
    });
 
+
+   $("#btnModalReceptor").on('click', function () {
+       $(".TemplateZone").load("HtmlTemplates/ModalListaReceptor.html", function () {
+           $("#ModalListaReceptor").modal('show');
+
+           $("#SearchReceptor").keyup(function () {
+               if ($(this).val().length > 1) {
+                   var obj = new Object();
+                   obj.Parameter = $(this).val();
+                   ServerSide('EmisionDocumentos.aspx', 'GetReceptor', obj, function (msg) {
+                       //console.log(msg);
+
+
+                       //definimos las columnas 
+                       var ColumnDefs = [
+                                { "data": "RutReceptor", "title": "Rut"},
+                                { "data": "NombreReceptor", "title": "Nombre" },
+                                { "data": "EmailReceptor", "title": "Email" },
+                                /*{ "data": "DireccionReceptor", "title": "Direccion", "width": "20%" },*/
+                                /*{ "data": "TelefonoReceptor", "title": "TelefonoReceptor", "width": "20%" },*/
+                                { "data": "Comuna", "title": "Comuna" },
+                                { "data": "Ciudad", "title": "Ciudad" },
+                                { "data": "NombreGiro", "title": "Giro" },
+                                {
+                                      "title": "",
+                                      "mRender": function (data, type, row) {
+                                          return '<a class="btn btn-success btn-sm SelReceptor"><i class="fa fa-plus" style="color:white" aria-hidden="true"></i></a>';
+                                      }
+                                }
+                             
+                                ];
+                       //construimos la tabla
+                       var TblListaReceptor = MakeTable(
+                           5,
+                           JSON.parse(msg.d),
+                           ColumnDefs,
+                           "#TblListaReceptor"
+                           );
+
+                       $('#TblListaReceptor tbody').off().on('click', '.SelReceptor', function () {
+                           var data = TblListaReceptor.row($(this).parents('tr')).data();
+                         //  var elem = $(this).parents('tr');
+                           console.log(data);
+                           //var CantidadProd = elem.find('.CantidadProd').val();
+                           $("#txtRutReceptor").val(data.RutReceptor);
+                           $("#txtRazonSocialReceptor").val(data.NombreReceptor);
+                           $("#txtGiroReceptor").val(data.NombreGiro);
+                           $("#txtComunaReceptor").val(data.Comuna);
+                           $("#txtDireccionReceptor").val(data.DireccionReceptor);
+                           $("#txtCiudadReceptor").val(data.Ciudad);
+
+                           $("#ModalListaReceptor").modal('hide');
+                       });
+
+                   });
+               }
+       
+           });
+       });
+   });
 
 
 });
