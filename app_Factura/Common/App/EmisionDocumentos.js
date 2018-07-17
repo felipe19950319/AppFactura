@@ -2,9 +2,45 @@
 
     var ObjEmpresa = new Object();
     ObjEmpresa.ID_EMPRESA = $("#_SES_IdEmpresa").val();
+    /*
+     "[
+  {
+    "ID_EMPRESA": "0",
+    "RUT_EMPRESA": "76447592-5",
+    "RAZON_SOCIAL": "TYSCOM SPA",
+    "DIRECCION": "SUECIA ",
+    "COMUNA": "PROVIDENCIA",
+    "CIUDAD": "SANTIAGO",
+    "FECHA_RESOLUCION": "2014-08-22",
+    "CODIGO_SII_SUCUR": "12345",
+    "IdGiro": 722000,
+    "NUM_RESOL": 80,
+    "Acteco": null
+  }
+]"
+     */
     ServerSide('EmisionDocumentos.aspx', 'GetEmpresa', ObjEmpresa, function (r) {
-        console.log(r);
+        var emp = JSON.parse(r.d)[0];
+        $("#txtRutEmisor").val(emp.RUT_EMPRESA);
+        $("#txtFechaResolucion").val(emp.FECHA_RESOLUCION);
+        $("#txtRazonSocial").val(emp.RAZON_SOCIAL);
+
     });
+
+    fnControlDesc = function (row,meta) {
+        var ControlDesc = '';
+        ControlDesc = ControlDesc + '<div class="input-group mb-3" style="top:8px;">';
+        ControlDesc = ControlDesc + '<input type ="number" class="form-control form-control-sm _txtDescRecrgo" id = "txtDctoRcrgoDet' + meta.row+'" style="width:30px"/>';
+        ControlDesc = ControlDesc + '<div class="input-group-append">';
+        ControlDesc = ControlDesc + '<select id="ListaDctoRcrgoDet'+meta.row+'" class="form-control form-control-sm _ListaDescRecrgo" >';
+        ControlDesc = ControlDesc + '<option value="0">NO</option>';
+        ControlDesc = ControlDesc + '<option value="1">+%</option>';
+        ControlDesc = ControlDesc + '<option value="2">-%</option>';
+        ControlDesc = ControlDesc + '<option value="3">+$</option>';
+        ControlDesc = ControlDesc + '<option value="4">-$</option></select></div></div>';
+        console.log(ControlDesc);
+        return ControlDesc;
+    }
 
     var TblListaDetCols = [
             { "data": "CodigoDet", "title": "Codigo" },
@@ -13,6 +49,9 @@
             { "data": "UnidadMedida", "title": "U.Medida" },
             { "data": "PrecioDet", "title": "Precio" },
             { "data": "HasIva", "title": "HasIva" }, //para saber si el detalle tiene iva o no
+            { "data": "HasDesc", "title": "HasDesc" }, //para saber tiene Descuento o recargo
+            { "data": "DescValue", "title": "DescValue" }, //valor del descuento o recargo
+           
               {
                   "title": "Iva",
                   "mRender": function (data, type, row,meta) {
@@ -21,8 +60,16 @@
                   }
               },
             { "data": "Cantidad", "title": "Cantidad" },
-            { "data": "Descuento", "title": "Descuento" },
-            { "data": "Total", "title": "Total" },
+            //{ "data": "Descuento", "title": "Descuento" },
+        {
+            "title": "Descuento/Recargo",
+            "mRender": function (data, type, row,meta) {
+                return fnControlDesc(row,meta);
+            },
+            "width":"10%"
+        },
+        { "data": "Total", "title": "Total" },
+        { "data": "TotalOriginal", "title": "TotalOriginal" },//total original
 
               {
                   "title": "Accion",
@@ -39,7 +86,10 @@
                     "#TablaDetalles"
                     );
 
-    objTableListaDetalles.column(5).visible(false);//desabilitamos la visibilidad de HasIva
+    objTableListaDetalles.column(5).visible(false);
+    objTableListaDetalles.column(6).visible(false);
+    objTableListaDetalles.column(7).visible(false);
+    objTableListaDetalles.column(12).visible(false);
 
     SumDetails = function (TablaDetalles)
     {
@@ -85,7 +135,7 @@
     });
 
     //asignacion de iva
-    $('#TablaDetalles tbody').on('change', '._iva', function () {
+   /* $('#TablaDetalles tbody').on('change', '._iva', function () {
         var dataRow = objTableListaDetalles.row($(this).parents('tr')).data();
         var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
         var elem = $(this).parents('tr');       
@@ -118,7 +168,117 @@
             dataRow.Total
         );
         //objTableListaDetalles.row(RowIndex).data(dataRow).draw();    
+    });*/
+
+    //_ListaDescRecrgo
+    $('#TablaDetalles tbody').on('change', '._ListaDescRecrgo', function () {
+        var me = this;
+        var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
+        $("#txtDctoRcrgoDet" + RowIndex).val(0);
+        FnCalculoIvaDescuento(me);
+        SumDetails(objTableListaDetalles);
     });
+    $('#TablaDetalles tbody').on('change', '._iva', function () {
+        var me = this;
+        FnCalculoIvaDescuento(me);
+        SumDetails(objTableListaDetalles);
+    });
+    //asignacion de descuento o recargo ademas con iva
+    $('#TablaDetalles tbody').on('keyup', '._txtDescRecrgo', function () {
+        var me = this;
+        FnCalculoIvaDescuento(me);
+        SumDetails(objTableListaDetalles);
+    });
+
+    FnCalculoIvaDescuento = function (me)
+    {
+        var dataRow = objTableListaDetalles.row($(me).parents('tr')).data();
+        var RowIndex = objTableListaDetalles.row($(me).parents('tr')).index();
+        var elem = $(me).parents('tr');
+        var _txtDescRecrgo = elem.find('._txtDescRecrgo');
+        var _iva = elem.find('._iva');
+
+        var Operation = $("#ListaDctoRcrgoDet" + RowIndex).val();
+        var OpValue = $("#txtDctoRcrgoDet" + RowIndex).val();
+    
+
+        switch (Operation) {
+            case "0":
+                if (_iva.val() == 'si') {
+                    dataRow.HasIva = 'SI';
+                    //guardamos el valor original para utilizarlo despues
+                   // $("#SelectIva" + RowIndex + "").attr("oldValue", dataRow.Total);
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total=(dataRow.Total * 1.19);
+                }
+                else {
+                    dataRow.HasIva = 'NO';
+                    //corresponde al valor original
+                    dataRow.Total = dataRow.TotalOriginal;
+                   // dataRow.Total=(dataRow.Total);
+                }
+                break;
+            case "1"://+%
+                if (_iva.val() == 'si') {
+                    dataRow.HasIva = 'SI';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal((dataRow.Total + (dataRow.Total * (FloatTryParse( OpValue) / 100))) * 1.19);
+                }
+                else {
+                    dataRow.HasIva = 'NO';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal(dataRow.Total + (dataRow.Total * (FloatTryParse( OpValue) / 100)));
+                }
+                break;
+            case "2"://-%
+                if (_iva.val() == 'si') {
+                    dataRow.HasIva = 'SI';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal((dataRow.Total - (dataRow.Total * (FloatTryParse( OpValue) / 100))) * 1.19);
+                }
+                else {
+                    dataRow.HasIva = 'NO';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal(dataRow.Total - (dataRow.Total * (FloatTryParse( OpValue) / 100)));
+                }
+
+                break;
+            case "3"://+$
+                if (_iva.val() == 'si') {
+                    dataRow.HasIva = 'SI';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal((dataRow.Total + FloatTryParse(OpValue)) * 1.19);
+                }
+                else {
+                    dataRow.HasIva = 'NO';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal((dataRow.Total + FloatTryParse( OpValue)));
+                }
+                break;
+            case "4"://-$
+                if (_iva.val() == 'si') {
+                    dataRow.HasIva = 'SI';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal((dataRow.Total - FloatTryParse( OpValue)) * 1.19);
+                }
+                else {
+                    dataRow.HasIva = 'NO';
+                    dataRow.Total = dataRow.TotalOriginal;
+                    dataRow.Total = RoundDecimal((dataRow.Total - FloatTryParse( OpValue)));
+                }
+                break;
+        }
+
+        SetCellValue(
+            objTableListaDetalles,
+            RowIndex,
+            GetCellIndexByName(objTableListaDetalles, 'Total'),
+            dataRow.Total
+        );
+
+    }
+
+    
 
     //eliminacion de data de la grilla de detalles principal
     $('#TablaDetalles tbody').on('click', '.DeleteDetalle', function () {
@@ -276,13 +436,17 @@
                                     "Descripcion": data.Descripcion,
                                     "UnidadMedida": data.IdUnidadMedida,
                                     "PrecioDet": data.PrecioDet,
-                                    "HasIva":'NO',
+                                   "HasIva": 'NO',
+                                   "HasDesc": 'NO',
+                                   "DescValue":0,
                                    // "Iva": "6",
                                     "Cantidad": CantidadProd,
                                     "Descuento": "8",
-                                    "Total": aux
+                                   "Total": aux,
+                                   "TotalOriginal":aux
                                 }]
-                                  ).draw();
+                           ).draw();
+                           SumDetails(objTableListaDetalles);
                        }
 
                        //console.log(CantidadProd);

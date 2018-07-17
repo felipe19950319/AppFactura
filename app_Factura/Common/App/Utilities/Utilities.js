@@ -27,6 +27,17 @@
        return Math.floor(Number * 100) / 100;
     }
 
+    FloatTryParse = function (Number)
+    {
+        var x = parseFloat(Number);
+        if (x == "NaN") {
+            return 0;
+        }
+        else {
+            return x;
+        }
+    }
+
     Date.prototype.yyyymmdd = function (separator) {
         var mm = this.getMonth() + 1; // getMonth() is zero-based
         var dd = this.getDate();

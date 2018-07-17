@@ -25,34 +25,34 @@
                                   <div class="row">
                                          <div class="col-md-4">
                                           Rut emisor:<br/>
-                                             <input type="text" id="txtRutEmisor" class="form-control"/>
+                                             <input type="text" id="txtRutEmisor" class="form-control" disabled="disabled"/>
                                          </div>
-                                          <div class="col-md-4">
+                                         <!-- <div class="col-md-4">
                                           Rut envia:<br/>
                                              <input type="text" id="txtRutEnvia" class="form-control"/>
+                                         </div>-->
+                                          <div class="col-md-4">
+                                          Razon social:<br/>
+                                             <input type="text" id="txtRazonSocial" class="form-control" disabled="disabled"/>
                                          </div>
-
                                          <div class="col-md-4">
                                           Fecha resolucion:<br/>
-                                             <input type="date" id="txtFechaResolucion" class="form-control"/>
+                                             <input type="date" id="txtFechaResolucion" class="form-control" disabled="disabled"/>
                                          </div>
                                    
                                      </div>
 
                                      <div class="row">
-                                         <div class="col-md-4">
-                                          Razon social:<br/>
-                                             <input type="text" id="txtRazonSocial" class="form-control"/>
-                                         </div>
-                                          <div class="col-md-4">
+                                     
+                                         <!-- <div class="col-md-4">
                                           Giro:<br/>
                                              <input type="text" id="txtGiro" class="form-control"/>
-                                         </div>
+                                         </div>-->
 
-                                         <div class="col-md-4">
+                                       <!--  <div class="col-md-4">
                                           Direccion:<br/>
                                              <input type="text" id="txtDireccion" class="form-control"/>
-                                         </div>
+                                         </div>-->
                                          
                                      </div>
                                 </div>
@@ -167,8 +167,8 @@
                                             <div class="input-group mb-3">
                                               <input type="text" class="form-control form-control-sm" id="txtDctoRcrgoTotal"/>
                                               <div class="input-group-append">
-                                                <select id="ListaDctoRcrgoTotal" class="btn btn-primary btn-sm">
-                                                    <option value="0">N/A</option>
+                                                <select id="ListaDctoRcrgoTotal" class="form-control form-control-sm">
+                                                    <option value="0">NO</option>
                                                     <option value="1">+%</option>
                                                     <option value="2">-%</option>
                                                     <option value="3">+$</option>
@@ -208,14 +208,14 @@
                                                                                        
                                </div>
                                     </div>
-                                     <div class="card-footer small text-muted">&nbsp</div>
+                                     <!--<div class="card-footer small text-muted">&nbsp</div>-->
                                </div>
                            </div> 
                           <!--detalle-->
 
                          <!--referencias-->
                            <div class="row">
-                              <div class="col-lg-8">
+                              <div class="col-lg-10">
                                <div class="card mb-3">
                                     <div class="card-header bg-danger">
                             
@@ -248,7 +248,7 @@
                                    </div>                                                           
                                </div>
                                     </div>
-                                     <div class="card-footer small text-muted">&nbsp</div>
+                                  <!--   <div class="card-footer small text-muted">&nbsp</div>-->
                                </div>
                            </div>             
                          <!--referencias-->
