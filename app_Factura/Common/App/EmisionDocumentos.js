@@ -51,16 +51,15 @@
             { "data": "HasIva", "title": "HasIva" }, //para saber si el detalle tiene iva o no
             { "data": "HasDesc", "title": "HasDesc" }, //para saber tiene Descuento o recargo
             { "data": "DescValue", "title": "DescValue" }, //valor del descuento o recargo
+            { "data": "DescTipo", "title": "DescTipo" }, //tipo de descuento o recargo
            
               {
                   "title": "Iva",
                   "mRender": function (data, type, row,meta) {
-                   //   console.log(data);
                       return '<select id="SelectIva' + meta.row +'" class="form-control form-control-sm _iva" oldValue="'+row.Total+'"><option value="na" selected="selected">Seleccione</option><option value="si">SI</option><option value="no">NO</option></select>';
                   }
               },
             { "data": "Cantidad", "title": "Cantidad" },
-            //{ "data": "Descuento", "title": "Descuento" },
         {
             "title": "Descuento/Recargo",
             "mRender": function (data, type, row,meta) {
@@ -89,7 +88,32 @@
     objTableListaDetalles.column(5).visible(false);
     objTableListaDetalles.column(6).visible(false);
     objTableListaDetalles.column(7).visible(false);
-    objTableListaDetalles.column(12).visible(false);
+    objTableListaDetalles.column(8).visible(false);
+    objTableListaDetalles.column(13).visible(false);
+
+    CalculaDescuentoTotal = function (PrecioDet,DescTipo,DescValue)
+    {
+        var Calculo=0;
+        switch (DescTipo)
+        {
+            case "0":
+                Calculo = PrecioDet;
+                break;
+            case "1"://+%
+                Calculo = PrecioDet+( PrecioDet * FloatTryParse(DescValue)/100);
+                break;
+            case "2"://-%
+                Calculo = PrecioDet - (PrecioDet * FloatTryParse(DescValue) / 100);
+                break;
+            case "3"://+$
+                Calculo = PrecioDet + DescValue;
+                break;
+            case "4"://-$
+                Calculo = PrecioDet - DescValue;
+                break;
+        }
+         return Calculo;
+    }
 
     SumDetails = function (TablaDetalles)
     {
@@ -103,20 +127,18 @@
 
         TablaDetalles.rows().every(function () {
             var data = this.data();
-            console.log(data);       
+            console.log(data);
+            var PrecioDsc = CalculaDescuentoTotal((data.PrecioDet * parseInt(data.Cantidad)), data.DescTipo, data.DescValue);// precio con descuento o recargo correspondiente
             switch (data.HasIva)
             {
-                case "SI":
-                    AcumNeto = AcumNeto + (data.PrecioDet * parseInt(data.Cantidad));
+                case "SI":             
+                    AcumNeto = AcumNeto + PrecioDsc;
                     AcumConIva = AcumConIva + data.Total;
-                   // AcumDiffIva = AcumDiffIva + (data.Total - data.PrecioDet);
                     break;
-
                 case "NO":
-                    AcumExento = AcumExento + data.Total;
+                    AcumExento = AcumExento + PrecioDsc;
                     break;
-            } 
-                
+            }                
         });
 
         AcumDiffIva = AcumConIva-AcumNeto;
@@ -125,8 +147,6 @@
         $("#txtExentoTot").val(AcumExento);
         $("#txtNetoTot").val(AcumNeto);
         $("#txtDetTotal").val(AcumTotal);
-       // console.log("TotalExento", AcumExento);
-       // console.log("TotalConIva", AcumConIva);
     }
 
     $("#PruebaTotal").off().on('click', function () {
@@ -175,16 +195,27 @@
         var me = this;
         var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
         $("#txtDctoRcrgoDet" + RowIndex).val(0);
+       // $("#ListaDctoRcrgoDet" + RowIndex).val(0);
         FnCalculoIvaDescuento(me);
         SumDetails(objTableListaDetalles);
     });
+
+    $('#TablaDetalles tbody').on('change', '._iva', function () {
+        var me = this;
+        var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
+        $("#txtDctoRcrgoDet" + RowIndex).val(0);
+        $("#ListaDctoRcrgoDet" + RowIndex).val(0);
+        FnCalculoIvaDescuento(me);
+        SumDetails(objTableListaDetalles);
+    });
+
     $('#TablaDetalles tbody').on('change', '._iva', function () {
         var me = this;
         FnCalculoIvaDescuento(me);
         SumDetails(objTableListaDetalles);
     });
     //asignacion de descuento o recargo ademas con iva
-    $('#TablaDetalles tbody').on('keyup', '._txtDescRecrgo', function () {
+    $('#TablaDetalles tbody').on('change', '._txtDescRecrgo', function () {
         var me = this;
         FnCalculoIvaDescuento(me);
         SumDetails(objTableListaDetalles);
@@ -200,72 +231,96 @@
 
         var Operation = $("#ListaDctoRcrgoDet" + RowIndex).val();
         var OpValue = $("#txtDctoRcrgoDet" + RowIndex).val();
-    
+        if (OpValue.length==0)
+        {
+            OpValue = 0;
+        }
 
         switch (Operation) {
             case "0":
                 if (_iva.val() == 'si') {
                     dataRow.HasIva = 'SI';
+                    dataRow.HasDesc = 'NO';
+                    dataRow.DescTipo = "0";
                     //guardamos el valor original para utilizarlo despues
-                   // $("#SelectIva" + RowIndex + "").attr("oldValue", dataRow.Total);
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total=(dataRow.Total * 1.19);
                 }
                 else {
                     dataRow.HasIva = 'NO';
+                    dataRow.HasDesc = 'NO';
+                    dataRow.DescTipo = "0";
                     //corresponde al valor original
                     dataRow.Total = dataRow.TotalOriginal;
-                   // dataRow.Total=(dataRow.Total);
                 }
                 break;
             case "1"://+%
                 if (_iva.val() == 'si') {
                     dataRow.HasIva = 'SI';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "1";                  
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal((dataRow.Total + (dataRow.Total * (FloatTryParse( OpValue) / 100))) * 1.19);
                 }
                 else {
                     dataRow.HasIva = 'NO';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "1";
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal(dataRow.Total + (dataRow.Total * (FloatTryParse( OpValue) / 100)));
                 }
+                dataRow.DescValue = OpValue;
                 break;
             case "2"://-%
                 if (_iva.val() == 'si') {
                     dataRow.HasIva = 'SI';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "2";
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal((dataRow.Total - (dataRow.Total * (FloatTryParse( OpValue) / 100))) * 1.19);
                 }
                 else {
                     dataRow.HasIva = 'NO';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "2";
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal(dataRow.Total - (dataRow.Total * (FloatTryParse( OpValue) / 100)));
                 }
-
+                dataRow.DescValue = OpValue;
                 break;
             case "3"://+$
                 if (_iva.val() == 'si') {
                     dataRow.HasIva = 'SI';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "3";
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal((dataRow.Total + FloatTryParse(OpValue)) * 1.19);
                 }
                 else {
                     dataRow.HasIva = 'NO';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "3";
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal((dataRow.Total + FloatTryParse( OpValue)));
                 }
+                dataRow.DescValue = OpValue;
                 break;
             case "4"://-$
                 if (_iva.val() == 'si') {
                     dataRow.HasIva = 'SI';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "4";
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal((dataRow.Total - FloatTryParse( OpValue)) * 1.19);
                 }
                 else {
                     dataRow.HasIva = 'NO';
+                    dataRow.HasDesc = 'SI';
+                    dataRow.DescTipo = "4";
                     dataRow.Total = dataRow.TotalOriginal;
                     dataRow.Total = RoundDecimal((dataRow.Total - FloatTryParse( OpValue)));
                 }
+                dataRow.DescValue = OpValue;
                 break;
         }
 
@@ -438,7 +493,8 @@
                                     "PrecioDet": data.PrecioDet,
                                    "HasIva": 'NO',
                                    "HasDesc": 'NO',
-                                   "DescValue":0,
+                                   "DescValue": 0,
+                                    "DescTipo":"0",
                                    // "Iva": "6",
                                     "Cantidad": CantidadProd,
                                     "Descuento": "8",
@@ -642,7 +698,7 @@
                        $('#TblListaReceptor tbody').off().on('click', '.SelReceptor', function () {
                            var data = TblListaReceptor.row($(this).parents('tr')).data();
                          //  var elem = $(this).parents('tr');
-                           console.log(data);
+                           //console.log(data);
                            //var CantidadProd = elem.find('.CantidadProd').val();
                            $("#txtRutReceptor").val(data.RutReceptor);
                            $("#txtRazonSocialReceptor").val(data.NombreReceptor);

@@ -3,10 +3,18 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <script src="../Common/App/EmisionDocumentos.js"></script>
-    <br/>
-    <br/>
-    <br/>  
+
+           <div class="sticky-top">
+                  <ul class="list-group">
+                    <li class="list-group-item active"></li>
+                    <li class="list-group-item bg-secondary">Dapibus ac facilisis in</li>       
+                  </ul>
+                </div>
+
+  
+                                     
       <div class="content-wrapper">
+
            <div class="row">
                 <div class="col-md-12">
 
@@ -25,7 +33,7 @@
                                   <div class="row">
                                          <div class="col-md-4">
                                           Rut emisor:<br/>
-                                             <input type="text" id="txtRutEmisor" class="form-control" disabled="disabled"/>
+                                             <input type="text" id="txtRutEmisor" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
                                          <!-- <div class="col-md-4">
                                           Rut envia:<br/>
@@ -33,11 +41,11 @@
                                          </div>-->
                                           <div class="col-md-4">
                                           Razon social:<br/>
-                                             <input type="text" id="txtRazonSocial" class="form-control" disabled="disabled"/>
+                                             <input type="text" id="txtRazonSocial" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
                                          <div class="col-md-4">
                                           Fecha resolucion:<br/>
-                                             <input type="date" id="txtFechaResolucion" class="form-control" disabled="disabled"/>
+                                             <input type="date" id="txtFechaResolucion" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
                                    
                                      </div>
@@ -57,7 +65,7 @@
                                      </div>
                                 </div>
                                     </div>
-                                     <div class="card-footer small text-muted">&nbsp</div>
+                                  
                                </div>
                             </div>   
                           </div> 
@@ -80,9 +88,9 @@
                                          <div class="col-md-4">
                                              Rut Receptor:<br/>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" disabled="disabled" id="txtRutReceptor"/>
+                                              <input type="text" class="form-control form-control-sm" disabled="disabled" id="txtRutReceptor"/>
                                               <div class="input-group-append">
-                                                <button id="btnModalReceptor" class="btn btn-success" type="button">
+                                                <button id="btnModalReceptor" class="btn btn-sm btn-success" type="button">
                                                     <i class="fa fa-search" style="color:white" aria-hidden="true"></i>
                                                 </button>
                                               </div>
@@ -93,12 +101,12 @@
                                          </div>
                                           <div class="col-md-4">
                                           Razon social:<br/>
-                                             <input type="text" id="txtRazonSocialReceptor" class="form-control" disabled="disabled"/>
+                                             <input type="text" id="txtRazonSocialReceptor" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
 
                                          <div class="col-md-4">
                                           Giro:<br/>
-                                             <input type="text" id="txtGiroReceptor" class="form-control" disabled="disabled"/>
+                                             <input type="text" id="txtGiroReceptor" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
                                    
                                      </div>
@@ -106,22 +114,22 @@
                                      <div class="row">
                                          <div class="col-md-4">
                                           Comuna:<br/>
-                                             <input type="text" id="txtComunaReceptor" class="form-control" disabled="disabled"/>
+                                             <input type="text" id="txtComunaReceptor" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
                                           <div class="col-md-4">
                                           Direccion:<br/>
-                                             <input type="text" id="txtDireccionReceptor" class="form-control" disabled="disabled"/>
+                                             <input type="text" id="txtDireccionReceptor" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
 
                                          <div class="col-md-4">
                                           Ciudad:<br/>
-                                             <input type="text" id="txtCiudadReceptor" class="form-control" disabled="disabled"/>
+                                             <input type="text" id="txtCiudadReceptor" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
                                          
                                      </div>
                                 </div>
                                     </div>
-                                     <div class="card-footer small text-muted">&nbsp</div>
+                                
                                </div>
                             </div> 
                        </div>
@@ -134,6 +142,8 @@
                                     <div class="card-header bg-secondary">
                             
                                          <a class="text-white"> <i class="fa fa-clipboard"></i> Detalle</a>
+
+                                            <a id="btnAddDetalle" class="btn btn-sm btn-secondary float-sm-right text-white"> <i class="fa fa-plus"></i> Nuevo detalle</a>
                                     </div>
                                     <div class="card-body">
                                 <div class="col-md-12">  
@@ -141,15 +151,10 @@
                                                                                 
                                        <div class="row">       
                                             
-                                            <div class="col-md-2">
-                                                    <input id="btnAddDetalle" type="button" class="btn btn-danger btn-sm" value="Agregar nuevo detalle"/>         
-                                            </div>
+                                       
                                              <div class="col-md-2">
                                                     <input id="btnAddListaDetalle" type="button" class="btn btn-success btn-sm" value="Agregar desde lista"/>         
-                                            </div>  
-                                            <div class="col-md-8">
-                                                  <input id="PruebaTotal" type="button" class="btn btn-success btn-sm" value="Prueba total"/>         
-                                              </div>
+                                            </div>                             
                                     </div>   
                                     <div class="row">       
                                        <div class="col-md-12">
@@ -226,20 +231,20 @@
                                   <div class="row">
                                          <div class="col-md-3">
                                           Documento:<br/>
-                                            <select id="DocReferencia" class="form-control"></select>
+                                            <select id="DocReferencia" class="form-control form-control-sm"></select>
                                          </div>
                                           <div class="col-md-3">
                                           Folio:<br/>
-                                             <input type="text" id="txtFolioReferencia" class="form-control"/>
+                                             <input type="text" id="txtFolioReferencia" class="form-control form-control-sm"/>
                                          </div>
 
                                          <div class="col-md-3">
                                           Fecha:<br/>
-                                             <input type="date" id="txtFechaReferencia" class="form-control"/>
+                                             <input type="date" id="txtFechaReferencia" class="form-control form-control-sm"/>
                                          </div>
                                         <div class="col-md-3">
                                           Razon Referencia:<br/>
-                                            <select id="RazonReferencia" class="form-control"></select>
+                                            <select id="RazonReferencia" class="form-control form-control-sm"></select>
                                          </div>                                 
                                   </div>     
                                   <div class="row">
@@ -254,6 +259,28 @@
                          <!--referencias-->
 
                     
+
+                       <!--  <div class="col-md-12">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <input type="button" class="btn btn-default" id="BtnPrevisualizar" value="Previsualizar"/>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input type="button" class="btn btn-warning" id="BtnEmitir" value="Emitir"/>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input type="button" class="btn btn-success" id="BtnGuardar" value="Guardar y emitir despues"/>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input type="button" class="btn btn-danger" id="BtnGuardarEmitir" value="Guardar y Emitir"/>
+                                </div>
+
+                            </div>                         
+                         </div>-->
 
                      </div>
                  </div>                                         
