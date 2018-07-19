@@ -5,10 +5,26 @@
      <script src="../Common/App/EmisionDocumentos.js"></script>
 
            <div class="sticky-top">
-                  <ul class="list-group">
-                    <li class="list-group-item active"></li>
-                    <li class="list-group-item bg-secondary">Dapibus ac facilisis in</li>       
-                  </ul>
+                  <div class="list-group">
+                    <div class="list-group-item active"><br/></div>
+                    <div class="list-group-item bg-light" style="height: 45px; padding: 10px 15px;">            
+                       <div class="row">         
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp
+                                 <a class="btn btn-primary btn-xs text-white" ><i class="fa fa-floppy-o"></i> Guardar</a> &nbsp&nbsp
+                                 <a class="btn btn-warning btn-xs text-white" ><i class="fa fa-external-link"></i> Guardar y emitir</a> &nbsp&nbsp
+                                 <a class="btn btn-danger btn-xs text-white" ><i class="fa fa-paper-plane-o"></i> Emitir</a> &nbsp&nbsp   
+                                 <a class="btn btn-secondary btn-xs text-white" ><i class="fa fa-file-o"></i> Previsualizar</a> &nbsp&nbsp                            
+                            </div>
+                       </div>
+                            
+                      </div>                   
+                    </div>      
+                       
+                  </div>
                 </div>
 
   
