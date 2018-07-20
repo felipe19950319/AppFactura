@@ -80,6 +80,7 @@
     <Content Include="Common\App\SeleccionEmpresa.js" />
     <Content Include="Common\Datatables\DataTables-1.10.16.js" />
     <Content Include="Common\Datatables\dataTables.editor.js" />
+    <Content Include="Common\Datatables\DatatablesBoostrap.css" />
     <Content Include="Common\Datatables\editor.jqueryui.js" />
     <Content Include="Common\images\favicon.ico" />
     <Content Include="Common\images\sort_asc.png" />

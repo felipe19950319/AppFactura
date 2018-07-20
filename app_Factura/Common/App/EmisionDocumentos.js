@@ -671,14 +671,14 @@
 
                        //definimos las columnas 
                        var ColumnDefs = [
-                                { "data": "RutReceptor", "title": "Rut"},
+                                { "data": "RutReceptor", "title": "Rut", "width": "50px" },
                                 { "data": "NombreReceptor", "title": "Nombre" },
                                 { "data": "EmailReceptor", "title": "Email" },
                                 /*{ "data": "DireccionReceptor", "title": "Direccion", "width": "20%" },*/
                                 /*{ "data": "TelefonoReceptor", "title": "TelefonoReceptor", "width": "20%" },*/
                                 { "data": "Comuna", "title": "Comuna" },
-                                { "data": "Ciudad", "title": "Ciudad" },
-                                { "data": "NombreGiro", "title": "Giro" },
+                                { "data": "Ciudad", "title": "Ciudad"},
+                                { "data": "NombreGiro", "title": "Giro"},
                                 {
                                       "title": "",
                                       "mRender": function (data, type, row) {
