@@ -238,6 +238,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DTE_Maker\DTE_Maker.csproj">
+      <Project>{24097f47-bf7c-4a14-912c-466de0a8511b}</Project>
+      <Name>DTE_Maker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SqlConnector\SqlConnector.csproj">
       <Project>{5ea0373b-c774-4df1-91f4-838cd9da24a2}</Project>
       <Name>SqlConnector</Name>

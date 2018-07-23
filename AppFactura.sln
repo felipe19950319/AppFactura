@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppFactura", "AppFactura\AppFactura.csproj", "{3DFEA107-2B59-40C8-AC22-15F8DD699498}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Test", "5-Test", "{2765E546-4F89-4A15-B7EE-34875C61DF8B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{56E852BA-892B-430F-A220-18C49956315D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTE_Maker", "DTE_Maker\DTE_Maker.csproj", "{24097F47-BF7C-4A14-912C-466DE0A8511B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{56E852BA-892B-430F-A220-18C49956315D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56E852BA-892B-430F-A220-18C49956315D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56E852BA-892B-430F-A220-18C49956315D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24097F47-BF7C-4A14-912C-466DE0A8511B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24097F47-BF7C-4A14-912C-466DE0A8511B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24097F47-BF7C-4A14-912C-466DE0A8511B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24097F47-BF7C-4A14-912C-466DE0A8511B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +86,9 @@ Global
 		{D9F87F0E-DB0A-4605-9A94-560CF3AF32FB} = {0FE8F74E-8AF7-49C4-AA5D-A1B7828CFC4F}
 		{950D0BD1-656B-4460-811C-9796917DBC55} = {B09E7C5B-4DA1-4C66-A73B-7CE09B24ECB6}
 		{56E852BA-892B-430F-A220-18C49956315D} = {2765E546-4F89-4A15-B7EE-34875C61DF8B}
+		{24097F47-BF7C-4A14-912C-466DE0A8511B} = {B09E7C5B-4DA1-4C66-A73B-7CE09B24ECB6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43471E69-67B0-4AFB-B008-B5BC146F0938}
 	EndGlobalSection
 EndGlobal

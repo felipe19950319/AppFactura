@@ -347,6 +347,7 @@
             if (r == true) {
                 var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
                 objTableListaDetalles.row(RowIndex).remove().draw();
+                SumDetails(objTableListaDetalles);
             }
         });
 
@@ -717,6 +718,22 @@
        });
    });
 
+
+    fnValidateDoc = function ()
+    {
+        var error = "";
+
+        return error;
+    }
+
+    fnGetReceptor = function ()
+    {
+        var Receptor = new Object();
+    }
+
+    $("#GuardarDocumento").on('click', function () {
+
+    });
 
 });
 
