@@ -4,6 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <script src="../Common/App/EmisionDocumentos.js"></script>
 
+
            <div class="sticky-top">
                   <div class="list-group">
                     <div class="list-group-item active"><br/></div>

@@ -150,6 +150,12 @@ namespace app_Factura.App
                 return "ERROR";
             }
         }
+        [WebMethod]
+        public static string CreateXML_DTE(MakeDte.DTE dte,MakeDte.Detalle detalle)
+        {
+            return "";
+        }
+
 
     }
 }

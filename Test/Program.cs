@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SqlConnector;
-
+using DTE_Maker;
+using System.Xml.Linq;
 
 namespace Test
 {
@@ -12,18 +13,34 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            SqlConnector.Common c = new Common();
-           
-           
+            //generamos el dte 
+            MakeDte.DTE dte = new MakeDte.DTE();
 
+            dte.documento.ID = "DOC3238";
+            dte.documento.encabezado.iddoc.TipoDTE = 1;
+            dte.documento.encabezado.iddoc.Folio = 1;
+            dte.documento.encabezado.iddoc.FchEmis = "2017-05-08";
+            dte.documento.encabezado.iddoc.FmaPago = 1;
 
+            dte.documento.encabezado.emisor.RUTEmisor = "19047321-k";
+            dte.documento.encabezado.emisor.RznSoc = "adsddf";
 
-            MySqlConnector mysql = new MySqlConnector();
-            mysql.ConnectionString = "SERVER=localhost;PORT=3309;DATABASE=tyscom_factura;UID=root;PASSWORD=19047321k;SslMode=none;";
-            mysql.AddProcedure("sp_ins_detalle_producto");
-             mysql.ParametersFromJson("eyJwX0lEX0VNUFJFU0EiOiIxIiwicF9OT01CUkUiOiJHQUxMRVRBMSIsInBfQ09ESUdPIjoiUE85SzkiLCJwX1NUT0NLIjoiMSIsInBfREVTQ1JJUENJT05fUFJPRFVDVE8iOiJPUE8iLCJwX1ZBTE9SX1VOSVRBUklPIjoiOTkiLCJwX0ZFQ0hBX0NSRUFDSU9OIjoiMjAxOC0wNi0yMCIsInBfREVTQ1VFTlRPX1BDVCI6IjAiLCJwX0VTVEFETyI6IkNTVE9DSyIsInBfSWRVbmlkYWRNZWRpZGEiOiIyIn0=");
+            dte.documento.encabezado.receptor.RUTRecep = "190473121-k";
 
-        var x=     mysql.ExecQuery().ToJson();
+            dte.documento.encabezado.totales.MntNeto = 9999;
+
+            MakeDte.Detalle det = new MakeDte.Detalle();
+            det.MontoItem = 99;
+
+            dte.detalle.Add(det);
+            dte.detalle.Add(det);
+
+            MakeDte m = new MakeDte();
+            XDocument xdoc = new XDocument();
+            xdoc= m.Serialize(dte);
+
+          
+
         }
     }
 }

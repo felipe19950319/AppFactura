@@ -76,6 +76,7 @@
     <Content Include="Common\App\EmisionDocumentos.js" />
     <Content Include="Common\App\General.js" />
     <Content Include="Common\App\Modal\Modal.js" />
+    <Content Include="Common\App\Utilities\dte.js" />
     <Content Include="Common\App\Utilities\Utilities.js" />
     <Content Include="Common\App\SeleccionEmpresa.js" />
     <Content Include="Common\Datatables\DataTables-1.10.16.js" />
