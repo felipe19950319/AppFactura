@@ -731,7 +731,75 @@
         var Receptor = new Object();
     }
 
-    $("#GuardarDocumento").on('click', function () {
+    fnGetDetallesDte = function (Doc)
+    {
+     
+        objTableListaDetalles.rows().every(function (rowIdx) {
+            var data = this.data();
+            var det = new Object();
+            count = rowIdx + 1;
+            det.NroLinDet = count;
+            det.NmbItem = data.NombreDet;
+            det.DscItem = data.Descripcion;
+            det.QtyItem = data.Cantidad;
+            det.PrcItem =parseInt( data.PrecioDet);
+            det.MontoItem =parseInt( data.Total);
+            Doc.dte.detalle.push(det);
+        });
+    }
+
+    fnGetDataDte = function ()
+    {
+        var Doc = fnGetJsonDte();
+
+        Doc.dte.documento.encabezado.iddoc.TipoDTE = 33;
+        Doc.dte.documento.encabezado.iddoc.Folio = 1;
+        Doc.dte.documento.encabezado.iddoc.FchEmis = "2018-07-25";
+        Doc.dte.documento.encabezado.iddoc.FmaPago = 0;
+
+        Doc.dte.documento.encabezado.emisor.RUTEmisor = $("#txtRutEmisor").val();
+        Doc.dte.documento.encabezado.emisor.RznSoc = $("#txtRazonSocial").val();
+        Doc.dte.documento.encabezado.emisor.GiroEmis = "";
+        Doc.dte.documento.encabezado.emisor.Acteco = "";
+        Doc.dte.documento.encabezado.emisor.DirOrigen = "";
+        Doc.dte.documento.encabezado.emisor.CmnaOrigen = "";
+        Doc.dte.documento.encabezado.emisor.CiudadOrigen = "";
+
+        Doc.dte.documento.encabezado.receptor.RUTRecep = $("#txtRutReceptor").val();
+        Doc.dte.documento.encabezado.receptor.RznSocRecep = $("#txtRazonSocialReceptor").val();
+        Doc.dte.documento.encabezado.receptor.GiroRecep = $("#txtGiroReceptor").val();
+        Doc.dte.documento.encabezado.receptor.DirRecep = $("#txtDireccionReceptor").val();
+        Doc.dte.documento.encabezado.receptor.CmnaRecep = $("#txtComunaReceptor").val();
+        Doc.dte.documento.encabezado.receptor.CiudadRecep = $("#txtCiudadReceptor").val();
+
+        Doc.dte.documento.encabezado.totales.MntNeto = $("#txtNetoTot").val();
+        Doc.dte.documento.encabezado.totales.MntExe = $("#txtExentoTot").val();
+        Doc.dte.documento.encabezado.totales.TasaIVA =parseInt( $("#txtTasaIvaTot").val());
+        Doc.dte.documento.encabezado.totales.IVA = $("#txtIvaTot").val();
+        Doc.dte.documento.encabezado.totales.MntTotal = $("#txtDetTotal").val();
+
+        fnGetDetallesDte(Doc);
+
+        return Doc;
+    }
+
+    $("#GuardarDocumento").off().on('click', function () {
+       var ObjDte= fnGetDataDte();
+
+        $.ajax({
+            type: 'POST',
+            url: 'EmisionDocumentos.aspx/CreateXML_DTE',
+            async: false,
+            data: JSON.stringify(ObjDte),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                console.log(msg);
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+            }
+        });
 
     });
 

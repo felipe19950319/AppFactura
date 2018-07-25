@@ -43,13 +43,14 @@ namespace DTE_Maker
         }
 
 
-        public void MakePdf(string rutaPDF, string RutaFuente)
+
+        public void MakePdf(string rutaPDF)
         {
             FonetDriver driver = FonetDriver.Make();
 
             var options = new PdfRendererOptions();
 
-            var font = new System.IO.FileInfo(RutaFuente);
+            var font = new System.IO.FileInfo(@"C:\Windows\Fonts\arial.ttf");
 
             options.AddPrivateFont(font);
 

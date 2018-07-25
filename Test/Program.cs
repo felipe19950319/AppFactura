@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SqlConnector;
 using DTE_Maker;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace Test
 {
@@ -35,9 +36,10 @@ namespace Test
             dte.detalle.Add(det);
             dte.detalle.Add(det);
 
-            MakeDte m = new MakeDte();
+            var x = JsonConvert.SerializeObject(dte);
+           /* MakeDte m = new MakeDte();
             XDocument xdoc = new XDocument();
-            xdoc= m.Serialize(dte);
+            xdoc= m.Serialize(dte);*/
 
           
 
