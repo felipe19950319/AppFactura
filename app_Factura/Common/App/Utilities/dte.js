@@ -79,10 +79,11 @@ fnGetJsonDte = function ()
                         MntTotal: 0
                     }
                 },
-                ID: null
-            },
-            detalle: [],
-            referencia: []
+                ID: null,
+                detalle: [],
+                referencia: []
+            }
+          
         }
     }
 

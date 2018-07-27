@@ -17,10 +17,7 @@ public class MakeDte : Extends
         public string version = "1.0";
         [XmlElement("Documento")]
         public Documento documento = new Documento();
-        [XmlElement("Detalle")]
-        public List<Detalle> detalle = new List<Detalle>();
-        [XmlElement("Referencia")]
-        public List<Referencia> referencia = new List<Referencia>();
+
     }
     public class Documento
     {
@@ -29,6 +26,10 @@ public class MakeDte : Extends
 
         [XmlElement("Encabezado")]
         public Encabezado encabezado = new Encabezado();
+        [XmlElement("Detalle")]
+        public List<Detalle> detalle = new List<Detalle>();
+        [XmlElement("Referencia")]
+        public List<Referencia> referencia = new List<Referencia>();
     }
     public class Encabezado
     {
@@ -101,6 +102,8 @@ public class MakeDte : Extends
     {
         [XmlElement("NroLinDet")]
         public int NroLinDet { get; set; }
+        [XmlElement("CdgItem")]
+        public List<CdgItem> cdgItem = new List<CdgItem>();
         [XmlElement("NmbItem")]
         public string NmbItem { get; set; }
         [XmlElement("DscItem")]
@@ -111,6 +114,14 @@ public class MakeDte : Extends
         public decimal PrcItem { get; set; }
         [XmlElement("MontoItem")]
         public decimal MontoItem { get; set; }
+    }
+
+    public class CdgItem
+    {
+        [XmlElement("TpoCodigo")]
+        public string TpoCodigo { get; set; }
+        [XmlElement("VlrCodigo")]
+        public string VlrCodigo { get; set; }
     }
     public class Referencia
     {

@@ -739,12 +739,15 @@
             var det = new Object();
             count = rowIdx + 1;
             det.NroLinDet = count;
+            det.cdgItem = {};
+            det.cdgItem.TpoCodigo = "INT1";
+            det.cdgItem.VlrCodigo = "0212";
             det.NmbItem = data.NombreDet;
             det.DscItem = data.Descripcion;
             det.QtyItem = data.Cantidad;
             det.PrcItem =parseInt( data.PrecioDet);
             det.MontoItem =parseInt( data.Total);
-            Doc.dte.detalle.push(det);
+            Doc.dte.documento.detalle.push(det);
         });
     }
 
