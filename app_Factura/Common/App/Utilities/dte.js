@@ -99,6 +99,25 @@ Detalle = {
     MontoItem: 0
 }
 
+var Host = 'http://localhost:51157';
+
+fnGetPreviewDte = function (ObjDte)
+{
+    $.ajax({
+        type: 'POST',
+        url: Host +'/api/DTE/GetPreviewDTE',
+        data: '{data:'+JSON.stringify(ObjDte)+'}',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (msg) {
+            console.log(msg);
+        },
+        error: function (request, status, error) {
+            console.log(request.responseText);
+        }
+    });
+}
+
 fnAddDetalle = function (dteClass, Detalle)
 {
     dteClass.dte.detalle.push(Detalle);

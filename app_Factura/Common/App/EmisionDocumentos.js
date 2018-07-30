@@ -789,20 +789,7 @@
     $("#GuardarDocumento").off().on('click', function () {
        var ObjDte= fnGetDataDte();
 
-        $.ajax({
-            type: 'POST',
-            url: 'EmisionDocumentos.aspx/CreateXML_DTE',
-            async: false,
-            data: JSON.stringify(ObjDte),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (msg) {
-                console.log(msg);
-            },
-            error: function (request, status, error) {
-                console.log(request.responseText);
-            }
-        });
+        fnGetPreviewDte(ObjDte);
 
     });
 
