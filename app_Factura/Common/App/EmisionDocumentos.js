@@ -790,8 +790,18 @@
         $(".TemplateZone").load("HtmlTemplates/ModalPreviewDte.html", function() {
             $("#ModalPreviewDte").modal('show');
             var ObjDte = fnGetDataDte();
-            fnGetPreviewDte(ObjDte, function(r) {
-                GeneratePdf(r.d, "previewDTE");
+            fnGetPreviewDte(ObjDte, function (r) {
+                switch (r.code)
+                {
+                    case 200:
+                        //ok
+                        GeneratePdf(r.ObjectResponse, "previewDTE");
+                        break;
+                    case 500:
+                        //error
+                        console.log(r.ex);
+                        break;
+                }            
             });
         });
     });

@@ -1,4 +1,5 @@
 ﻿using DTE_Maker;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,23 +34,54 @@ namespace ws_OperacionesFactura
         [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
         public string GetPreviewDTE(MakeDte.DTE dte)
         {
-            string xsltPath = WebConfigurationManager.AppSettings["xslt_dte"];
-            string temp = WebConfigurationManager.AppSettings["temp"];
-            temp = temp + Guid.NewGuid() + ".pdf";
-            MakeDte m = new MakeDte();
-            XmlDocument xml = new XmlDocument();
-            xml = m.Serialize(dte);
+            Response r = new Response();
+            try
+            {
+                string xsltPath = WebConfigurationManager.AppSettings["xslt_dte"];
+                string temp = WebConfigurationManager.AppSettings["temp"];
+                temp = temp + Guid.NewGuid() + ".pdf";
+                MakeDte m = new MakeDte();
+                XmlDocument xml = new XmlDocument();
+                xml = m.Serialize(dte);
 
-            pdfSII pdf = new pdfSII();
+                pdfSII pdf = new pdfSII();
 
-            pdf.MakeXsl(xml, xsltPath);
-            pdf.MakePdf(temp);
+                pdf.MakeXsl(xml, xsltPath);
+                pdf.MakePdf(temp);
 
-            Byte[] bytes = File.ReadAllBytes(temp);
-            String file = Convert.ToBase64String(bytes);
-            File.Delete(temp);
+                Byte[] bytes = File.ReadAllBytes(temp);
+                String file = Convert.ToBase64String(bytes);
+                File.Delete(temp);
 
-            return file;
+              
+                r.code = Code.OK;
+                r.type = Type.base64;
+                r.ObjectResponse = file;
+
+               return JsonConvert.SerializeObject(r,Newtonsoft.Json.Formatting.Indented);
+               
+            }
+            catch (Exception ex)
+            {
+                r.code = Code.ERROR;
+                r.type = Type.json;
+                r.ex = ex;
+                return JsonConvert.SerializeObject(r, Newtonsoft.Json.Formatting.Indented);
+            }
+        }
+
+        public string SaveDocDte(MakeDte.DTE dte)
+        {
+            try
+            {
+                return "";
+            }
+            catch 
+            (Exception ex)
+            {
+                return "";
+            }
+          
         }
       
     }

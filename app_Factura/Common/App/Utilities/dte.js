@@ -109,7 +109,7 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function(msg) {
-                callback(msg);
+                callback(JSON.parse(msg.d));
             },
             error: function(request, status, error) {
                 callback(request.responseText);
