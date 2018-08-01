@@ -786,11 +786,14 @@
         return Doc;
     }
 
-    $("#GuardarDocumento").off().on('click', function () {
-       var ObjDte= fnGetDataDte();
-
-        fnGetPreviewDte(ObjDte);
-
+    $("#btnPrevisualizar").off().on('click', function() {
+        $(".TemplateZone").load("HtmlTemplates/ModalPreviewDte.html", function() {
+            $("#ModalPreviewDte").modal('show');
+            var ObjDte = fnGetDataDte();
+            fnGetPreviewDte(ObjDte, function(r) {
+                GeneratePdf(r.d, "previewDTE");
+            });
+        });
     });
 
 });

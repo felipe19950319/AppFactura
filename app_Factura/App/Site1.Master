@@ -19,7 +19,8 @@
 <script src="../Common/App/Utilities/dte.js"></script>
 <script src="../Common/App/Modal/Modal.js"></script>
 <script src="../Common/jquery-ui/jquery-ui-1.12.1.js"></script>
-
+<script src="../Common/App/Utilities/pdf.js"></script>
+<script src="../Common/App/Utilities/pdf.worker.js"></script>
 
 <link href="../Common/bootstrap%204.1.0/css/bootstrap.css" rel="stylesheet" />
 <link href="../Common/font-awesome/Content/font-awesome.min.css" rel="stylesheet" />

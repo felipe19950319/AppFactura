@@ -151,19 +151,7 @@ namespace app_Factura.App
                 return "ERROR";
             }
         }
-        [WebMethod]
-        public static string CreateXML_DTE(MakeDte.DTE dte/*,MakeDte.Detalle detalle*/)
-        {
-            MakeDte m = new MakeDte();
-            XDocument x = new XDocument();
-            x = m.Serialize(dte);
 
-            pdfSII pdf = new pdfSII();
-            pdf.MakeXsl(m.ToXmlDocument(x), @"C:\Nueva carpeta (2)\default.xslt");
-            pdf.MakePdf(@"C:\Nueva carpeta (2)\hola.pdf");
-
-            return "";
-        }
 
 
 
