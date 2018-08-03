@@ -78,7 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ws_Sii.svc" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +106,10 @@
     <ProjectReference Include="..\DTE_Maker\DTE_Maker.csproj">
       <Project>{24097f47-bf7c-4a14-912c-466de0a8511b}</Project>
       <Name>DTE_Maker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqlConnector\SqlConnector.csproj">
+      <Project>{5ea0373b-c774-4df1-91f4-838cd9da24a2}</Project>
+      <Name>SqlConnector</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

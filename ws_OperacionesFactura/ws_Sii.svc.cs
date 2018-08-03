@@ -1,5 +1,6 @@
 ﻿using DTE_Maker;
 using Newtonsoft.Json;
+using SqlConnector;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ using System.ServiceModel;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Text;
+//using System.Web;
 using System.Web.Configuration;
 using System.Xml;
 using System.Xml.Linq;
@@ -69,19 +71,46 @@ namespace ws_OperacionesFactura
                 return JsonConvert.SerializeObject(r, Newtonsoft.Json.Formatting.Indented);
             }
         }
-
+        [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
         public string SaveDocDte(MakeDte.DTE dte)
         {
             try
             {
-                return "";
+             
+                MySqlConnector mysql = new MySqlConnector();
+                mysql.ConnectionString = WebConfigurationManager.ConnectionStrings["MySqlProvider"].ConnectionString;
+                mysql.AddProcedure("sp_ins_documentodte");
+                mysql
+                    .AddParameter("RutEmpresa", RutWithOutDv(dte.documento.encabezado.emisor.RUTEmisor))
+                    .AddParameter("RutEmisor", RutWithOutDv(dte.documento.encabezado.emisor.RUTEmisor))
+                    .AddParameter("RutReceptor", RutWithOutDv(dte.documento.encabezado.receptor.RUTRecep))
+                    .AddParameter("TipoDte", dte.documento.encabezado.iddoc.TipoDTE.ToString())
+                    .AddParameter("Folio", dte.documento.encabezado.iddoc.Folio.ToString())
+                    .AddParameter("FechaEmision", dte.documento.encabezado.iddoc.FchEmis)
+                    .AddParameter("MontoNeto", FormatNumberMySql( dte.documento.encabezado.totales.MntNeto.ToString()))
+                    .AddParameter("MontoExento", FormatNumberMySql( dte.documento.encabezado.totales.MntExe.ToString()))
+                    .AddParameter("MontoIva", FormatNumberMySql( dte.documento.encabezado.totales.IVA.ToString()))
+                    .AddParameter("TasaIva", FormatNumberMySql( dte.documento.encabezado.totales.TasaIVA.ToString()))
+                    .AddParameter("MontoTotal", FormatNumberMySql( dte.documento.encabezado.totales.MntTotal.ToString()));
+
+
+                return mysql.ExecQuery().ToJson();
             }
-            catch 
-            (Exception ex)
+            catch (Exception ex)
             {
                 return "";
             }
           
+        }
+        private string FormatNumberMySql(string Number){
+            Number = Number.Replace(",", ".");
+            return Number;
+        }
+        private string RutWithOutDv(string rut)
+        {
+            rut = rut.Replace("-", "");
+            rut = rut.Substring(0, rut.Length - 1);
+            return rut;
         }
       
     }

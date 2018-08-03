@@ -15,7 +15,7 @@
                         <div class="col-sm-9">
                             <div class="row">
                                 &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp
-                                 <a class="btn btn-primary btn-xs text-white" id="GuardarDocumento"><i class="fa fa-floppy-o"></i> Guardar</a> &nbsp&nbsp
+                                 <a class="btn btn-primary btn-xs text-white" id="btnGuardarDocumento"><i class="fa fa-floppy-o"></i> Guardar</a> &nbsp&nbsp
                                  <a class="btn btn-warning btn-xs text-white" ><i class="fa fa-external-link"></i> Guardar y emitir</a> &nbsp&nbsp
                                  <a class="btn btn-danger btn-xs text-white" ><i class="fa fa-paper-plane-o"></i> Emitir</a> &nbsp&nbsp   
                                  <a class="btn btn-secondary btn-xs text-white" id="btnPrevisualizar" ><i class="fa fa-file-o"></i> Previsualizar</a> &nbsp&nbsp                            

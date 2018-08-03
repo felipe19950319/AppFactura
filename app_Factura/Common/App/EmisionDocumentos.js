@@ -806,5 +806,12 @@
         });
     });
 
+    $("#btnGuardarDocumento").off().on('click', function () {
+        var ObjDte = fnGetDataDte();
+        fnSaveDocDte(ObjDte, function (r) {
+
+        });
+    });
+
 });
 

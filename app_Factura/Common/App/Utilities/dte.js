@@ -39,6 +39,7 @@
             },
             detalle: [],
             referencia: []
+      
         }
     };
 
@@ -112,6 +113,22 @@
                 callback(JSON.parse(msg.d));
             },
             error: function(request, status, error) {
+                callback(request.responseText);
+            }
+        });
+    }
+
+    fnSaveDocDte = function (ObjDte, callback) {
+        $.ajax({
+            type: 'POST',
+            url: Host + '/SaveDocDte',
+            data: JSON.stringify(ObjDte),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                callback(JSON.parse(msg.d));
+            },
+            error: function (request, status, error) {
                 callback(request.responseText);
             }
         });

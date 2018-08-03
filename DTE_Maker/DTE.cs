@@ -17,7 +17,6 @@ public class MakeDte : Extends
         public string version = "1.0";
         [XmlElement("Documento")]
         public Documento documento = new Documento();
-
     }
     public class Documento
     {
@@ -142,6 +141,14 @@ public class MakeDte : Extends
 
         [XmlElement("RazonRef")]
         public int RazonRef { get; set; }
+    }
+
+   
+    public class Ids
+    {
+        public int IdEmpresa { get; set; }
+        public int IdEmisor { get; set; }
+        public int IdReceptor { get; set; }
     }
 
 }
