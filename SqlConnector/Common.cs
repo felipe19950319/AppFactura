@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -6,19 +7,64 @@ namespace SqlConnector
 {
     public class Common
     {
-        public Dictionary<string, string> Parameters = new Dictionary<string, string>();
+        public Dictionary<string, dynamic> Parameters = new Dictionary<string, dynamic>();
         public string Procedure = string.Empty;
         public string ConnectionString = string.Empty;
         public DataSet ds = new DataSet();
+
+        private string FormatNumber(string Number)
+        {
+            Number = Number.Replace(",", ".");
+            return Number;
+        }
+        public string CheckTypeVar(dynamic Value)
+        {
+            string _x = string.Empty;
+            if (Value is int)
+            {
+                _x = Convert.ToString(Value);
+            }
+
+            if (Value is decimal)
+            {
+                _x = Convert.ToString(Value);
+                _x = FormatNumber(_x);
+            }
+
+            if (Value is float)
+            {
+                _x = Convert.ToString(Value);
+                _x = FormatNumber(_x);
+            }
+            if (Value is string)
+            {
+                _x = Convert.ToString(Value);
+            }
+            if (Value is double)
+            {
+                _x = Convert.ToString(Value);
+               _x = FormatNumber(_x);
+            }
+            if (Value is char)
+            {
+                _x = Convert.ToString(Value);
+            }
+            if (Value is DateTime)
+            {
+                _x = Convert.ToString(Value);
+            }
+
+            return _x;
+        }
 
         public void AddProcedure(string Procedure)
         {
             this.Procedure = Procedure;
         }
 
-        public Common AddParameter(string Parameter,string Value)
+        public Common AddParameter(string Parameter, dynamic Value)
         {
-            Parameters.Add(Parameter, Value);
+            Parameters.Add(Parameter, CheckTypeVar(Value));
             return this;
         }
 

@@ -84,14 +84,14 @@ namespace ws_OperacionesFactura
                     .AddParameter("RutEmpresa", RutWithOutDv(dte.documento.encabezado.emisor.RUTEmisor))
                     .AddParameter("RutEmisor", RutWithOutDv(dte.documento.encabezado.emisor.RUTEmisor))
                     .AddParameter("RutReceptor", RutWithOutDv(dte.documento.encabezado.receptor.RUTRecep))
-                    .AddParameter("TipoDte", dte.documento.encabezado.iddoc.TipoDTE.ToString())
-                    .AddParameter("Folio", dte.documento.encabezado.iddoc.Folio.ToString())
+                    .AddParameter("TipoDte", dte.documento.encabezado.iddoc.TipoDTE)
+                    .AddParameter("Folio", dte.documento.encabezado.iddoc.Folio)
                     .AddParameter("FechaEmision", dte.documento.encabezado.iddoc.FchEmis)
-                    .AddParameter("MontoNeto", FormatNumberMySql( dte.documento.encabezado.totales.MntNeto.ToString()))
-                    .AddParameter("MontoExento", FormatNumberMySql( dte.documento.encabezado.totales.MntExe.ToString()))
-                    .AddParameter("MontoIva", FormatNumberMySql( dte.documento.encabezado.totales.IVA.ToString()))
-                    .AddParameter("TasaIva", FormatNumberMySql( dte.documento.encabezado.totales.TasaIVA.ToString()))
-                    .AddParameter("MontoTotal", FormatNumberMySql( dte.documento.encabezado.totales.MntTotal.ToString()));
+                    .AddParameter("MontoNeto",  dte.documento.encabezado.totales.MntNeto)
+                    .AddParameter("MontoExento",  dte.documento.encabezado.totales.MntExe)
+                    .AddParameter("MontoIva",  dte.documento.encabezado.totales.IVA)
+                    .AddParameter("TasaIva", dte.documento.encabezado.totales.TasaIVA)
+                    .AddParameter("MontoTotal",  dte.documento.encabezado.totales.MntTotal);
 
 
                 return mysql.ExecQuery().ToJson();
