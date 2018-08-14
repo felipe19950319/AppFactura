@@ -43,10 +43,11 @@
         }
     };
 
-    fnGetJsonDte = function() {
+    fnGetJsonDte = function () {
         dteClass = {
             dte: {
                 version: '1.0',
+                TipoOperacion: '',
                 documento: {
                     encabezado: {
                         iddoc: {

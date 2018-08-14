@@ -754,7 +754,7 @@
     fnGetDataDte = function ()
     {
         var Doc = fnGetJsonDte();
-
+        Doc.dte.TipoOperacion = $("#TipoOperacion").val();
         Doc.dte.documento.encabezado.iddoc.TipoDTE = 33;
         Doc.dte.documento.encabezado.iddoc.Folio = 1;
         Doc.dte.documento.encabezado.iddoc.FchEmis = "2018-07-25";
@@ -789,7 +789,7 @@
     $("#btnPrevisualizar").off().on('click', function() {
         $(".TemplateZone").load("HtmlTemplates/ModalPreviewDte.html", function() {
             $("#ModalPreviewDte").modal('show');
-            var ObjDte = fnGetDataDte();
+            var ObjDte = fnGetDataDte();//borrador
             fnGetPreviewDte(ObjDte, function (r) {
                 switch (r.code)
                 {

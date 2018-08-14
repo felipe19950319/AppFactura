@@ -1,5 +1,6 @@
 ﻿using DTE_Maker;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SqlConnector;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,7 @@ namespace ws_OperacionesFactura
         [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
         public string SaveDocDte(MakeDte.DTE dte)
         {
+            Response r = new Response();
             try
             {
              
@@ -102,10 +104,7 @@ namespace ws_OperacionesFactura
             }
           
         }
-        private string FormatNumberMySql(string Number){
-            Number = Number.Replace(",", ".");
-            return Number;
-        }
+
         private string RutWithOutDv(string rut)
         {
             rut = rut.Replace("-", "");

@@ -15,6 +15,8 @@ public class MakeDte : Extends
     {
         [XmlAttribute("version")]
         public string version = "1.0";
+        [XmlIgnore]
+        public string TipoOperacion;
         [XmlElement("Documento")]
         public Documento documento = new Documento();
     }

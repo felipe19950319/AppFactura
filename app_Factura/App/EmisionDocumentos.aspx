@@ -28,20 +28,21 @@
                   </div>
                 </div>
 
-  
+   <asp:HiddenField  id="TipoOperacion" runat="server" ClientIDMode="Static"/>    
+    
                                      
       <div class="content-wrapper">
 
            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10">
 
                      <div class="container-fluid">
                    
                    
                          <!--emisor -->
                           <div class="row">
-                            <div class="col-lg-8">
-                               <div class="card mb-3">
+                            <div class="col-lg-10">
+                               <div class="card mb-3" style="width:120%">
                                     <div class="card-header bg-success">
                                      <a class="text-white"> <i class="fa fa-user"></i> Datos del Emisor</a>
                                     </div>
@@ -66,20 +67,7 @@
                                          </div>
                                    
                                      </div>
-
-                                     <div class="row">
-                                     
-                                         <!-- <div class="col-md-4">
-                                          Giro:<br/>
-                                             <input type="text" id="txtGiro" class="form-control"/>
-                                         </div>-->
-
-                                       <!--  <div class="col-md-4">
-                                          Direccion:<br/>
-                                             <input type="text" id="txtDireccion" class="form-control"/>
-                                         </div>-->
-                                         
-                                     </div>
+                       
                                 </div>
                                     </div>
                                   
@@ -90,8 +78,8 @@
                        
                          <!--receptor-->
                             <div class="row">
-                               <div class="col-lg-8">
-                               <div class="card mb-3">
+                               <div class="col-lg-10">
+                               <div class="card mb-3" style="width:120%">
                                     <div class="card-header bg-primary">
                             
                                          <a class="text-white"> <i class="fa fa-user"></i> Datos del Receptor</a>
@@ -238,7 +226,7 @@
                          <!--referencias-->
                            <div class="row">
                               <div class="col-lg-10">
-                               <div class="card mb-3">
+                               <div class="card mb-3"  style="width:120%">
                                     <div class="card-header bg-danger">
                             
                                          <a class="text-white"> <i class="fa fa-clipboard"></i> Referencias</a>
