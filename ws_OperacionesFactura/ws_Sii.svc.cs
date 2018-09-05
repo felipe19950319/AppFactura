@@ -95,6 +95,9 @@ namespace ws_OperacionesFactura
                     .AddParameter("TasaIva", dte.documento.encabezado.totales.TasaIVA)
                     .AddParameter("MontoTotal",  dte.documento.encabezado.totales.MntTotal);
 
+               
+
+
 
                 return mysql.ExecQuery().ToJson();
             }

@@ -105,12 +105,12 @@ namespace app_Factura.App
                 MySqlConnector mysql = new MySqlConnector();
                 mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
                 mysql.AddProcedure("sp_ins_detalle_producto");
-
                 mysql.ParametersFromJson(json);
 
                 return mysql.ExecQuery().ToJson();
             }
-            else {
+            else
+            {
                 return "ERROR";
             }     
         }
