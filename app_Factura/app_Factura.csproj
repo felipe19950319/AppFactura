@@ -67,13 +67,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\AdministrarEmpresas.aspx" />
+    <Content Include="App\CargarCertificadoDigital.aspx" />
     <Content Include="App\General.aspx" />
     <Content Include="App\HtmlTemplates\ModalDetalles.html" />
     <Content Include="App\HtmlTemplates\ModalListaDetalles.html" />
     <Content Include="App\HtmlTemplates\ModalListaReceptor.html" />
     <Content Include="App\HtmlTemplates\ModalPreviewDte.html" />
     <Content Include="App\HtmlTemplates\ModalReceptor.html" />
+    <Content Include="App\ListaDocumentos.aspx" />
     <Content Include="App\SeleccionEmpresa.aspx" />
+    <Content Include="Common\App\CargarCertificadoDigital.js" />
     <Content Include="Common\App\EmisionDocumentos.js" />
     <Content Include="Common\App\General.js" />
     <Content Include="Common\App\Modal\Modal.js" />
@@ -196,6 +200,20 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AdministrarEmpresas.aspx.cs">
+      <DependentUpon>AdministrarEmpresas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\AdministrarEmpresas.aspx.designer.cs">
+      <DependentUpon>AdministrarEmpresas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\CargarCertificadoDigital.aspx.cs">
+      <DependentUpon>CargarCertificadoDigital.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\CargarCertificadoDigital.aspx.designer.cs">
+      <DependentUpon>CargarCertificadoDigital.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App\EmisionDocumentos.aspx.cs">
       <DependentUpon>EmisionDocumentos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -209,6 +227,13 @@
     </Compile>
     <Compile Include="App\General.aspx.designer.cs">
       <DependentUpon>General.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\ListaDocumentos.aspx.cs">
+      <DependentUpon>ListaDocumentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\ListaDocumentos.aspx.designer.cs">
+      <DependentUpon>ListaDocumentos.aspx</DependentUpon>
     </Compile>
     <Compile Include="App\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

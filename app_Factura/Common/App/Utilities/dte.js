@@ -135,6 +135,23 @@
         });
     }
 
+    fnSavePfx = function (ObjCertificadoDigital, callback) {
+        $.ajax({
+            type: 'POST',
+            url: Host + '/SavePfx',
+            data: JSON.stringify(ObjCertificadoDigital),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                callback(JSON.parse(msg.d));
+              
+            },
+            error: function (request, status, error) {
+                callback(request.responseText);
+            }
+        });
+    }
+
     fnAddDetalle = function(dteClass, Detalle) {
         dteClass.dte.detalle.push(Detalle);
     }

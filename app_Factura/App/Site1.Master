@@ -38,6 +38,8 @@
         <!--Inputs con variables de Session-->
         <asp:HiddenField  ID="_SES_RutUser" runat="server"/>
         <asp:HiddenField  ID="_SES_IdEmpresa" runat="server"/>
+         <asp:HiddenField  ID="_SES_RutEmpresa" runat="server"/>
+  
         <!--Inputs con variables de Session-->
 
 

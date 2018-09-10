@@ -33,6 +33,7 @@ namespace app_Factura.App
         {
             _SES_IdEmpresa.Value = GetSessionVariable("Id_emp");
             _SES_RutUser.Value= GetSessionVariable("_UserRut");
+            _SES_RutEmpresa.Value = GetSessionVariable("RutEmpresa");
         }
 
         public string GetSessionVariable(string SessionVarName)

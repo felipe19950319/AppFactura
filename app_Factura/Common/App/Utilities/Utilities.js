@@ -139,6 +139,13 @@
         return dvr == drut;
     }
 
+    FileToBase64 = function (file, callback) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            if ($.isFunction(callback)) { callback(reader.result, file.name, file.type); }
+        };
+    }
 
     GeneratePdf = function (base64,id) {
         var pdfData = atob(base64);
