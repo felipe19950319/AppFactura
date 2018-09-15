@@ -52,6 +52,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
@@ -85,6 +86,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\File_.cs" />
+    <Compile Include="Class\Proxy.cs" />
+    <Compile Include="Class\SendSii.cs" />
     <Compile Include="Class\structCertificadoDigital.cs" />
     <Compile Include="Class\Utilities.cs" />
     <Compile Include="Global.asax.cs">

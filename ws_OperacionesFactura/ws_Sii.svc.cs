@@ -1,6 +1,6 @@
 ﻿using DTE_Maker;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 using SqlConnector;
 using System;
 using System.Collections.Generic;
@@ -11,11 +11,11 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
-using System.Text;
+//using System.Text;
 //using System.Web;
 using System.Web.Configuration;
 using System.Xml;
-using System.Xml.Linq;
+//using System.Xml.Linq;
 using ws_OperacionesFactura.Class;
 
 namespace ws_OperacionesFactura
