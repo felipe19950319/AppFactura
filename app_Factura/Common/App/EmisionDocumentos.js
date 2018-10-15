@@ -2,6 +2,7 @@
 
     var ObjEmpresa = new Object();
     ObjEmpresa.ID_EMPRESA = $("#_SES_IdEmpresa").val();
+
     /*
      "[
   {
@@ -17,8 +18,8 @@
     "NUM_RESOL": 80,
     "Acteco": null
   }
-]"
-     */
+]"*/
+
     ServerSide('EmisionDocumentos.aspx', 'GetEmpresa', ObjEmpresa, function (r) {
         var emp = JSON.parse(r.d)[0];
         $("#txtRutEmisor").val(emp.RUT_EMPRESA);
@@ -75,7 +76,8 @@
                   "mRender": function (data, type, row) {
                       return '<center><a class="btn btn-danger btn-sm DeleteDetalle" ><i class="fa fa-trash" style="color:white" aria-hidden="true"></i></a></center>';
                   }
-              }
+        },
+        { "data": "Id_Detalle", "title": "Id_Detalle" }
     ];
     //tabla que contiene los detalles del formulario principal
     var objTableListaDetalles = MakeTable(
@@ -90,6 +92,8 @@
     objTableListaDetalles.column(7).visible(false);
     objTableListaDetalles.column(8).visible(false);
     objTableListaDetalles.column(13).visible(false);
+    objTableListaDetalles.column(15).visible(false);
+
 
     CalculaDescuentoTotal = function (PrecioDet,DescTipo,DescValue)
     {
@@ -202,6 +206,7 @@
 
     $('#TablaDetalles tbody').on('change', '._iva', function () {
         var me = this;
+        console.log(me);
         var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
         $("#txtDctoRcrgoDet" + RowIndex).val(0);
         $("#ListaDctoRcrgoDet" + RowIndex).val(0);
@@ -209,11 +214,11 @@
         SumDetails(objTableListaDetalles);
     });
 
-    $('#TablaDetalles tbody').on('change', '._iva', function () {
+    /*$('#TablaDetalles tbody').on('change', '._iva', function () {
         var me = this;
         FnCalculoIvaDescuento(me);
         SumDetails(objTableListaDetalles);
-    });
+    });*/
     //asignacion de descuento o recargo ademas con iva
     $('#TablaDetalles tbody').on('change', '._txtDescRecrgo', function () {
         var me = this;
@@ -443,6 +448,7 @@
                            { "data": "CodUnidadMedida", "title": "U.Medida" },
                            { "data": "PrecioDet", "title": "Precio" },
                            { "data": "Cantidad", "title": "Stock" },
+                          
                          
                              {
                                  "title": "Cantidad",
@@ -455,7 +461,9 @@
                                  "mRender": function (data, type, row) {
                                      return '<center><a class="btn btn-success btn-sm AddDetalleLista" ><i class="fa fa-plus" style="color:white" aria-hidden="true"></i></a></center>';
                                  }
-                             }];
+                      },
+                      { "data": "ID_DETALLE", "title": "ID_DETALLE" }
+                  ];
 
               
                    //construimos la tabla
@@ -465,7 +473,7 @@
                       ColumnDefs,
                       "#TblListaDetalles"
                       );
-
+                   TblListaDetalles.column(8).visible(false);
                     //eventos de la tabla
                    $('#TblListaDetalles tbody').on('click', '.AddDetalleLista', function () {
                        var data = TblListaDetalles.row($(this).parents('tr')).data();
@@ -492,15 +500,16 @@
                                     "Descripcion": data.Descripcion,
                                     "UnidadMedida": data.IdUnidadMedida,
                                     "PrecioDet": data.PrecioDet,
-                                   "HasIva": 'NO',
-                                   "HasDesc": 'NO',
-                                   "DescValue": 0,
+                                    "HasIva": 'NO',
+                                    "HasDesc": 'NO',
+                                    "DescValue": 0,
                                     "DescTipo":"0",
                                    // "Iva": "6",
                                     "Cantidad": CantidadProd,
                                     "Descuento": "8",
-                                   "Total": aux,
-                                   "TotalOriginal":aux
+                                    "Total": aux,
+                                    "TotalOriginal": aux,
+                                    "Id_Detalle": data.ID_DETALLE
                                 }]
                            ).draw();
                            SumDetails(objTableListaDetalles);
@@ -739,14 +748,20 @@
             var det = new Object();
             count = rowIdx + 1;
             det.NroLinDet = count;
-            det.cdgItem = {};
-            det.cdgItem.TpoCodigo = "INT1";
-            det.cdgItem.VlrCodigo = "0212";
             det.NmbItem = data.NombreDet;
             det.DscItem = data.Descripcion;
             det.QtyItem = data.Cantidad;
             det.PrcItem =parseInt( data.PrecioDet);
-            det.MontoItem =parseInt( data.Total);
+            det.MontoItem = parseInt(data.Total);
+            det.HasIva = data.HasIva;
+            det.CdgItem =[{
+                TpoCodigo : "INT1",
+                VlrCodigo: data.CodigoDet,
+                Id_Detalle: data.Id_Detalle
+            }];
+            console.log("detalle seleccionado");
+            console.log(data);
+
             Doc.dte.documento.detalle.push(det);
         });
     }
@@ -791,6 +806,7 @@
             $("#ModalPreviewDte").modal('show');
             var ObjDte = fnGetDataDte();//borrador
             fnGetPreviewDte(ObjDte, function (r) {
+
                 switch (r.code)
                 {
                     case 200:
@@ -808,10 +824,122 @@
 
     $("#btnGuardarDocumento").off().on('click', function () {
         var ObjDte = fnGetDataDte();
+        //SI VIENE LA OPERACION DESDE ESTE BOTON EL ESTADO ES BORRADOR
+        ObjDte.dte.TipoOperacion = 'BORR';
+
         fnSaveDocDte(ObjDte, function (r) {
-            console.log(r);
+            switch (r.code) {
+                case 200:
+                    ModalElement.Create();
+                    ModalElement.Class("info");
+                    ModalElement.Header("Informacion");
+                    ModalElement.Message(r.ObjectResponse);
+                    ModalElement.Show();
+                    //3 segundos de espera para redireccionar a lista documentos
+                    setTimeout(function () {
+                        window.location.href = 'ListaDocumentos.aspx';   
+                    }, 3000);
+                   
+                    break;
+                case 500:
+                    ModalElement.Create();
+                    ModalElement.Class("danger");
+                    ModalElement.Header("Error!");
+                    ModalElement.Message(r.ObjectResponse);
+                    ModalElement.Show();
+                    break;
+      
+            }
         });
     });
+
+
+
+    /*****************SI SE QUIERE VISUALIZAR UN DOCUMENTO GUARDADO******************/
+    if (sessionStorage.getItem("DocumentoOrigen") != null && sessionStorage.getItem("DocumentoOrigen") != '' ) {
+        var SessionDoc = JSON.parse(sessionStorage.getItem("DocumentoOrigen"));
+        //SessionDoc.idDte;
+        console.log(SessionDoc);
+
+        //Receptor
+        var ObjReceptor = new Object();
+        var RutReceptor = SessionDoc.RutReceptor.replace('-', '');
+        RutReceptor = RutReceptor.substring(0, RutReceptor.length - 1);
+        ObjReceptor.RutReceptor = RutReceptor;
+        $.ajax({
+            type: 'POST',
+            url: 'EmisionDocumentos.aspx/GetReceptorByRut',
+            data: JSON.stringify(ObjReceptor),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                var Receptor = JSON.parse(msg.d);
+                $("#txtRutReceptor").val(Receptor[0].RutReceptor);
+                $("#txtRazonSocialReceptor").val(Receptor[0].NombreReceptor);
+                $("#txtGiroReceptor").val(Receptor[0].NombreGiro);
+                $("#txtComunaReceptor").val(Receptor[0].Comuna);
+                $("#txtDireccionReceptor").val(Receptor[0].DireccionReceptor);
+                $("#txtCiudadReceptor").val(Receptor[0].Ciudad);
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+            }
+        });
+        //detalles
+        var ObjDetalle = new Object();
+        ObjDetalle.IdDte = SessionDoc.idDte;
+        $.ajax({
+            type: 'POST',
+            url: 'EmisionDocumentos.aspx/GetProductoByIdDte',
+            data: JSON.stringify(ObjDetalle),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                var Detalles = JSON.parse(msg.d);
+                var Count = 0;
+
+                $.each(Detalles, function (i, r) {
+                    console.log(r.ID_DETALLE);
+                    var aux = (r.CantidadComprada * r.PrecioDet);
+                    objTableListaDetalles.rows.add(
+                        [{
+                            "CodigoDet": r.CodigoDet,
+                            "NombreDet": r.NombreDet,
+                            "Descripcion": r.Descripcion,
+                            "UnidadMedida": r.IdUnidadMedida,
+                            "PrecioDet": r.PrecioDet,
+                            "HasIva": r.HasIva,
+                            "HasDesc": 'NO',
+                            "DescValue": 0,
+                            "DescTipo": "0",
+                            // "Iva": "6",
+                            "Cantidad": r.CantidadComprada,
+                            "Descuento": "0",
+                            "Total": aux,
+                            "TotalOriginal": aux,
+                            "Id_Detalle": r.ID_DETALLE
+                        }]
+                    ).draw();
+                    $("#SelectIva" + Count.toString()).val(r.HasIva.toLowerCase());
+                    console.log($("#SelectIva" + Count.toString()));
+                    FnCalculoIvaDescuento($("#SelectIva" + Count.toString())[0]);
+                    SumDetails(objTableListaDetalles);
+
+                    Count = Count + 1;
+                });
+
+
+               
+           
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+            }
+        });
+        sessionStorage.setItem("DocumentoOrigen", '');
+    }
+
+    /*****************SI SE QUIERE VISUALIZAR UN DOCUMENTO GUARDADO******************/
 
 });
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
@@ -10,14 +12,15 @@ using System.Text;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
-using ws_OperacionesFactura.Class;
+using ws_OperacionesFactura.Certificacion;
 
 public class EnvioSii
- {
-        public string Token { get; set; }
-        public string RutEmisor { get; set; }
-        public string RutEmpresa { get; set; }
-        public string RutaXml { get; set; }
+{
+    public string Token { get; set; }
+    public string RutEmisor { get; set; }
+    public string RutEmpresa { get; set; }
+    public XDocument Xml { get; set; }
+    public string NameXml { get; set; }
 
         public EnvioSii() { }
 }
@@ -56,12 +59,12 @@ public class SiiUtilities
         secuencia.Append("\r\n");
         secuencia.Append(pDigEmpresa + "\r\n");
         secuencia.Append("--7d23e2a11301c4\r\n");
-        secuencia.Append("Content-Disposition: form-data; name=\"archivo\"; filename=\"" + envioSii.RutaXml + "\"\r\n");
+        secuencia.Append("Content-Disposition: form-data; name=\"archivo\"; filename=\"" + envioSii.NameXml + "\"\r\n");
         secuencia.Append("Content-Type: text/xml\r\n");
         secuencia.Append("\r\n");
         ////
         //// Lea el documento xml que se va a enviar al SII
-        XDocument xdocument = XDocument.Load(envioSii.RutaXml, LoadOptions.PreserveWhitespace);
+        XDocument xdocument = envioSii.Xml;// XDocument.Load(envioSii.RutaXml, LoadOptions.PreserveWhitespace);
         ////
         //// Cargue el documento en el objeto secuencia
         secuencia.Append("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
@@ -181,51 +184,160 @@ public class SiiUtilities
         #endregion
     }
 
-    public string GetToken(string PathCertificate, string PwdCetificate)
+    
+
+}
+
+
+
+public class ConexionSII
+{
+    private string RespuestaSemilla, RespuestaToken, Semi_Firmada, Firmada;
+    private XmlDocument SemillaXml = new XmlDocument();
+    private XmlDocument TokenXml = new XmlDocument();
+    private XmlDocument SemillaFirmada = new XmlDocument();
+    private XmlNode NodoSemilla, NodoEstadoSemilla, NodoToken, NodoEstadoToken, NodoGlosaToken;
+    private CrSeedService pidosemilla = new CrSeedService();
+    private GetTokenFromSeedService pidotoken = new GetTokenFromSeedService();
+
+    public string PidoSemillaToken(X509Certificate2 cert)
     {
-        //obtenemos token 
-        CrSeedService SeedService = new CrSeedService();
-        string Response = SeedService.getSeed();
-        XmlDocument xdoc = new XmlDocument();
-        xdoc.LoadXml(Response);
+        // inicio pidiendo semilla
+        try
+        {
+            RespuestaSemilla = pidosemilla.getSeed();
+            SemillaXml.LoadXml(RespuestaSemilla);
+            NodoSemilla = SemillaXml.SelectSingleNode("//SEMILLA");
+            NodoEstadoSemilla = SemillaXml.SelectSingleNode("//ESTADO");
+            // saco valor semilla del xml
+            var Semilla = NodoSemilla.ChildNodes.Item(0).InnerText;
+            // saco valor estado semilla del xml
+            var EstadoSemilla = NodoEstadoSemilla.ChildNodes.Item(0).InnerText;
+            // FirmarSemilla
+            Semi_Firmada = FirmarSemilla(Semilla, cert);   // voy a funcion firmarsemilla con dos parametros, valor semilla y nombre de certificado
+            // region Recuperar TOKEN
+            // Suponiendo que el objeto XmlDocument ( XMLDOM ) contenga la semilla firmada, esta debería ser la forma de recuperar
+            // el valor string.
+            SemillaFirmada.LoadXml(Semi_Firmada);    // convierto el string de semilla firmada en un documento xml
+            Firmada = SemillaFirmada.OuterXml;            // extraigo solo los valores string para pasar al metodo getToken
+            RespuestaToken = pidotoken.getToken(Firmada);  // pido el token y paso su parametro, que es la semilla firmada
+            TokenXml.LoadXml(RespuestaToken);
+            NodoToken = TokenXml.SelectSingleNode("//TOKEN");
+            NodoEstadoToken = TokenXml.SelectSingleNode("//ESTADO");
+            NodoGlosaToken = TokenXml.SelectSingleNode("//GLOSA");
+            // saco valor token del xml
+            var Token = NodoToken.ChildNodes.Item(0).InnerText;
+            // saco valor estado token del xml
+            var EstadoToken = NodoEstadoToken.ChildNodes.Item(0).InnerText;
+            // saco valor glosa token del xml
+            var GlosaToken = NodoGlosaToken.ChildNodes.Item(0).InnerText;
 
-        X509Certificate2 cert = new X509Certificate2(PathCertificate, PwdCetificate);
-
-        string SignedSeed = SignSeed(xdoc, cert).InnerXml;
-        ////>2CWDHDQ4MFB9Q
-        //// Luego asigne el valor al metodo GetToken()
-        GetTokenFromSeedService gt = new GetTokenFromSeedService();
-        string SignSeedResponse = gt.getToken(SignedSeed);
-
-        return "";
-
+       
+            return Token;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }// Exit Function
     }
 
-    public static XmlDocument SignSeed(XmlDocument doc, X509Certificate2 certificado)
+    // Firmo la semilla para poder validarla en el SII
+    public string FirmarSemilla(string seed, X509Certificate2 cert)
     {
-        doc.PreserveWhitespace = false;
-        SignedXml signedXml = new SignedXml(doc);
-        signedXml.SigningKey = certificado.PrivateKey;
-        Signature XMLSignature = signedXml.Signature;
-        Reference reference = new Reference("");
-        XmlDsigEnvelopedSignatureTransform env = new XmlDsigEnvelopedSignatureTransform();
-        reference.AddTransform(env);
-        XMLSignature.SignedInfo.AddReference(reference);
-        KeyInfo keyInfo = new KeyInfo();
-        keyInfo.AddClause(new RSAKeyValue((RSA)certificado.PrivateKey));
-        keyInfo.AddClause(new KeyInfoX509Data(certificado));
-        XMLSignature.KeyInfo = keyInfo;
-        signedXml.ComputeSignature();
-        XmlElement xmlDigitalSignature = signedXml.GetXml();
-        doc.DocumentElement.AppendChild(doc.ImportNode(xmlDigitalSignature, true));
+        string resultado = null;
+        string body;
 
-        if (doc.FirstChild is XmlDeclaration)
+        // Firmo la semilla.
+        try
         {
-            doc.RemoveChild(doc.FirstChild);
+            body = "";  // blanqueo para asegurar el string desde cero
+            // saco los ceros iniciales a la semilla
+            body = String.Format("<getToken><item><Semilla>{0}</Semilla></item></getToken>", double.Parse(seed).ToString());
+            // esta linea no esta en el codigo de Marcelo Rojas hecha en c# sin ella no funciona la autentificación con vb.net
+            //body = "<?xml version=\"1.0\"?><getToken><item><Semilla>" + body + "</Semilla></item></getToken>";
+            resultado = FirmarDocumentoSemilla(body, cert);
+            return resultado;
         }
+        catch (Exception ex)
+        {
+            
+            resultado = null;
+            return resultado;
+        }
+    }
 
-        return doc;
+    // Firmar el documento xml semilla
+    public string FirmarDocumentoSemilla(string documento, X509Certificate2 certificado)
+    {     
+        IntPtr pCertContext = IntPtr.Zero;  
+        XmlDocument doc = null;
+        SignedXml signedXml = null/* TODO Change to default(_) if this is not a reference type */;
+        Reference reference = null/* TODO Change to default(_) if this is not a reference type */;   
+        XmlDsigEnvelopedSignatureTransform env = null/* TODO Change to default(_) if this is not a reference type */;
+        KeyInfo keyInfo = null/* TODO Change to default(_) if this is not a reference type */;
+        XmlElement xmlDigitalSignature = null;
+
+        Signature XMLSignature;
+
+        try
+        {
+            // Creo un nuevo documento xml y defino sus caracteristicas
+            doc = new XmlDocument();
+            doc.PreserveWhitespace = false;
+            // MsgBox(documento)
+            doc.LoadXml(documento);
+
+            // Creo el objeto XMLSignature.
+            signedXml = new SignedXml(doc);
+
+            // Agrego la clave privada al objeto xmlSignature.
+            signedXml.SigningKey = certificado.PrivateKey;
+
+            // Obtengo el objeto signature desde el objeto SignedXml.
+            XMLSignature = signedXml.Signature;
+
+            // Creo una referencia al documento que va a firmarse  'si la referencia es "" se firmara todo el documento
+            reference = new Reference();
+            reference.Uri = "";
+
+            // Add an enveloped transformation to the reference.
+            env = new XmlDsigEnvelopedSignatureTransform();
+            reference.AddTransform(env);
+
+            // Agrego el objeto referenciado al objeto firma.
+            signedXml.AddReference(reference);
+
+            // Agregue RSAKeyValue KeyInfo  ( requerido para el SII ).
+            keyInfo = new KeyInfo();
+            keyInfo.AddClause(new RSAKeyValue((RSA)certificado.PrivateKey));
+
+            // Agregar información del certificado x509
+            keyInfo.AddClause(new KeyInfoX509Data(certificado));
+
+            // Agregar KeyInfo al objeto Signature 
+            XMLSignature.KeyInfo = keyInfo;
+
+            // Creo la firma
+            signedXml.ComputeSignature();
+
+            // Recupero la representacion xml de la firma
+            xmlDigitalSignature = signedXml.GetXml();
+
+            // Agrego la representacion xml de la firma al documento xml
+            doc.DocumentElement.AppendChild(doc.ImportNode(xmlDigitalSignature, true));
+
+            // Limpio el documento xml de la declaracion xml ( Opcional, pero para nuestro proceso es valido  )
+            if (doc.FirstChild is XmlDeclaration)
+                doc.RemoveChild(doc.FirstChild);
+            return doc.InnerXml;
+        }
+        catch (Exception e)
+        {
+
+            return null;
+        }
     }
 }
+
 
 

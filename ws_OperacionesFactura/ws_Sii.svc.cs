@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
@@ -15,8 +16,11 @@ using System.ServiceModel.Web;
 //using System.Web;
 using System.Web.Configuration;
 using System.Xml;
+using System.Xml.Linq;
 //using System.Xml.Linq;
-using ws_OperacionesFactura.Class;
+
+
+
 
 namespace ws_OperacionesFactura
 {
@@ -37,7 +41,7 @@ namespace ws_OperacionesFactura
         }
 
         [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        public string GetPreviewDTE(MakeDte.DTE dte)
+        public Response GetPreviewDTE(MakeDte.DTE dte)
         {
             Response r = new Response();
             try
@@ -58,30 +62,32 @@ namespace ws_OperacionesFactura
                 String file = Convert.ToBase64String(bytes);
                 File.Delete(temp);
 
-              
-                r.code = Code.OK;
-                r.type = Type.base64;
-                r.ObjectResponse = file;
 
-               return JsonConvert.SerializeObject(r,Newtonsoft.Json.Formatting.Indented);
-               
+                 r.code = Code.OK;
+                 r.type = Type.base64;
+                 r.ObjectResponse = file;
+
+                // return JsonConvert.SerializeObject(r,Newtonsoft.Json.Formatting.Indented);
+                return r;
             }
             catch (Exception ex)
             {
-                r.code = Code.ERROR;
-                r.type = Type.json;
-                r.ex = ex;
-                return JsonConvert.SerializeObject(r, Newtonsoft.Json.Formatting.Indented);
+                  r.code = Code.ERROR;
+                  r.type = Type.text;
+                  r.ObjectResponse = ex.ToString();
+                  return r;
             }
         }
         [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        public string SaveDocDte(MakeDte.DTE dte)
+        public Response SaveDocDte(MakeDte.DTE dte)
         {
             Response r = new Response();
             try
             {
              
                 MySqlConnector mysql = new MySqlConnector();
+                DataTable dt_documentodte = new DataTable();
+
                 mysql.ConnectionString = WebConfigurationManager.ConnectionStrings["MySqlProvider"].ConnectionString;
                 mysql.AddProcedure("sp_ins_documentodte");
                 mysql
@@ -98,18 +104,72 @@ namespace ws_OperacionesFactura
                     .AddParameter("MontoTotal",  dte.documento.encabezado.totales.MntTotal)
                     .AddParameter("TipoOperacion", dte.TipoOperacion);
 
+                dt_documentodte = mysql.ExecQuery().ToDataTable();
+                string IdDte = dt_documentodte.Rows[0]["IdDte"].ToString();
 
-                return mysql.ExecQuery().ToJson();
+                DataTable dt_documentdte_detalle = new DataTable();
+                foreach (var det in dte.documento.detalle)
+                {             
+                    var cdgItem = det.CdgItem;
+                 
+                    mysql.AddProcedure("sp_ins_documentdte_detalle");
+                    mysql       
+                          .AddParameter("IdDte", IdDte)
+                          .AddParameter("NumeroLinea", det.NroLinDet)
+                          .AddParameter("Exento", "0")
+                          .AddParameter("IdDetalle",cdgItem[0].Id_Detalle)
+                          .AddParameter("CantidadComprada", det.QtyItem)
+                          .AddParameter("MontoTotalDetalle", det.MontoItem)
+                          .AddParameter("DescuentoRecargo", "0")
+                          .AddParameter("TipoDescuentoRecargo", "0")
+                          .AddParameter("MontoUnitDetalle", det.PrcItem)
+                          .AddParameter("HasIva",det.HasIva);
+                    dt_documentdte_detalle = mysql.ExecQuery().ToDataTable();
+                }
+                //finalmente si guardamos el documento en la bd procedemos a generar el xml
+                MakeDte m = new MakeDte();
+                XmlDocument xml = new XmlDocument();
+                xml = m.Serialize(dte);
+
+                //insertamos el xml en la tabla
+                mysql.AddProcedure("sp_ins_file");
+                mysql
+                      .AddParameter("File", xml.OuterXml)
+                      .AddParameter("FileName",
+                                                IdDte //nombre compuesto por id
+                                             +dte.documento.encabezado.iddoc.TipoDTE.ToString()//tipo
+                                             +RutWithOutDv(dte.documento.encabezado.emisor.RUTEmisor)//rutemisor
+                                             +dte.documento.encabezado.iddoc.Folio.ToString()//folio
+                                    )
+                      .AddParameter("Type", ".xml");
+               var IdFile= mysql.ExecQuery().ToDataTable().Rows[0]["IdFile"].ToString();
+                //asociamos el archivo insertado al documento dte
+                mysql.AddProcedure("sp_upd_DocumentDte_File");
+                mysql
+                      .AddParameter("idFile", IdFile)
+                      .AddParameter("idDte", IdDte);
+                mysql.ExecQuery();
+
+                r.code = Code.OK;
+                r.type = Type.text;
+                r.ObjectResponse = "Se ha ingresado el documento Correctamente!";
+                return r;
+
+
+
             }
             catch (Exception ex)
             {
-                return "";
+                r.code = Code.ERROR;
+                r.type = Type.text;
+                r.ObjectResponse = ex.ToString();
+                return r;
             }
           
         }
 
         [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        private string SavePfx(structCertificadoDigital certificadoDigital) {
+        private Response SavePfx(structCertificadoDigital certificadoDigital) {
 
             Response r = new Response();
             try
@@ -131,7 +191,7 @@ namespace ws_OperacionesFactura
                     mysql.AddProcedure("sp_ins_certificado_digital");
                     mysql.
                              AddParameter("rutEmpresa", certificadoDigital.RutEmpresa)
-                            .AddParameter("Pwd", certificadoDigital.Password)
+                            .AddParameter("Pwd",Utilities.Encryption(certificadoDigital.Password))
                             .AddParameter("Path", rutaGuardado)
                             .AddParameter("TypeFile", certificadoDigital.TypeFile);
 
@@ -139,9 +199,7 @@ namespace ws_OperacionesFactura
                     dt = mysql.ExecQuery().ToDataTable();
 
 
-                    r.code = Code.OK;
-                    r.type = Type.json;
-                    r.ObjectResponse = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+              
 
                     if (dt.Rows[0]["InsertStatus"].ToString() == "OK")
                     {
@@ -149,24 +207,70 @@ namespace ws_OperacionesFactura
                         File.WriteAllBytes(rutaGuardado, Convert.FromBase64String(certificadoDigital.Base64));
                     }
 
-
+                    r.code = Code.OK;
+                    r.type = Type.text;
+                    r.ObjectResponse = "Se ha ingresado el certificado correctamente!";
 
                 }
                 else
                 {
                     r.code = Code.ERROR;
-                    r.type = Type.json;
-                    r.ObjectResponse= "[\r\n  {\r\n    \"Result\": 2,\r\n    \"InsertStatus\": \"La contraseña  informada no es valida\"\r\n  }\r\n]";
+                    r.type = Type.text;
+                    r.ObjectResponse= "La contraseña ingresada no es valida!";
                 }
-                return JsonConvert.SerializeObject(r, Newtonsoft.Json.Formatting.Indented);
+                return r;
             }
             catch (Exception ex)
             {
                 r.code = Code.ERROR;
-                r.type = Type.json;
-                r.ex = ex;
-                return JsonConvert.SerializeObject(r, Newtonsoft.Json.Formatting.Indented);
+                r.type = Type.text;
+                r.ObjectResponse = ex.ToString();
+                return r;
             }
+        }
+
+        [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
+        private string SendDocSii(string RutEmpresa,string IdDocumento)
+        {
+            //sp_sel_certificado_digital
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = WebConfigurationManager.ConnectionStrings["MySqlProvider"].ConnectionString;
+            mysql.AddProcedure("sp_sel_certificado_digital");
+            mysql.
+                  AddParameter("rutEmpresa", RutEmpresa);            
+            DataTable dt = new DataTable();
+            dt = mysql.ExecQuery().ToDataTable();
+
+            SiiUtilities siiUtil = new SiiUtilities();
+
+            string PathCert = dt.Rows[0]["Path"].ToString();
+            string PassCert =Utilities.Decryption( dt.Rows[0]["Password"].ToString());
+            X509Certificate2 cert = new X509Certificate2(PathCert,PassCert);
+
+            ConexionSII cn = new ConexionSII();
+            string Token = string.Empty;
+            //PASO 1 PEDIMOS EL TOKEN
+            Token = cn.PidoSemillaToken(cert);
+            //PASO 2 FIRMAMOS EL DOCUMENTO 
+
+            //PASO 3 ENSOBRAMOS EL DTE EN EL SETDTE
+
+            //PASO 4 ENVIAMOS
+
+            if (!string.IsNullOrEmpty(Token))
+            {
+                EnvioSii envioSii = new EnvioSii();
+                envioSii.Xml = XDocument.Parse("",LoadOptions.PreserveWhitespace);
+                envioSii.RutEmisor = RutEmpresa;
+                envioSii.RutEmpresa = RutEmpresa;
+                envioSii.Token = Token;
+                siiUtil.SendDoc(envioSii);
+            }
+
+
+ 
+
+            return "";
         }
 
         private string RutWithOutDv(string rut)

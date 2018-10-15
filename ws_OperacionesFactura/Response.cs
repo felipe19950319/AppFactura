@@ -19,7 +19,7 @@ namespace ws_OperacionesFactura
     }
     public class Response
     {
-        public Code code;
+        public Code code;   
         public Type type;
         public string ObjectResponse;
         public Exception ex;//si tenemos una excepcion

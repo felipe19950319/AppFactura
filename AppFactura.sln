@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ws_OperacionesFactura", "ws
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{A3532BAE-959D-4807-AD31-B65DBD8FD62E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ws_prueba", "ws_prueba\ws_prueba.csproj", "{D749B9E1-F3DF-45E4-8FC5-FE8674543FDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{A3532BAE-959D-4807-AD31-B65DBD8FD62E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3532BAE-959D-4807-AD31-B65DBD8FD62E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3532BAE-959D-4807-AD31-B65DBD8FD62E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D749B9E1-F3DF-45E4-8FC5-FE8674543FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D749B9E1-F3DF-45E4-8FC5-FE8674543FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D749B9E1-F3DF-45E4-8FC5-FE8674543FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D749B9E1-F3DF-45E4-8FC5-FE8674543FDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{24097F47-BF7C-4A14-912C-466DE0A8511B} = {B09E7C5B-4DA1-4C66-A73B-7CE09B24ECB6}
 		{205A5A6A-7050-456B-AE88-F93AAE2BAD96} = {0FE8F74E-8AF7-49C4-AA5D-A1B7828CFC4F}
 		{A3532BAE-959D-4807-AD31-B65DBD8FD62E} = {2765E546-4F89-4A15-B7EE-34875C61DF8B}
+		{D749B9E1-F3DF-45E4-8FC5-FE8674543FDB} = {0FE8F74E-8AF7-49C4-AA5D-A1B7828CFC4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43471E69-67B0-4AFB-B008-B5BC146F0938}

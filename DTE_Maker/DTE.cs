@@ -101,10 +101,10 @@ public class MakeDte : Extends
     }
     public class Detalle
     {
+        [XmlElement("CdgItem")]
+        public List<CdgItem> CdgItem = new List<CdgItem>();
         [XmlElement("NroLinDet")]
         public int NroLinDet { get; set; }
-        [XmlElement("CdgItem")]
-        public List<CdgItem> cdgItem = new List<CdgItem>();
         [XmlElement("NmbItem")]
         public string NmbItem { get; set; }
         [XmlElement("DscItem")]
@@ -115,6 +115,9 @@ public class MakeDte : Extends
         public decimal PrcItem { get; set; }
         [XmlElement("MontoItem")]
         public decimal MontoItem { get; set; }
+        [XmlIgnore]
+        public string HasIva { get; set; }
+
     }
 
     public class CdgItem
@@ -123,6 +126,8 @@ public class MakeDte : Extends
         public string TpoCodigo { get; set; }
         [XmlElement("VlrCodigo")]
         public string VlrCodigo { get; set; }
+        [XmlIgnore]
+        public int  Id_Detalle { get; set; }
     }
     public class Referencia
     {

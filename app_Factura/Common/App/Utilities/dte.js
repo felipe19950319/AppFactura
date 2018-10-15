@@ -98,7 +98,8 @@
         DscItem: null,
         QtyItem: 0,
         PrcItem: 0,
-        MontoItem: 0
+        MontoItem: 0,
+     
     }
 
     var Host = 'http://localhost:57530/ws_Sii.svc';
@@ -110,8 +111,8 @@
             data: JSON.stringify(ObjDte),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function(msg) {
-                callback(JSON.parse(msg.d));
+            success: function (msg) {    
+                callback(msg.d);
             },
             error: function(request, status, error) {
                 callback(request.responseText);
@@ -127,7 +128,7 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (msg) {
-                callback(JSON.parse(msg.d));
+                callback(msg.d);
             },
             error: function (request, status, error) {
                 callback(request.responseText);
@@ -143,7 +144,7 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (msg) {
-                callback(JSON.parse(msg.d));
+                callback(msg.d);
               
             },
             error: function (request, status, error) {

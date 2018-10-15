@@ -28,21 +28,21 @@
                     
                     result = fnSavePfx(ObjCertificadoDigital, function (r) {
                         console.log(r);
-                        var Response = JSON.parse(r.ObjectResponse);
+                      //  var Response = JSON.parse(r.ObjectResponse);
 
-                        switch (Response[0].Result) {
-                            case 1:
+                        switch (r.code) {
+                            case 200:
                                 ModalElement.Create();
                                 ModalElement.Class("info");
                                 ModalElement.Header("Informacion");
-                                ModalElement.Message("Se ha ingresado el certificado correctamente!");
+                                ModalElement.Message(r.ObjectResponse);
                                 ModalElement.Show();
                                 break;
-                            case 2:
+                            case 500:
                                 ModalElement.Create();
                                 ModalElement.Class("danger");
                                 ModalElement.Header("Error!");
-                                ModalElement.Message(Response[0].InsertStatus);
+                                ModalElement.Message(r.ObjectResponse);
                                 ModalElement.Show();
                                 break;
                             case 0:

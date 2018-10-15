@@ -35,26 +35,6 @@ namespace SqlConnector
                 cmd.Parameters.AddWithValue(Item.Key, Item.Value);
             }
 
-            // cmd.ExecuteNonQuery();
-
-
-            // MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-            //retornaremos finalmente 
-            //DataSet ds = new DataSet();
-
-            /**/
-            ds.Dispose();
-            ds.Clear();
-
-            /* using (MySqlDataReader dr = cmd.ExecuteReader())
-             {
-
-
-                 DataTable dataTable = new DataTable();
-                 dataTable.Load(dr);
-                 ds.Tables.Add(dataTable);            
-                 dr.Close();
-             }*/
             MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             DataTable dtSchema = dr.GetSchemaTable();
             DataTable dt = new DataTable();
@@ -76,7 +56,6 @@ namespace SqlConnector
             }
 
             // Read rows from DataReader and populate the DataTable 
-
             while (dr.Read())
             {
                 DataRow dataRow = dt.NewRow();
@@ -88,13 +67,13 @@ namespace SqlConnector
                 dt.Rows.Add(dataRow);
             }
 
+           /*ds.Clear();
+            ds.Dispose();*/
+            ds.Tables.Clear();
             ds.Tables.Add(dt);
-            /**/
+ 
 
-
-
-            // adapter.Fill(ds);
-
+            Parameters.Clear();
             CloseConnection();
             return this;
         }

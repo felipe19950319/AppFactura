@@ -67,6 +67,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\AdministracionFolios.aspx" />
     <Content Include="App\AdministrarEmpresas.aspx" />
     <Content Include="App\CargarCertificadoDigital.aspx" />
     <Content Include="App\General.aspx" />
@@ -80,6 +81,7 @@
     <Content Include="Common\App\CargarCertificadoDigital.js" />
     <Content Include="Common\App\EmisionDocumentos.js" />
     <Content Include="Common\App\General.js" />
+    <Content Include="Common\App\ListaDocumentos.js" />
     <Content Include="Common\App\Modal\Modal.js" />
     <Content Include="Common\App\Utilities\dte.js" />
     <Content Include="Common\App\Utilities\pdf.js" />
@@ -200,6 +202,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AdministracionFolios.aspx.cs">
+      <DependentUpon>AdministracionFolios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\AdministracionFolios.aspx.designer.cs">
+      <DependentUpon>AdministracionFolios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App\AdministrarEmpresas.aspx.cs">
       <DependentUpon>AdministrarEmpresas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

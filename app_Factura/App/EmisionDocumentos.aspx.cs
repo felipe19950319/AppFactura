@@ -152,6 +152,31 @@ namespace app_Factura.App
             }
         }
 
+        [WebMethod]
+        public static string GetReceptorByRut(string RutReceptor) {
+            
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+            mysql.AddProcedure("sp_sel_receptorByRut");
+
+            mysql.AddParameter("RutReceptor", RutReceptor);
+
+            return mysql.ExecQuery().ToJson();
+        }
+
+        [WebMethod]
+        public static string GetProductoByIdDte(string IdDte)
+        {
+
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = HttpContext.Current.Session["cnString"].ToString();
+            mysql.AddProcedure("sp_sel_detalle_productoByIdDte");
+
+            mysql.AddParameter("IdDte", IdDte);
+
+            return mysql.ExecQuery().ToJson();
+        }
+
 
 
 

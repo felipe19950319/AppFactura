@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ws_OperacionesFactura.Class
+namespace ws_OperacionesFactura
 {
     public class structCertificadoDigital
     {

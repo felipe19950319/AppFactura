@@ -10,8 +10,8 @@ namespace SqlConnector
         public Dictionary<string, dynamic> Parameters = new Dictionary<string, dynamic>();
         public string Procedure = string.Empty;
         public string ConnectionString = string.Empty;
-        public DataSet ds = new DataSet();
-
+        public DataSet ds= new DataSet();
+            
         private string FormatNumber(string Number)
         {
             Number = Number.Replace(",", ".");
