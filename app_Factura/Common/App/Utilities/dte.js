@@ -153,6 +153,23 @@
         });
     }
 
+    fnSaveFolio = function (ObjFolio, callback) {
+        $.ajax({
+            type: 'POST',
+            url: Host + '/SaveFolio',
+            data: JSON.stringify(ObjFolio),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                callback(msg.d);
+
+            },
+            error: function (request, status, error) {
+                callback(request.responseText);
+            }
+        });
+    }
+
     fnAddDetalle = function(dteClass, Detalle) {
         dteClass.dte.detalle.push(Detalle);
     }

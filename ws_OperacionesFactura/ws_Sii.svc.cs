@@ -273,6 +273,54 @@ namespace ws_OperacionesFactura
             return "";
         }
 
+        [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
+        private Response SaveFolio(structFolio folio)
+        {
+            Response r = new Response();
+            try
+            {
+        
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = WebConfigurationManager.ConnectionStrings["MySqlProvider"].ConnectionString;
+
+            mysql.AddProcedure("sp_ins_caf");
+            mysql.
+                     AddParameter("RUT_EMPRESA", RutWithOutDv(folio.RutEmpresa))
+                    .AddParameter("FOLIO_DESDE", folio.FolioDesde)
+                    .AddParameter("FOLIO_HASTA", folio.FolioHasta)
+                    .AddParameter("ESTADO", "ACTIVO")
+                    .AddParameter("CAF", folio.xml)
+                    .AddParameter("TIPO_DOC_CAF", folio.TipoDocumento);
+
+            DataTable dt = new DataTable();
+            dt = mysql.ExecQuery().ToDataTable();
+
+                if (dt.Rows[0]["TypeResult"].ToString() == "0")
+                {
+                    r.code = Code.ERROR;
+                }
+                else
+                {
+                    r.code = Code.OK;
+                }
+         
+            r.type = Type.text;
+            r.ObjectResponse = dt.Rows[0]["Result"].ToString();
+
+            return r;
+            }
+            catch (Exception ex)
+            {
+                r.code = Code.ERROR;
+                r.type = Type.text;
+                r.ObjectResponse = ex.ToString();
+                return r;
+            }
+        }
+
+
+
+
         private string RutWithOutDv(string rut)
         {
             rut = rut.Replace("-", "");

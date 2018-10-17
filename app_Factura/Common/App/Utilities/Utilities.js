@@ -2,7 +2,9 @@
      StringTob64=function(str) {
         return window.btoa(unescape(encodeURIComponent(str)));
     }
-
+    b64_to_utf8= function (str) {
+        return decodeURIComponent(escape(window.atob(str)));
+    }
     ServerSide = function (page, method, jsonObject, callback) {
        // console.log(jsonObject);
         var json64 = StringTob64(JSON.stringify(jsonObject));

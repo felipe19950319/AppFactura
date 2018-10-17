@@ -89,6 +89,7 @@
     <Compile Include="Class\Proxy.cs" />
     <Compile Include="Class\SendSii.cs" />
     <Compile Include="Class\structCertificadoDigital.cs" />
+    <Compile Include="Class\structFolio.cs" />
     <Compile Include="Class\Utilities.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

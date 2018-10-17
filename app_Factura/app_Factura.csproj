@@ -78,6 +78,7 @@
     <Content Include="App\HtmlTemplates\ModalReceptor.html" />
     <Content Include="App\ListaDocumentos.aspx" />
     <Content Include="App\SeleccionEmpresa.aspx" />
+    <Content Include="Common\App\AdministracionFolios.js" />
     <Content Include="Common\App\CargarCertificadoDigital.js" />
     <Content Include="Common\App\EmisionDocumentos.js" />
     <Content Include="Common\App\General.js" />
