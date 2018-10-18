@@ -228,9 +228,16 @@ namespace ws_OperacionesFactura
                 return r;
             }
         }
-
         [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        private string SendDocSii(string RutEmpresa,string IdDocumento)
+        private String SingDocSii(string RutEmpresa, string IdDocumento)
+        {
+            //obtenemos el CAF y el NUMERO de folio para proceder con el proceso
+
+            return "";
+        }
+
+        [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]//guardar y emitir
+        private string SendDocSii(string RutEmpresa,string IdDocumento,string Ambiente)
         {
             //sp_sel_certificado_digital
             MySqlConnector mysql = new MySqlConnector();
@@ -250,7 +257,7 @@ namespace ws_OperacionesFactura
             ConexionSII cn = new ConexionSII();
             string Token = string.Empty;
             //PASO 1 PEDIMOS EL TOKEN
-            Token = cn.PidoSemillaToken(cert);
+            Token = cn.PidoSemillaToken(cert,Ambiente);
             //PASO 2 FIRMAMOS EL DOCUMENTO 
 
             //PASO 3 ENSOBRAMOS EL DTE EN EL SETDTE
@@ -266,10 +273,6 @@ namespace ws_OperacionesFactura
                 envioSii.Token = Token;
                 siiUtil.SendDoc(envioSii);
             }
-
-
- 
-
             return "";
         }
 

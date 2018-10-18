@@ -14,9 +14,15 @@
                              <div class="row">
                                      <div class="col-md-8">
                                      <h4>Seleccionar empresa</h4>
+                                         <br/>
+                                         Empresa:
                                      <asp:DropDownList ID="DropEmpresa" runat="server" CssClass="form-control" >
 
                                      </asp:DropDownList>
+                                         <br/>
+                                         Ambiente
+                                     <asp:DropDownList ID="DropAmbiente" runat="server" CssClass="form-control" >
+                                     </asp:DropDownList>    
                                     </div>
                              </div>
                               <br/>

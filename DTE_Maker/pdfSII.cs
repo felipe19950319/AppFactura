@@ -22,6 +22,7 @@ namespace DTE_Maker
           m.MakePdf("C:\\Nueva carpeta\\asfalcura.pdf", "C:\\Nueva carpeta\\arial.ttf");*/
 
         private XmlDocument DTE = new XmlDocument();
+
         //public XmlDocument xmlDTE = new XmlDocument(); 
 
         public void MakeXsl(XmlDocument xmlDTE, string PathXslt)

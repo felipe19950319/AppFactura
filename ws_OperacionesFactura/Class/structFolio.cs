@@ -14,7 +14,7 @@ namespace ws_OperacionesFactura
         public int FolioDesde { get; set; }
         public int FolioHasta { get; set; }
         public string xml { get; set; }
-
+        public string Ambiente { get; set; }
         /*
                    ObjFolio.name = name;
                     ObjFolio.type = type;

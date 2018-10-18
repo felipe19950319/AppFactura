@@ -770,7 +770,7 @@
     {
         var Doc = fnGetJsonDte();
         Doc.dte.TipoOperacion = $("#TipoOperacion").val();
-        Doc.dte.documento.encabezado.iddoc.TipoDTE = 33;
+        Doc.dte.documento.encabezado.iddoc.TipoDTE = 34;
         Doc.dte.documento.encabezado.iddoc.Folio = 1;
         Doc.dte.documento.encabezado.iddoc.FchEmis = "2018-07-25";
         Doc.dte.documento.encabezado.iddoc.FmaPago = 0;

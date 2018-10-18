@@ -33,11 +33,15 @@ namespace app_Factura.App
          
             DropEmpresa.DataSource = dt;
             DropEmpresa.DataBind();
+
+            DropAmbiente.Items.Insert(0,new ListItem("Certificacion", "CERT"));
+            DropAmbiente.Items.Insert(1, new ListItem("Produccion", "PROD"));
+
         }
 
 
         [WebMethod]
-        public static void ajax_SeleccionEmpresa(string Id_emp, string Razon_social)
+        public static void ajax_SeleccionEmpresa(string Id_emp, string Razon_social,string Ambiente)
         {
 
             DataTable dt = new DataTable();
@@ -53,7 +57,7 @@ namespace app_Factura.App
             HttpContext.Current.Session["Id_emp"] = Id_emp;
             HttpContext.Current.Session["Razon_social"] = Razon_social;
             HttpContext.Current.Session["RutEmpresa"] = dt.Rows[0]["RUT_EMPRESA"].ToString();
-
+            HttpContext.Current.Session["Ambiente"] = Ambiente;
             //menu estatico 
         }
 

@@ -12,7 +12,7 @@ using System.Text;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
-using ws_OperacionesFactura.Certificacion;
+//using ws_OperacionesFactura.Certificacion;
 
 public class EnvioSii
 {
@@ -197,15 +197,24 @@ public class ConexionSII
     private XmlDocument TokenXml = new XmlDocument();
     private XmlDocument SemillaFirmada = new XmlDocument();
     private XmlNode NodoSemilla, NodoEstadoSemilla, NodoToken, NodoEstadoToken, NodoGlosaToken;
-    private CrSeedService pidosemilla = new CrSeedService();
-    private GetTokenFromSeedService pidotoken = new GetTokenFromSeedService();
+    private ws_OperacionesFactura.Certificacion.CrSeedService pidosemillaCerti = new ws_OperacionesFactura.Certificacion.CrSeedService();
+    private ws_OperacionesFactura.Certificacion.GetTokenFromSeedService pidotokenCerti = new ws_OperacionesFactura.Certificacion.GetTokenFromSeedService();
+    private ws_OperacionesFactura.Produccion.CrSeedService pidosemillaProd = new ws_OperacionesFactura.Produccion.CrSeedService();
+    private ws_OperacionesFactura.Produccion.GetTokenFromSeedService pidotokenProd = new ws_OperacionesFactura.Produccion.GetTokenFromSeedService();
 
-    public string PidoSemillaToken(X509Certificate2 cert)
+    public string PidoSemillaToken(X509Certificate2 cert,string Ambiente)
     {
-        // inicio pidiendo semilla
         try
         {
-            RespuestaSemilla = pidosemilla.getSeed();
+            if (Ambiente == "CERTI")
+            {
+                RespuestaSemilla = pidosemillaCerti.getSeed();
+            }
+            if (Ambiente == "PROD")
+            {
+                RespuestaSemilla = pidosemillaProd.getSeed();
+            }
+
             SemillaXml.LoadXml(RespuestaSemilla);
             NodoSemilla = SemillaXml.SelectSingleNode("//SEMILLA");
             NodoEstadoSemilla = SemillaXml.SelectSingleNode("//ESTADO");
@@ -220,7 +229,15 @@ public class ConexionSII
             // el valor string.
             SemillaFirmada.LoadXml(Semi_Firmada);    // convierto el string de semilla firmada en un documento xml
             Firmada = SemillaFirmada.OuterXml;            // extraigo solo los valores string para pasar al metodo getToken
-            RespuestaToken = pidotoken.getToken(Firmada);  // pido el token y paso su parametro, que es la semilla firmada
+            if (Ambiente == "CERTI")
+            {
+                RespuestaToken = pidotokenCerti.getToken(Firmada);
+            }
+            if (Ambiente == "PROD")
+            {
+                RespuestaToken = pidotokenProd.getToken(Firmada);
+            }
+
             TokenXml.LoadXml(RespuestaToken);
             NodoToken = TokenXml.SelectSingleNode("//TOKEN");
             NodoEstadoToken = TokenXml.SelectSingleNode("//ESTADO");
