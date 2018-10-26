@@ -22,6 +22,8 @@
                                          <br/>
                                          Ambiente
                                      <asp:DropDownList ID="DropAmbiente" runat="server" CssClass="form-control" >
+                                         <asp:ListItem Value="CERT">Certificacion</asp:ListItem>
+                                         <asp:ListItem Value="PROD">Produccion</asp:ListItem>
                                      </asp:DropDownList>    
                                     </div>
                              </div>

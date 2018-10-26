@@ -23,10 +23,17 @@ namespace app_Factura.App
 
             if (!string.IsNullOrEmpty( GetSessionVariable("Razon_social")))
             {
-                NombreEmpresa.Text = GetSessionVariable("Razon_social");
+                var Ambiente = GetSessionVariable("Ambiente");
+                if (Ambiente == "CERT") {
+                    NombreEmpresa.Text = GetSessionVariable("Razon_social") + " (Certificación) " ;
+                }
+                if (Ambiente == "PROD")
+                {
+                    NombreEmpresa.Text = GetSessionVariable("Razon_social") + " (Producción) ";
+                }
+
             }
 
-           
         }
 
         public void SetHiddenFields()
@@ -34,6 +41,7 @@ namespace app_Factura.App
             _SES_IdEmpresa.Value = GetSessionVariable("Id_emp");
             _SES_RutUser.Value= GetSessionVariable("_UserRut");
             _SES_RutEmpresa.Value = GetSessionVariable("RutEmpresa");
+            _SES_Ambiente.Value = GetSessionVariable("Ambiente");
         }
 
         public string GetSessionVariable(string SessionVarName)

@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
+using System.Xml;
 
 namespace ws_OperacionesFactura
 {
@@ -81,6 +82,13 @@ namespace ws_OperacionesFactura
             }
 
             return true;
+        }
+
+        public XmlDocument GenerateDte_withCaf(string xmlDte,string xmlCaf)
+        {
+          //  xmlDte = xmlDte.Replace(@"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"",)
+            XmlDocument xdoc = new XmlDocument();
+            return xdoc;
         }
     }
 }

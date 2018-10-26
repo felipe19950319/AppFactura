@@ -83,8 +83,7 @@ namespace ws_OperacionesFactura
         {
             Response r = new Response();
             try
-            {
-             
+            {            
                 MySqlConnector mysql = new MySqlConnector();
                 DataTable dt_documentodte = new DataTable();
 
@@ -102,7 +101,8 @@ namespace ws_OperacionesFactura
                     .AddParameter("MontoIva",  dte.documento.encabezado.totales.IVA)
                     .AddParameter("TasaIva", dte.documento.encabezado.totales.TasaIVA)
                     .AddParameter("MontoTotal",  dte.documento.encabezado.totales.MntTotal)
-                    .AddParameter("TipoOperacion", dte.TipoOperacion);
+                    .AddParameter("TipoOperacion", dte.TipoOperacion)
+                     .AddParameter("Ambiente", dte.Ambiente);
 
                 dt_documentodte = mysql.ExecQuery().ToDataTable();
                 string IdDte = dt_documentodte.Rows[0]["IdDte"].ToString();
@@ -231,7 +231,20 @@ namespace ws_OperacionesFactura
         [OperationContract, WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
         private String SingDocSii(string RutEmpresa, string IdDocumento)
         {
-            //obtenemos el CAF y el NUMERO de folio para proceder con el proceso
+            MySqlConnector mysql = new MySqlConnector();
+            mysql.ConnectionString = WebConfigurationManager.ConnectionStrings["MySqlProvider"].ConnectionString;
+            //1- Consultamos por el folio que le corresponde a asignar segun el tipo de documento y ambiente
+            DataTable dtFolio = new DataTable();
+            mysql.AddProcedure("GetFolio");
+            mysql.
+                  AddParameter("IdDte_", IdDocumento);
+            dtFolio = mysql.ExecQuery().ToDataTable();
+            //2- Obtenemos el documento y el folio desde base para hacer el proceso de incluir el folio en el dte
+            DataTable dtDoc_Folio = new DataTable();
+            mysql.AddProcedure("sp_sel_Doc&FolioXml");
+            mysql.
+                  AddParameter("IdDte_", IdDocumento);
+            dtDoc_Folio = mysql.ExecQuery().ToDataTable();
 
             return "";
         }
@@ -245,19 +258,22 @@ namespace ws_OperacionesFactura
             mysql.AddProcedure("sp_sel_certificado_digital");
             mysql.
                   AddParameter("rutEmpresa", RutEmpresa);            
-            DataTable dt = new DataTable();
-            dt = mysql.ExecQuery().ToDataTable();
+            DataTable dtCert = new DataTable();
+            dtCert = mysql.ExecQuery().ToDataTable();
 
             SiiUtilities siiUtil = new SiiUtilities();
 
-            string PathCert = dt.Rows[0]["Path"].ToString();
-            string PassCert =Utilities.Decryption( dt.Rows[0]["Password"].ToString());
+            string PathCert = dtCert.Rows[0]["Path"].ToString();
+            string PassCert =Utilities.Decryption(dtCert.Rows[0]["Password"].ToString());
             X509Certificate2 cert = new X509Certificate2(PathCert,PassCert);
 
             ConexionSII cn = new ConexionSII();
-            string Token = string.Empty;
+
+           
+
             //PASO 1 PEDIMOS EL TOKEN
-            Token = cn.PidoSemillaToken(cert,Ambiente);
+            string Token = string.Empty;
+            // Token = cn.PidoSemillaToken(cert,Ambiente);
             //PASO 2 FIRMAMOS EL DOCUMENTO 
 
             //PASO 3 ENSOBRAMOS EL DTE EN EL SETDTE
@@ -293,9 +309,10 @@ namespace ws_OperacionesFactura
                     .AddParameter("FOLIO_HASTA", folio.FolioHasta)
                     .AddParameter("ESTADO", "ACTIVO")
                     .AddParameter("CAF", folio.xml)
-                    .AddParameter("TIPO_DOC_CAF", folio.TipoDocumento);
+                    .AddParameter("TIPO_DOC_CAF", folio.TipoDocumento)
+                    .AddParameter("Ambiente", folio.Ambiente);
 
-            DataTable dt = new DataTable();
+                DataTable dt = new DataTable();
             dt = mysql.ExecQuery().ToDataTable();
 
                 if (dt.Rows[0]["TypeResult"].ToString() == "0")

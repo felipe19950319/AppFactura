@@ -822,10 +822,12 @@
         });
     });
 
-    $("#btnGuardarDocumento").off().on('click', function () {
+    fnSaveDte = function (TipoOperacion,Mensaje)
+    {
         var ObjDte = fnGetDataDte();
         //SI VIENE LA OPERACION DESDE ESTE BOTON EL ESTADO ES BORRADOR
-        ObjDte.dte.TipoOperacion = 'BORR';
+        ObjDte.dte.TipoOperacion = TipoOperacion;
+        ObjDte.dte.Ambiente = $("#_SES_Ambiente").val();
 
         fnSaveDocDte(ObjDte, function (r) {
             switch (r.code) {
@@ -833,13 +835,13 @@
                     ModalElement.Create();
                     ModalElement.Class("info");
                     ModalElement.Header("Informacion");
-                    ModalElement.Message(r.ObjectResponse);
+                    ModalElement.Message(Mensaje);
                     ModalElement.Show();
                     //3 segundos de espera para redireccionar a lista documentos
                     setTimeout(function () {
-                        window.location.href = 'ListaDocumentos.aspx';   
+                        window.location.href = 'ListaDocumentos.aspx';
                     }, 3000);
-                   
+
                     break;
                 case 500:
                     ModalElement.Create();
@@ -848,9 +850,15 @@
                     ModalElement.Message(r.ObjectResponse);
                     ModalElement.Show();
                     break;
-      
+
             }
         });
+    }
+    $("#btnGuardarDocumento").off().on('click', function () {
+        fnSaveDte('BORR',"Se ha guardado el borrador del documento correctamente!");
+    });
+    $("#btnGuardarEmitir").off().on('click', function () {
+        fnSaveDte('ENV', "Se ha guardado el documento correctamente y se enviara dentro de unos momentos al SII!");
     });
 
 

@@ -33,9 +33,9 @@ namespace app_Factura.App
          
             DropEmpresa.DataSource = dt;
             DropEmpresa.DataBind();
-
+/*
             DropAmbiente.Items.Insert(0,new ListItem("Certificacion", "CERT"));
-            DropAmbiente.Items.Insert(1, new ListItem("Produccion", "PROD"));
+            DropAmbiente.Items.Insert(1, new ListItem("Produccion", "PROD"));*/
 
         }
 

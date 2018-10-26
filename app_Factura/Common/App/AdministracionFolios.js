@@ -65,7 +65,7 @@
                     ObjFolio.FolioDesde = FolioDesde;
                     ObjFolio.FolioHasta = FolioHasta;
                     ObjFolio.xml = Folio_xml;
-
+                    ObjFolio.Ambiente = $("#_SES_Ambiente").val();;
                     if (RutEmpresa == $("#_SES_RutEmpresa").val()) {
                         $("#btnGuardar").attr("disabled", false);
                     } else

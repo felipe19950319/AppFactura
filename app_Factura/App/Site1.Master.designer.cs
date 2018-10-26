@@ -58,6 +58,15 @@ namespace app_Factura.App {
         protected global::System.Web.UI.WebControls.HiddenField _SES_RutEmpresa;
         
         /// <summary>
+        /// Control _SES_Ambiente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField _SES_Ambiente;
+        
+        /// <summary>
         /// Control ContentPlaceHolder1.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace app_Factura.App {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton NombreEmpresa;
+        
+        /// <summary>
+        /// Control Ambiente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Ambiente;
         
         /// <summary>
         /// Control lblUserRut.

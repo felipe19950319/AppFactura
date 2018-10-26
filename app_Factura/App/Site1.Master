@@ -39,7 +39,7 @@
         <asp:HiddenField  ID="_SES_RutUser" runat="server"/>
         <asp:HiddenField  ID="_SES_IdEmpresa" runat="server"/>
          <asp:HiddenField  ID="_SES_RutEmpresa" runat="server"/>
-  
+          <asp:HiddenField  ID="_SES_Ambiente" runat="server"/>
         <!--Inputs con variables de Session-->
 
 
@@ -53,6 +53,7 @@
 
 
               <asp:LinkButton runat="server" ID="NombreEmpresa" CssClass="navbar-brand"></asp:LinkButton>
+             &nbsp;&nbsp; <asp:LinkButton runat="server" ID="Ambiente" CssClass="navbar-brand"></asp:LinkButton>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

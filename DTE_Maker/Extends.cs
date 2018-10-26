@@ -23,6 +23,7 @@ namespace DTE_Maker
 
                 serializer.Serialize(ms, obj);
                 ms.Position = 0;
+                
                 xmlDoc.Load(ms);
             }
 
