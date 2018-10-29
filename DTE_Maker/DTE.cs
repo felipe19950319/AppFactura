@@ -103,10 +103,10 @@ public class MakeDte : Extends
     }
     public class Detalle
     {
-        [XmlElement("CdgItem")]
-        public List<CdgItem> CdgItem = new List<CdgItem>();
         [XmlElement("NroLinDet")]
         public int NroLinDet { get; set; }
+        [XmlElement("CdgItem")]
+        public List<CdgItem> CdgItem = new List<CdgItem>(); 
         [XmlElement("NmbItem")]
         public string NmbItem { get; set; }
         [XmlElement("DscItem")]

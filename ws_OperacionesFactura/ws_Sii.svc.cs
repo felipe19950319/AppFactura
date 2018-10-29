@@ -246,6 +246,25 @@ namespace ws_OperacionesFactura
                   AddParameter("IdDte_", IdDocumento);
             dtDoc_Folio = mysql.ExecQuery().ToDataTable();
 
+            //3-Obtenemos el certificado digital
+            mysql.AddProcedure("sp_sel_certificado_digital");
+            mysql.
+                  AddParameter("rutEmpresa", RutEmpresa);
+            DataTable dtCert = new DataTable();
+            dtCert = mysql.ExecQuery().ToDataTable();
+            string PathCert = dtCert.Rows[0]["Path"].ToString();
+            string PassCert = Utilities.Decryption(dtCert.Rows[0]["Password"].ToString());
+            X509Certificate2 cert = new X509Certificate2(PathCert, PassCert);
+
+            Utilities util = new Utilities();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            xmlDoc = util.GenerateDte_withCaf(
+                dtDoc_Folio.Rows[0]["File"].ToString(), 
+                dtDoc_Folio.Rows[0]["CAF"].ToString(),
+                cert
+                );
+            xmlDoc.Save(@"C:\prueba\dte.xml");
             return "";
         }
 

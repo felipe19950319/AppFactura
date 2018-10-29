@@ -769,7 +769,9 @@
     fnGetDataDte = function ()
     {
         var Doc = fnGetJsonDte();
-        Doc.dte.TipoOperacion = $("#TipoOperacion").val();
+        var x = new Date();
+        Doc.dte.TipoOperacion = "";
+        Doc.dte.documento.ID = "";
         Doc.dte.documento.encabezado.iddoc.TipoDTE = 34;
         Doc.dte.documento.encabezado.iddoc.Folio = 1;
         Doc.dte.documento.encabezado.iddoc.FchEmis = "2018-07-25";
@@ -828,6 +830,7 @@
         //SI VIENE LA OPERACION DESDE ESTE BOTON EL ESTADO ES BORRADOR
         ObjDte.dte.TipoOperacion = TipoOperacion;
         ObjDte.dte.Ambiente = $("#_SES_Ambiente").val();
+        ObjDte.dte.documento.ID = TipoOperacion + $("#txtRutEmisor").val().replace("-", "");
 
         fnSaveDocDte(ObjDte, function (r) {
             switch (r.code) {
