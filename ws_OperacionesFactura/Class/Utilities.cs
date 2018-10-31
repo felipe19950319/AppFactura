@@ -360,6 +360,7 @@ namespace ws_OperacionesFactura
             XNamespace xmlns = "http://www.sii.cl/SiiDte";
             XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
             XNamespace schemaLocation = "http://www.sii.cl/SiiDte EnvioDTE_v10.xsd";
+          
             XElement SetDTE = 
                 new XElement(xmlns+"EnvioDTE",
                                        // new XAttribute("xmlns", xmlns), 
@@ -386,10 +387,11 @@ namespace ws_OperacionesFactura
                 );
 
             //dte con el setdte yejecutamos la segunda firma
+            XDocument documento = new XDocument(new XDeclaration("1.0", "ISO-8859-1", ""),SetDTE);
+
             XmlDocument dte = new XmlDocument();
-            dte.LoadXml(SetDTE.ToString().Replace(" xmlns=\"\"",""));
-
-
+            dte.PreserveWhitespace = true;
+            dte.LoadXml("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + documento.ToString().Replace(" xmlns=\"\"",""));
             return SignDocXml(dte, cert, "#SetDoc"); ;
         }
     }

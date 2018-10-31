@@ -3,28 +3,18 @@
     var ObjEmpresa = new Object();
     ObjEmpresa.ID_EMPRESA = $("#_SES_IdEmpresa").val();
 
-    /*
-     "[
-  {
-    "ID_EMPRESA": "0",
-    "RUT_EMPRESA": "76447592-5",
-    "RAZON_SOCIAL": "TYSCOM SPA",
-    "DIRECCION": "SUECIA ",
-    "COMUNA": "PROVIDENCIA",
-    "CIUDAD": "SANTIAGO",
-    "FECHA_RESOLUCION": "2014-08-22",
-    "CODIGO_SII_SUCUR": "12345",
-    "IdGiro": 722000,
-    "NUM_RESOL": 80,
-    "Acteco": null
-  }
-]"*/
-
     ServerSide('EmisionDocumentos.aspx', 'GetEmpresa', ObjEmpresa, function (r) {
         var emp = JSON.parse(r.d)[0];
+        console.log(emp);
         $("#txtRutEmisor").val(emp.RUT_EMPRESA);
         $("#txtFechaResolucion").val(emp.FECHA_RESOLUCION);
         $("#txtRazonSocial").val(emp.RAZON_SOCIAL);
+        $("#txtGiroEmisor").val(emp.NombreGiro);
+        $("#txtActecoEmisor").val(emp.Acteco);
+        $("#txtDireccionEmisor").val(emp.DIRECCION);
+        $("#txtComunaEmisor").val(emp.COMUNA);
+        $("#txtCiudadEmisor").val(emp.CIUDAD);
+  
 
     });
 
@@ -158,42 +148,6 @@
         SumDetails(objTableListaDetalles);
     });
 
-    //asignacion de iva
-   /* $('#TablaDetalles tbody').on('change', '._iva', function () {
-        var dataRow = objTableListaDetalles.row($(this).parents('tr')).data();
-        var RowIndex = objTableListaDetalles.row($(this).parents('tr')).index();
-        var elem = $(this).parents('tr');       
-        var _iva = elem.find('._iva');
-
-        var valueWithIva = "";
-
-        switch (_iva.val())
-        {
-            case "si":
-                //asigno
-               // $("#SelectIva" + RowIndex + "").attr("oldValue", dataRow.Total);
-                valueWithIva = (dataRow.Total * (1.19));
-                dataRow.Total =valueWithIva;
-                dataRow.HasIva = 'SI';
-                break;
-            case "no":
-                //obtengo
-                dataRow.Total =parseFloat( $("#SelectIva" + RowIndex + "").attr("oldValue"));
-                dataRow.HasIva = 'NO';
-                break;
-            default:
-                break;
-        }
-       // console.log(GetCellIndexByName(objTableListaDetalles, 'Total'));
-        SetCellValue(
-            objTableListaDetalles,
-            RowIndex,
-            GetCellIndexByName(objTableListaDetalles, 'Total'),
-            dataRow.Total
-        );
-        //objTableListaDetalles.row(RowIndex).data(dataRow).draw();    
-    });*/
-
     //_ListaDescRecrgo
     $('#TablaDetalles tbody').on('change', '._ListaDescRecrgo', function () {
         var me = this;
@@ -214,11 +168,7 @@
         SumDetails(objTableListaDetalles);
     });
 
-    /*$('#TablaDetalles tbody').on('change', '._iva', function () {
-        var me = this;
-        FnCalculoIvaDescuento(me);
-        SumDetails(objTableListaDetalles);
-    });*/
+
     //asignacion de descuento o recargo ademas con iva
     $('#TablaDetalles tbody').on('change', '._txtDescRecrgo', function () {
         var me = this;
@@ -775,15 +725,15 @@
         Doc.dte.documento.encabezado.iddoc.TipoDTE = 34;
         Doc.dte.documento.encabezado.iddoc.Folio = 1;
         Doc.dte.documento.encabezado.iddoc.FchEmis = "2018-07-25";
-        Doc.dte.documento.encabezado.iddoc.FmaPago = 0;
+        Doc.dte.documento.encabezado.iddoc.FmaPago = 1;
 
         Doc.dte.documento.encabezado.emisor.RUTEmisor = $("#txtRutEmisor").val();
         Doc.dte.documento.encabezado.emisor.RznSoc = $("#txtRazonSocial").val();
-        Doc.dte.documento.encabezado.emisor.GiroEmis = "";
-        Doc.dte.documento.encabezado.emisor.Acteco = "";
-        Doc.dte.documento.encabezado.emisor.DirOrigen = "";
-        Doc.dte.documento.encabezado.emisor.CmnaOrigen = "";
-        Doc.dte.documento.encabezado.emisor.CiudadOrigen = "";
+        Doc.dte.documento.encabezado.emisor.GiroEmis = $("#txtGiroEmisor").val();
+        Doc.dte.documento.encabezado.emisor.Acteco = $("#txtActecoEmisor").val();
+        Doc.dte.documento.encabezado.emisor.DirOrigen = $("#txtDireccionEmisor").val();
+        Doc.dte.documento.encabezado.emisor.CmnaOrigen = $("#txtComunaEmisor").val();
+        Doc.dte.documento.encabezado.emisor.CiudadOrigen = $("#txtCiudadEmisor").val();
 
         Doc.dte.documento.encabezado.receptor.RUTRecep = $("#txtRutReceptor").val();
         Doc.dte.documento.encabezado.receptor.RznSocRecep = $("#txtRazonSocialReceptor").val();

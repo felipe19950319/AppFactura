@@ -258,13 +258,15 @@ namespace ws_OperacionesFactura
 
             Utilities util = new Utilities();
             XmlDocument xmlDoc = new XmlDocument();
+            XmlDeclaration declaration = xmlDoc.CreateXmlDeclaration("1.0", "ISO-8859-1", null);
+            xmlDoc.AppendChild(declaration);
 
             xmlDoc = util.GenerateDte_withCaf(
                 dtDoc_Folio.Rows[0]["File"].ToString(), 
                 dtDoc_Folio.Rows[0]["CAF"].ToString(),
                 cert
                 );
-            xmlDoc.Save(@"C:\prueba\dte.xml");
+            xmlDoc.Save(@"C:\Nueva carpeta\dte.xml");
             return "";
         }
 

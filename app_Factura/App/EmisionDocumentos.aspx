@@ -65,7 +65,14 @@
                                           Fecha resolucion:<br/>
                                              <input type="date" id="txtFechaResolucion" class="form-control form-control-sm" disabled="disabled"/>
                                          </div>
-                                   
+                                   <div style="display:none">
+                                         <input type="text" id="txtGiroEmisor" class="form-control form-control-sm" disabled="disabled"/>
+                                         <input type="text" id="txtActecoEmisor" class="form-control form-control-sm" disabled="disabled"/>
+                                         <input type="text" id="txtDireccionEmisor" class="form-control form-control-sm" disabled="disabled"/>
+                                         <input type="text" id="txtComunaEmisor" class="form-control form-control-sm" disabled="disabled"/>
+                                         <input type="text" id="txtCiudadEmisor" class="form-control form-control-sm" disabled="disabled"/>
+                                    </div>
+
                                      </div>
                        
                                 </div>
